@@ -1,0 +1,35 @@
+---
+const { title = "Padel Club Freiburg" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <strong>Sportverein Musterstadt</strong>
+        <ul>
+          <li><a href="/">Start</a></li>
+          <li><a href="/verein">Verein</a></li>
+          <li><a href="/training">Training</a></li>
+          <li><a href="/kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <p>© {new Date().getFullYear()} Sportverein Musterstadt</p>
+    </footer>
+  </body>
+</html>
