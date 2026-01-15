@@ -6,8 +6,8 @@ import PricingCard from "@/components/pricing.astro";
 
 const pricing = [
   {
-    name: "Personal",
-    price: "Free",
+    name: "Passiv",
+    price: "50€",
     popular: false,
     features: [
       "Lifetime free",
@@ -23,9 +23,9 @@ const pricing = [
     },
   },
   {
-    name: "Startup",
+    name: "Aktiv",
     price: {
-      monthly: "$19",
+      monthly: "120€",
       annual: "$16",
       discount: "10%",
       original: "$24",
@@ -45,8 +45,42 @@ const pricing = [
     },
   },
   {
-    name: "Enterprise",
-    price: "Custom",
+    name: "Fördermitgleid",
+    price: "Frei wählbar",
+    popular: false,
+    features: [
+      "All Pro Features",
+      "Unlimited Custom domains",
+      "99.99% Uptime SLA",
+      "SAML & SSO Integration",
+      "Dedicated Account Manager",
+      "24/7 Phone Support",
+    ],
+    button: {
+      text: "Contact us",
+      link: "/contact",
+    },
+  },
+  {
+    name: "Jugend",
+    price: "30 €",
+    popular: false,
+    features: [
+      "All Pro Features",
+      "Unlimited Custom domains",
+      "99.99% Uptime SLA",
+      "SAML & SSO Integration",
+      "Dedicated Account Manager",
+      "24/7 Phone Support",
+    ],
+    button: {
+      text: "Contact us",
+      link: "/contact",
+    },
+  },
+  {
+    name: "Familienmitglied",
+    price: "100 €",
     popular: false,
     features: [
       "All Pro Features",
@@ -64,12 +98,12 @@ const pricing = [
 ];
 ---
 
-<Layout title="Pricing">
+<Layout title="pricing">
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Pricing</Fragment>
+      <Fragment slot="title">Mitgliedschaft</Fragment>
       <Fragment slot="desc">
-        Simple & Predictable pricing. No Surprises.
+        Wähle die passende Mitgliedschaft für dich.
       </Fragment>
     </Sectionhead>
 

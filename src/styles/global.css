@@ -7,6 +7,16 @@
     Bricolage Grotesque Variable, Inter Variable, Inter, ui-sans-serif,
     system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+
+  
+  /* Brand colors */
+  --color-primary: #114333;
+  --color-secondary: #0B2A20;
+  --color-secondary2: #4F6F65;
+  --color-secondary3: #0B2A20;
+  --color-akzent: #D97C5A;
+
+
 }
 
 /*

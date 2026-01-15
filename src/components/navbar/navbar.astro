@@ -8,19 +8,24 @@ import { Icon } from "astro-icon/components";
 const menuitems = [
   {
     title: "Home",
+    path: "/",
+
+  },
+  {
+    title: "Der Club",
     path: "#",
-    children: [
-      { title: "Vision", path: "#vision", },
+        children: [
+      { title: "Team", path: "/team", },
       { title: "Partnerschaften", path: "#" }
     ],
   },
   {
-    title: "Der Club",
-    path: "/team",
-  },
-  {
     title: "News & Events",
     path: "/news",
+  },
+  {
+    title: "Mitgliedschaft",
+    path: "/mitgliedschaft",
   },
   {
     title: "Kontakt",
@@ -34,12 +39,12 @@ const menuitems = [
     <Astronav>
       <div class="flex w-full lg:w-auto items-center justify-between">
         <a href="/" class="text-lg"
-          ><span class="font-bold text-slate-800">Padel Club </span><span
-            class="text-slate-500">Freiburg</span
+          ><span class="font-bold text-primary">Padel Club </span><span
+            class="text-secondary2">Freiburg</span
           >
         </a>
         <div class="block lg:hidden">
-          <MenuIcon class="w-4 h-4 text-gray-800" />
+          <MenuIcon class="w-4 h-4 text-secondary2" />
         </div>
       </div>
       <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
