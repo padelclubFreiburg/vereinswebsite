@@ -1,0 +1,75 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+---
+
+<Layout title="Impressum">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Impressum</Fragment>
+      <Fragment slot="desc">Hier findest du unser Impressum.
+      </Fragment>
+    </Sectionhead>
+
+    <div class="flex flex-col gap-3 mx-auto max-w-4xl mt-16">
+        <h2 class="font-medium text-2xl text-gray-800">Impressum</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Angaben gemäß § 5 TMG und § 18 MStV
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Betreiber der Website</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Padel Club Freiburg e.V.<br>
+            Habsburger Straße 110<br>
+            79104 Freiburg im Breisgau<br>
+            Deutschland
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Vertretungsberechtigte</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Dino Saggiomo, 1. Vorsitzender<br>
+            Enzio Saggiomo, 2. Vorsitzender
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Vereinsregister</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Eingetragen im Vereinsregister<br>
+            Registergericht: [Platzhalter – wird ergänzt]<br>
+            Vereinsregisternummer: [Platzhalter – wird ergänzt]
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Kontakt</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Telefon: +49 179 3934890<br>
+            E-Mail: <a href="mailto:info@padelclub-freiburg.de" class="underline">info@padelclub-freiburg.de</a><br>
+            Online-Kontaktformular: 
+            <a href="https://www.padelclub-freiburg.de/contact/" class="underline">
+            https://www.padelclub-freiburg.de/contact/
+            </a>
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Umsatzsteuer-ID</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br>
+            [Platzhalter – wird ergänzt]
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Inhaltlich verantwortlich gemäß § 18 Abs. 2 MStV</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Dino Saggiomo<br>
+            Habsburger Straße 110<br>
+            79104 Freiburg im Breisgau
+        </p>
+
+        <h2 class="font-medium text-2xl text-gray-800">Soziale Medien</h2>
+        <p class="text-lg leading-relaxed text-gray-800 mt-3">
+            Dieses Impressum gilt auch für folgende Onlinepräsenzen:<br>
+            Instagram: 
+            <a href="https://www.instagram.com/padelclubfreiburg" class="underline">
+            https://www.instagram.com/padelclubfreiburg
+            </a>
+        </p> 
+    </div>
+</Container>
+</Layout>
