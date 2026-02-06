@@ -2,7 +2,7 @@
 draft: false
 order: 7
 name: "Matthias Löffler"
-title: "Recht"
+title: "Beisitz Recht & Steuern"
 avatar: {
     src: ./matthias.png,
     alt: "Matthias Löffler"

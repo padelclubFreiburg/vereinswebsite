@@ -2,7 +2,7 @@
 draft: false
 order: 2
 name: "Enzio Maggiore"
-title: "2. Vorstand"
+title: "Vize-Präsident"
 avatar: {
     src: ./enzio.png,
     alt: "Enzio Maggiore"

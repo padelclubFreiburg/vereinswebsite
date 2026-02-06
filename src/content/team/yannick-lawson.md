@@ -2,7 +2,7 @@
 draft: false
 order: 4
 name: "Yannick Lawson"
-title: "Sport"
+title: "Beisitz Sport"
 avatar: {
     src: ./Yannick.JPG,
     alt: "Yannick Lawson"

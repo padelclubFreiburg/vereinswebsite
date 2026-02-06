@@ -2,7 +2,7 @@
 draft: false
 order: 1
 name: "Dino Saggiomo"
-title: "1. Vorstand"
+title: "Präsident"
 avatar: {
     src: "./Dino.JPG",
     alt: "Dino Saggiomo"

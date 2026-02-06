@@ -2,7 +2,7 @@
 draft: false
 order: 3
 name: "Jana Koppermann"
-title: "Finanzen & Mitglieder"
+title: "Vorstand Finanzen & Mitglieder"
 avatar: {
     src: ./Jana.JPG,
     alt: "Jana Koppermann"
