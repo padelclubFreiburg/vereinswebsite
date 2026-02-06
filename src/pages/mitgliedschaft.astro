@@ -5,19 +5,7 @@ import Sectionhead from "@/components/sectionhead.astro";
 import PricingCard from "@/components/pricing.astro";
 
 const pricing = [
-  {
-    name: "Passiv",
-    price: "60€",
-    popular: false,
-    features: [
-      "Details folgen",
-    ],
-    button: {
-      text: "Auswählen",
-      link: "/contact",
-    },
-  },
-  {
+    {
     name: "Aktiv",
     price: {
       monthly: "95€",
@@ -27,23 +15,31 @@ const pricing = [
     },
     popular: false,
     features: [
-      "Details folgen",
+      "Sportliche Mitgliedschaft",
+      "Partner-Benefits & Rabatte",
+      "Rabatte bei Events",
+      "Teilnahme Spielbetrieb (DPV)",
+      "Early Access bei Turnieren",
+      "Vereins-Trikot zum Start",
     ],
     button: {
       text: "Auswählen",
-      link: "/contact",
+      link: "https://easyverein.com/public/PCFR/applicationform/20109",
     },
   },
   {
-    name: "Fördermitglied",
-    price: "ab 100€",
+    name: "Passiv",
+    price: "60€",
     popular: false,
     features: [
-      "Details folgen",
+      "Ideelle Unterstützung",
+      "Partner-Benefits & Rabatte",
+      "Rabatte bei Events",
+      "Keine sportliche Teilnahme",
     ],
     button: {
       text: "Auswählen",
-      link: "/contact",
+      link: "https://easyverein.com/public/PCFR/applicationform/20109",
     },
   },
   {
@@ -51,29 +47,34 @@ const pricing = [
     price: "30 €",
     popular: false,
     features: [
-      "Details folgen",
+      "Gleich wie Aktiv",
+      "Bis einschließlich 18 Jahre",
     ],
     button: {
       text: "Auswählen",
-      link: "/contact",
+      link: "https://easyverein.com/public/PCFR/applicationform/20109",
     },
   },
-  {
-    name: "Familienmitglied",
-    price: "190 €",
+
+   {
+    name: "Fördermitglied",
+    price: "ab 100€",
     popular: false,
     features: [
-      "Details folgen",
+      "Gleich wie Aktiv",
+      "Freiwillig erhöhter Beitrag",
+      "für Aufbau und Entwicklung",
     ],
     button: {
       text: "Auswählen",
-      link: "/contact",
+      link: "https://easyverein.com/public/PCFR/applicationform/20109",
     },
   },
 ];
 ---
 
-<Layout title="pricing">
+<Layout title="Mitgliedschaft">
+
   <Container>
     <Sectionhead>
       <Fragment slot="title">Mitgliedschaft</Fragment>

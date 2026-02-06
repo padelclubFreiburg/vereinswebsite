@@ -3,7 +3,7 @@ draft: false
 title: " Infoabend am 09. Februar 19:00 - 20:30 Uhr"
 snippet: "Ornare cum cursus laoreet sagittis nunc fusce posuere per euismod dis vehicula a, semper fames lacus maecenas dictumst pulvinar neque enim non potenti. Torquent hac sociosqu eleifend potenti."
 image: {
-    src: "https://images.unsplash.com/photo-1646649853703-7645147474ba?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "./pics/infoabend2602.jpg",
     alt: "padelcourt und baelle"
 }
 publishDate: "2026-02-04 16:39"
