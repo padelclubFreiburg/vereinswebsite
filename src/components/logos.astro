@@ -1,18 +1,33 @@
 ---
 // @ts-ignore
 import { Icon } from "astro-icon/components";
+import { Picture } from "astro:assets";
+
+import passcreatorLogo from "@/assets/partner/passcreator_logo.svg";
+import padel2leon from "@/assets/partner/padel2leon.svg";
 ---
 
 <div class="mt-24">
-  <h2 class="text-center text-slate-500">Works with your technologies</h2>
+  <h2 class="text-4xl text-center lg:text-5xl font-bold lg:tracking-tight" id="partner">Unsere Partner</h2>
   <div class="flex gap-8 md:gap-20 items-center justify-center mt-10 flex-wrap">
 
+    <!-- Icons
     <Icon class="size-8 md:size-12" name="simple-icons:react" />
-    <Icon class="size-8 md:size-12" name="simple-icons:svelte" />
-    <Icon class="size-8 md:size-12" name="simple-icons:astro" />
-    <Icon class="size-8 md:size-16" name="simple-icons:tailwindcss" />
-    <Icon class="size-8 md:size-16" name="simple-icons:alpinedotjs" />
-    <Icon class="size-8 md:size-12" name="simple-icons:vercel" />
-
+     -->
+    <!-- Bild-Logos -->
+    <Picture
+      src={passcreatorLogo}
+      alt="Passcreator"
+      class="h-8 md:h-12 w-auto opacity-80"
+      loading="lazy"
+    />
+    <!--
+    <Picture
+      src={padel2leon}
+      alt="padel2leon"
+      class="h-8 md:h-12 w-auto opacity-80"
+      loading="lazy"
+    />
+    -->
   </div>
 </div>
