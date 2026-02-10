@@ -11,9 +11,12 @@ category: "Information"
 author: "Team"
 tags: [Information, Startschuss]
 ---
-Am 09. Februar 2026 stellte sich der **Padel Club Freiburg e.V.** im Rahmen eines Infoabends offiziell vor.  
+Am **09. Februar 2026** stellte sich der **Padel Club Freiburg e.V.** im Rahmen eines **sehr erfolgreichen Infoabends** offiziell vor.  
+Mit **über 60 interessierten Teilnehmerinnen und Teilnehmern** war die Veranstaltung ein starkes Signal für das große Interesse an Padel in Freiburg und Umgebung.  
+
 Der Verein ist ein **gemeinnütziger, eingetragener Verein**, wird **zu 100 % ehrenamtlich geführt** und ist der **erste eigenständige Padelverein im Raum Freiburg und Umgebung**.  
-Unser klares Ziel: **Padel in der Region Freiburg nachhaltig fördern und weiterentwickeln.** 
+Unser klares Ziel: **Padel in der Region Freiburg nachhaltig fördern und weiterentwickeln.**
+
 
 - [Wer wir sind](#wer-wir-sind)
 - [Warum Padel?](#warum-padel)
