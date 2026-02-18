@@ -20,8 +20,8 @@ const resolvedImageWithDomain = new URL(
 const { title } = Astro.props;
 
 const makeTitle = title
-  ? title + " | " + "Padel Club Freiburg"
-  : "Willkommen beim Padel Club Freiburg";
+  ? title + " | " + "Padel Club Freiburg e.V."
+  : "Willkommen beim Padel Club Freiburg e.V.";
 ---
 
 <!doctype html>
@@ -35,7 +35,7 @@ const makeTitle = title
     <!-- <link rel="preload" as="image" href={src} alt="Hero" /> -->
     <SEO
       title={makeTitle}
-      description="Padel Club Freiburg ist der erste Padel-Verein im Raum Freiburg."
+      description="Padel Club Freiburg e.V. ist der erste Padel-Verein im Raum Freiburg."
       canonical={canonicalURL}
       twitter={{
         creator: "@fabio",
