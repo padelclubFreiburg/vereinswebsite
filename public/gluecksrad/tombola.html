@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padel Club Freiburg — Tombola</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Nunito+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ────────────────────────────────────────────────────────────────────────────
+   Padel Club Freiburg — Tombola Glücksrad (Event-Modus)
+   Konzept: Teilnehmer = Slices, Preise = Pool, Sponsoren = Brand
+   ──────────────────────────────────────────────────────────────────────────── */
+:root {
+  --color-primary: #CEA8F0;
+  --color-primary-light: #E8D5FA;
+  --color-primary-dark: #A87DD4;
+  --color-neutraldark: #1F1F1F;
+  --color-neutrallight: #F2F2F2;
+  --color-akzent: #0B2A20;
+  --color-akzent-hover: #1a3d2e;
+  --color-akzent2: #0F4C5C;
+  --color-optional: #D6D1DB;
+  --color-white: #FFFFFF;
+  --gray-50: #FAFAFA; --gray-100: #F3F4F6; --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB; --gray-400: #9CA3AF; --gray-500: #6B7280;
+  --gray-600: #4B5563; --gray-700: #374151; --gray-800: #1F2937; --gray-900: #111827;
+  --font-display: 'Bricolage Grotesque', ui-serif, serif;
+  --font-sans: 'Nunito Sans', ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: 2px; --radius-md: 6px; --radius-lg: 12px; --radius-full: 9999px;
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+:root[data-theme="petrol"] {
+  --color-primary: #5DB7C4;
+  --color-primary-light: #A8DCE4;
+  --color-primary-dark: #0F4C5C;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%; font-family: var(--font-sans);
+  background: var(--color-white); color: var(--gray-900);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; }
+
+/* ─── Layout ──────────────────────────────────────────────────────────── */
+.app {
+  display: grid; grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F6FB 100%);
+}
+.app.fullscreen { grid-template-rows: 1fr auto; }
+.app.fullscreen .navbar, .app.fullscreen .prize-banner { display: none; }
+
+/* ─── Navbar ─────────────────────────────────────────────────────────── */
+.navbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 28px; border-bottom: 1px solid var(--gray-200);
+  background: var(--color-white); z-index: 30;
+}
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand-mark {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  background: var(--color-neutraldark); display: grid; place-items: center;
+  flex-shrink: 0; overflow: hidden;
+}
+.brand-mark img { width: 100%; height: 100%; object-fit: cover; }
+.brand-text { line-height: 1.1; }
+.brand-club {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gray-500);
+}
+.brand-title {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  color: var(--gray-900); letter-spacing: -0.02em;
+}
+.nav-progress {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; border-radius: var(--radius-sm);
+  background: var(--gray-50); border: 1px solid var(--gray-200);
+}
+.nav-progress-text { font-size: 12px; font-weight: 600; color: var(--gray-700); white-space: nowrap; }
+.nav-progress-bar {
+  width: 140px; height: 6px; background: var(--gray-200);
+  border-radius: 3px; overflow: hidden;
+}
+.nav-progress-fill {
+  height: 100%; background: var(--color-akzent); border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.nav-actions { display: flex; gap: 10px; align-items: center; }
+
+/* ─── Buttons ─────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: var(--font-sans); font-weight: 600;
+  border-radius: var(--radius-sm); border: 2px solid transparent;
+  transition: all 0.15s ease; white-space: nowrap; user-select: none;
+}
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+.btn-md { padding: 8px 16px; font-size: 14px; }
+.btn-lg { padding: 12px 22px; font-size: 15px; }
+.btn-primary { background: var(--color-akzent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--color-akzent-hover); }
+.btn-outline { background: #fff; color: #000; border-color: #000; }
+.btn-outline:hover:not(:disabled) { background: var(--gray-100); }
+.btn-muted { background: var(--gray-100); color: var(--gray-700); }
+.btn-muted:hover:not(:disabled) { background: var(--gray-200); }
+.btn-danger { background: #fff; color: #B91C1C; border-color: #FCA5A5; }
+.btn-danger:hover:not(:disabled) { background: #FEF2F2; }
+.icon-btn {
+  width: 32px; height: 32px; display: inline-flex;
+  align-items: center; justify-content: center;
+  border-radius: var(--radius-sm); color: var(--gray-500);
+  transition: all 0.15s;
+}
+.icon-btn:hover { background: var(--gray-100); color: var(--gray-900); }
+.icon-btn.danger:hover { background: #FEF2F2; color: #B91C1C; }
+.icon-btn img { width: 16px; height: 16px; }
+
+/* ─── Prize Banner ────────────────────────────────────────────────────── */
+.prize-banner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 20px;
+  padding: 16px 28px;
+  background: var(--color-neutraldark);
+  color: #fff;
+  border-bottom: 4px solid var(--color-primary);
+}
+.prize-banner.empty { background: var(--gray-100); color: var(--gray-700); border-bottom-color: var(--gray-300); }
+.prize-banner-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; opacity: 0.7;
+}
+.prize-banner-content {
+  display: flex; align-items: center; gap: 20px; min-width: 0;
+}
+.prize-banner-name {
+  font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 700; letter-spacing: -0.02em; line-height: 1.05;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.prize-banner-sponsor {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; background: rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+}
+.prize-banner.empty .prize-banner-sponsor { background: #fff; border: 1px solid var(--gray-200); }
+.prize-banner-sponsor-logo {
+  width: 36px; height: 28px; display: grid; place-items: center; overflow: hidden;
+}
+.prize-banner-sponsor-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.prize-banner-sponsor-text { line-height: 1.2; }
+.prize-banner-sponsor-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; opacity: 0.7;
+}
+.prize-banner-sponsor-name { font-size: 14px; font-weight: 700; }
+.prize-banner-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.prize-banner-empty-msg {
+  font-size: 16px; font-weight: 600; color: var(--gray-600);
+}
+
+/* ─── Stage / Wheel area ─────────────────────────────────────────────── */
+.stage {
+  display: grid; grid-template-columns: 1fr; gap: 28px;
+  padding: 28px; overflow: hidden; min-height: 0;
+}
+.wheel-area {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 24px;
+  min-width: 0; min-height: 0; position: relative;
+}
+.wheel-wrap {
+  position: relative; display: grid; place-items: center;
+  width: 100%; height: 100%; min-height: 0;
+}
+.wheel-canvas {
+  display: block; max-width: 100%; max-height: 100%;
+  filter: drop-shadow(0 24px 48px rgba(11, 42, 32, 0.18));
+  transition: filter 0.4s ease;
+}
+.wheel-canvas.idle {
+  animation: wheel-idle 3.2s ease-in-out infinite;
+}
+@keyframes wheel-idle {
+  0%, 100% { filter: drop-shadow(0 24px 48px rgba(11, 42, 32, 0.18)); }
+  50% { filter: drop-shadow(0 24px 48px rgba(11, 42, 32, 0.22)) drop-shadow(0 0 36px rgba(206, 168, 240, 0.55)); }
+}
+.pointer {
+  position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
+  width: 56px; height: 72px; z-index: 5;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,0.25));
+  pointer-events: none;
+}
+.hub {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 16%; aspect-ratio: 1; border-radius: var(--radius-full);
+  background: var(--color-neutraldark);
+  display: grid; place-items: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3),
+              inset 0 0 0 6px rgba(255,255,255,0.95),
+              inset 0 0 0 8px var(--color-neutraldark);
+  z-index: 4; pointer-events: none;
+}
+.hub-logo {
+  width: 78%; height: 78%;
+  object-fit: contain;
+  display: block;
+}
+.spin-controls {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.spin-btn {
+  font-family: var(--font-display); font-size: clamp(20px, 1.8vw, 28px);
+  letter-spacing: -0.01em; font-weight: 700;
+  padding: 22px 56px; background: var(--color-akzent); color: #fff;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 24px rgba(11, 42, 32, 0.35);
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+.spin-btn:hover:not(:disabled) {
+  background: var(--color-akzent-hover); transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(11, 42, 32, 0.4);
+}
+.spin-btn:active:not(:disabled) { transform: translateY(0); }
+.spin-btn:disabled {
+  background: var(--gray-300); color: var(--gray-500);
+  box-shadow: none; cursor: not-allowed;
+}
+.spin-hint { font-size: 12px; color: var(--gray-500); letter-spacing: 0.06em; text-align: center; }
+.spin-hint kbd {
+  font-family: var(--font-sans); font-size: 11px; font-weight: 700;
+  background: var(--gray-100); border: 1px solid var(--gray-300);
+  border-bottom-width: 2px; border-radius: 3px;
+  padding: 1px 6px; margin: 0 2px;
+}
+.spin-disabled-hint {
+  background: rgba(31,31,31,0.92); color: #fff;
+  padding: 10px 18px; border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 600;
+}
+
+/* ─── Sponsor Strip ───────────────────────────────────────────────────── */
+.sponsor-strip {
+  background: var(--color-neutrallight);
+  border-top: 1px solid var(--gray-200);
+  padding: 14px 28px; display: flex; align-items: center; gap: 24px;
+  flex-shrink: 0; overflow: hidden;
+}
+.sponsor-strip-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gray-500);
+  white-space: nowrap; flex-shrink: 0;
+}
+.sponsor-strip-list {
+  display: flex; align-items: center; gap: 32px; flex: 1;
+  overflow-x: auto; scrollbar-width: none;
+}
+.sponsor-strip-list::-webkit-scrollbar { display: none; }
+.sponsor-strip-item {
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0; opacity: 0.85; transition: opacity 0.2s;
+}
+.sponsor-strip-item:hover { opacity: 1; }
+.sponsor-strip-item img { height: 36px; max-width: 130px; object-fit: contain; }
+.sponsor-strip-item .name { font-size: 14px; font-weight: 600; color: var(--gray-700); }
+
+/* ─── Modal / Drawer ──────────────────────────────────────────────────── */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(15, 15, 15, 0.55);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  display: grid; place-items: center; z-index: 100;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.overlay.show { opacity: 1; pointer-events: auto; }
+.modal {
+  background: #fff; border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2xl);
+  max-width: 90vw; max-height: 88vh;
+  display: flex; flex-direction: column; overflow: hidden;
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.overlay.show .modal { transform: scale(1) translateY(0); }
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 28px; border-bottom: 1px solid var(--gray-200);
+}
+.modal-title {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.modal-body { padding: 24px 28px; overflow-y: auto; flex: 1; }
+.modal-footer {
+  padding: 18px 28px; border-top: 1px solid var(--gray-200);
+  display: flex; gap: 10px; justify-content: flex-end;
+  background: var(--gray-50);
+}
+
+/* Drawer */
+.drawer {
+  background: #fff; width: 560px; max-width: 92vw;
+  height: 100vh; margin-left: auto;
+  box-shadow: var(--shadow-2xl);
+  display: flex; flex-direction: column;
+  transform: translateX(100%); transition: transform 0.3s ease;
+}
+.overlay.drawer-overlay { place-items: stretch; align-items: stretch; }
+.overlay.drawer-overlay.show .drawer { transform: translateX(0); }
+
+/* Drawer tabs */
+.drawer-tabs {
+  display: flex; border-bottom: 1px solid var(--gray-200); flex-shrink: 0;
+}
+.drawer-tab {
+  flex: 1; padding: 14px 8px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--gray-500); background: var(--gray-50);
+  border-right: 1px solid var(--gray-200);
+  position: relative; transition: all 0.15s;
+}
+.drawer-tab:last-child { border-right: none; }
+.drawer-tab:hover:not(.active) { color: var(--gray-700); background: #fff; }
+.drawer-tab.active { color: var(--gray-900); background: #fff; }
+.drawer-tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 3px; background: var(--color-primary);
+}
+.drawer-tab .count {
+  display: inline-block; margin-left: 4px; background: var(--gray-200);
+  color: var(--gray-700); font-size: 11px; padding: 1px 7px;
+  border-radius: 10px; font-weight: 700;
+}
+.drawer-tab.active .count { background: var(--color-primary); color: var(--color-neutraldark); }
+
+.drawer-body { flex: 1; overflow-y: auto; padding: 22px; }
+.drawer-body::-webkit-scrollbar { width: 8px; }
+.drawer-body::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 4px; }
+
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gray-500); margin-bottom: 8px;
+}
+.section { margin-bottom: 24px; }
+
+/* Inputs */
+.input, .textarea, .select {
+  width: 100%; font-family: var(--font-sans); font-size: 14px;
+  padding: 10px 12px; border: 1.5px solid var(--gray-300);
+  border-radius: var(--radius-sm); background: #fff; color: var(--gray-900);
+  transition: border-color 0.15s;
+}
+.input:focus, .textarea:focus, .select:focus {
+  outline: none; border-color: var(--color-akzent);
+}
+.textarea {
+  resize: vertical; min-height: 110px;
+  font-family: 'Inter', monospace; font-size: 13px; line-height: 1.6;
+}
+
+/* Item list (generic for participants/prizes/sponsors) */
+.list { display: flex; flex-direction: column; gap: 6px; }
+.row {
+  display: grid; align-items: center; gap: 10px;
+  padding: 10px 12px; background: #fff;
+  border: 1px solid var(--gray-200); border-radius: var(--radius-sm);
+  transition: border-color 0.15s, background 0.15s;
+}
+.row:hover { border-color: var(--color-optional); background: var(--gray-50); }
+.row .name {
+  font-size: 14px; font-weight: 600; color: var(--gray-900);
+  background: transparent; border: none; outline: none; padding: 2px 0;
+  width: 100%; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.row .name:focus {
+  background: var(--color-primary-light); padding: 2px 4px;
+  margin: 0 -4px; border-radius: 2px;
+}
+.row .meta { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+.row-actions { display: flex; gap: 4px; flex-shrink: 0; }
+
+.row-participant { grid-template-columns: 22px 1fr auto; }
+.row-num {
+  font-size: 11px; font-weight: 700; color: var(--gray-400);
+  font-variant-numeric: tabular-nums; text-align: right;
+}
+
+.row-prize { grid-template-columns: 14px 1fr auto auto; }
+.prize-color {
+  width: 14px; height: 14px; border-radius: var(--radius-full);
+  border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+.prize-color.given { background: var(--gray-300) !important; }
+
+.row-sponsor { grid-template-columns: 56px 1fr auto; }
+.sponsor-logo {
+  width: 56px; height: 40px; border-radius: var(--radius-sm);
+  background: var(--gray-50); border: 1px solid var(--gray-200);
+  display: grid; place-items: center; flex-shrink: 0; overflow: hidden;
+}
+.sponsor-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.sponsor-logo.empty {
+  font-size: 9px; color: var(--gray-400);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.badge-open { background: var(--color-primary-light); color: var(--color-primary-dark); }
+.badge-given { background: var(--gray-200); color: var(--gray-600); }
+
+.row.given .name { text-decoration: line-through; color: var(--gray-500); }
+
+.empty-state {
+  text-align: center; padding: 28px 16px; color: var(--gray-500);
+  font-size: 13px; border: 1px dashed var(--gray-300);
+  border-radius: var(--radius-sm);
+}
+
+/* Single-add row inputs */
+.add-grid {
+  display: grid; grid-template-columns: 1fr 1fr auto;
+  gap: 8px; align-items: stretch;
+}
+.add-grid-2 { grid-template-columns: 1fr auto; }
+
+.upload-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 10px 12px; background: var(--gray-100); color: var(--gray-700);
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: background 0.15s;
+}
+.upload-btn:hover { background: var(--gray-200); }
+.upload-btn.has-file { background: var(--color-primary-light); color: var(--color-neutraldark); }
+.upload-btn img { width: 16px; height: 16px; }
+
+/* Filter tabs */
+.filter-tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+.filter-tab {
+  padding: 6px 12px; font-size: 12px; font-weight: 600;
+  border-radius: 14px; background: var(--gray-100); color: var(--gray-600);
+  transition: all 0.15s;
+}
+.filter-tab.active { background: var(--color-akzent); color: #fff; }
+
+/* Settings */
+.setting-group { padding: 18px 0; border-bottom: 1px solid var(--gray-100); }
+.setting-group:last-child { border-bottom: none; }
+.setting-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 8px 0;
+}
+.setting-label { font-size: 14px; font-weight: 600; color: var(--gray-900); }
+.setting-desc { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+.slider-row { display: flex; flex-direction: column; gap: 8px; padding: 8px 0; }
+.slider-head { display: flex; justify-content: space-between; align-items: baseline; }
+.slider-value {
+  font-family: var(--font-display); font-size: 18px; font-weight: 700;
+  color: var(--color-akzent);
+}
+input[type="range"] {
+  width: 100%; -webkit-appearance: none; height: 6px;
+  background: var(--gray-200); border-radius: 3px; outline: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--color-akzent);
+  cursor: pointer; border: 3px solid #fff;
+  box-shadow: 0 0 0 1px var(--gray-300);
+}
+.toggle {
+  position: relative; width: 44px; height: 24px;
+  background: var(--gray-300); border-radius: 12px;
+  transition: background 0.2s; flex-shrink: 0;
+}
+.toggle::after {
+  content: ''; position: absolute; width: 18px; height: 18px;
+  background: #fff; border-radius: 50%;
+  top: 3px; left: 3px;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle.on { background: var(--color-akzent); }
+.toggle.on::after { transform: translateX(20px); }
+.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.theme-card {
+  border: 2px solid var(--gray-200); border-radius: var(--radius-sm);
+  padding: 10px; cursor: pointer; text-align: left; transition: all 0.15s;
+}
+.theme-card:hover { border-color: var(--gray-400); }
+.theme-card.selected { border-color: var(--color-akzent); background: var(--gray-50); }
+.theme-swatches { display: flex; gap: 4px; margin-bottom: 8px; }
+.theme-swatches span {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.theme-name { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+
+/* Prize picker modal */
+.picker-modal { width: min(640px, 92vw); height: min(78vh, 720px); }
+.picker-modal .modal-body { padding: 8px 24px 16px; }
+.picker-prize {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  gap: 14px; padding: 14px 16px;
+  border: 1.5px solid var(--gray-200); border-radius: var(--radius-sm);
+  margin-bottom: 8px; cursor: pointer; transition: all 0.15s;
+  align-items: center;
+}
+.picker-prize:hover:not(.given) { border-color: var(--color-akzent); background: var(--gray-50); }
+.picker-prize.given { opacity: 0.6; cursor: not-allowed; background: var(--gray-50); }
+.picker-prize.given .picker-prize-name { text-decoration: line-through; }
+.picker-prize-color {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+.picker-prize-name {
+  font-size: 16px; font-weight: 700; color: var(--gray-900);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.picker-prize-meta { font-size: 12px; color: var(--gray-500); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.picker-prize-meta img { width: 16px; height: 12px; object-fit: contain; }
+.picker-prize-winner {
+  font-size: 11px; color: var(--color-akzent);
+  font-weight: 700; margin-top: 2px;
+}
+
+/* ─── Winner Modal ────────────────────────────────────────────────────── */
+.winner-modal { width: min(720px, 92vw); text-align: center; position: relative; overflow: visible; }
+.winner-modal .modal-body { padding: 48px 48px 32px; position: relative; overflow: visible; }
+.winner-eyebrow {
+  font-family: var(--font-sans); font-size: 13px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-akzent); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.winner-eyebrow::before, .winner-eyebrow::after {
+  content: ''; width: 24px; height: 2px;
+  background: var(--color-primary); display: inline-block;
+}
+.winner-name {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+  color: var(--gray-900); margin-bottom: 16px;
+  text-wrap: balance;
+}
+.winner-prize-line {
+  font-size: 15px; font-weight: 600;
+  color: var(--gray-500); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.winner-prize-name {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 34px);
+  font-weight: 700; color: var(--color-akzent);
+  margin-bottom: 24px; letter-spacing: -0.01em;
+}
+.winner-sponsor {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 12px 20px; background: var(--gray-50);
+  border: 1px solid var(--gray-200); border-radius: var(--radius-sm);
+}
+.winner-sponsor-logo { width: 64px; height: 48px; display: grid; place-items: center; overflow: hidden; }
+.winner-sponsor-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.winner-sponsor-text { text-align: left; }
+.winner-sponsor-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gray-500);
+}
+.winner-sponsor-name { font-size: 16px; font-weight: 700; color: var(--gray-900); }
+.winner-glow {
+  position: absolute; inset: -40px;
+  background: radial-gradient(circle, var(--color-primary-light) 0%, transparent 65%);
+  z-index: -1; opacity: 0;
+  animation: glow-pulse 2.4s ease-in-out infinite;
+}
+.overlay.show .winner-glow { opacity: 0.6; }
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.95); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+#confettiCanvas { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+
+/* Toast */
+.toast-container {
+  position: fixed; top: 24px; right: 24px; z-index: 300;
+  display: flex; flex-direction: column; gap: 10px; pointer-events: none;
+}
+.toast {
+  background: var(--color-neutraldark); color: #fff;
+  padding: 14px 20px; border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xl);
+  font-size: 14px; font-weight: 600;
+  display: flex; align-items: center; gap: 10px;
+  min-width: 280px; max-width: 460px; pointer-events: auto;
+  transform: translateX(120%);
+  animation: toast-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.toast.success { border-left: 4px solid #22C55E; }
+.toast.error { border-left: 4px solid #EF4444; }
+.toast.info { border-left: 4px solid var(--color-primary); }
+.toast.warn { border-left: 4px solid #F59E0B; }
+.toast.removing { animation: toast-out 0.25s ease forwards; }
+@keyframes toast-in { to { transform: translateX(0); } }
+@keyframes toast-out { to { transform: translateX(120%); opacity: 0; } }
+
+.confirm-modal { width: min(460px, 90vw); }
+.confirm-modal .modal-body {
+  padding: 24px 28px; font-size: 14px;
+  line-height: 1.6; color: var(--gray-700);
+}
+
+.history-modal { width: min(640px, 92vw); height: min(80vh, 720px); }
+.history-modal .modal-body { padding: 8px 24px; }
+.history-item {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--gray-100); align-items: center;
+}
+.history-item:last-child { border-bottom: none; }
+.history-logo {
+  width: 44px; height: 44px; border-radius: var(--radius-sm);
+  background: var(--gray-100); display: grid; place-items: center; overflow: hidden;
+}
+.history-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.history-name { font-size: 14px; font-weight: 700; color: var(--gray-900); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.history-meta { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+.history-time { font-size: 11px; font-variant-numeric: tabular-nums; color: var(--gray-400); text-align: right; white-space: nowrap; }
+.history-actions { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+
+/* Onboarding tour */
+.tour-modal { width: min(520px, 92vw); }
+.tour-modal .modal-body { padding: 32px; text-align: center; }
+.tour-step-num {
+  display: inline-block; width: 36px; height: 36px;
+  border-radius: 50%; background: var(--color-primary);
+  color: var(--color-neutraldark);
+  font-weight: 800; font-size: 16px;
+  display: inline-grid; place-items: center;
+  margin-bottom: 16px;
+}
+.tour-title {
+  font-family: var(--font-display); font-size: 24px;
+  font-weight: 700; color: var(--gray-900); margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.tour-desc { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+.tour-dots { display: flex; gap: 6px; justify-content: center; margin-top: 20px; }
+.tour-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300); }
+.tour-dot.active { background: var(--color-akzent); width: 24px; border-radius: 4px; }
+
+.hidden { display: none !important; }
+
+@media (max-width: 1100px) {
+  .nav-progress { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ─── Navbar ─────────────────────────────────────────────────────── -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-mark"><img src="assets/favicon.svg" alt="Padel Club Freiburg"></div>
+      <div class="brand-text">
+        <div class="brand-club">Padel Club Freiburg e.V.</div>
+        <div class="brand-title">Tombola Glücksrad</div>
+      </div>
+    </div>
+    <div class="nav-progress" id="navProgress">
+      <div class="nav-progress-text" id="navProgressText">0 von 0 Preisen vergeben</div>
+      <div class="nav-progress-bar"><div class="nav-progress-fill" id="navProgressFill" style="width:0%"></div></div>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-md btn-outline" id="btnFullscreen" title="Vollbild">
+        <img src="https://api.iconify.design/bx/fullscreen.svg" style="width:16px;height:16px">
+      </button>
+      <button class="btn btn-md btn-outline" id="btnHistory">
+        <img src="https://api.iconify.design/bx/history.svg" style="width:16px;height:16px"> Historie
+      </button>
+      <button class="btn btn-md btn-primary" id="btnSettings">
+        <img src="https://api.iconify.design/bx/cog.svg" style="width:16px;height:16px;filter:brightness(0) invert(1)"> Verwaltung
+      </button>
+    </div>
+  </header>
+
+  <!-- ─── Prize Banner ────────────────────────────────────────────────── -->
+  <section class="prize-banner empty" id="prizeBanner">
+    <div>
+      <div class="prize-banner-label">Aktueller Preis</div>
+    </div>
+    <div class="prize-banner-content" id="prizeBannerContent">
+      <div class="prize-banner-empty-msg">Bitte einen Preis auswählen</div>
+    </div>
+    <div class="prize-banner-actions">
+      <button class="btn btn-md btn-outline" id="btnPickPrize">
+        <img src="https://api.iconify.design/bx/list-ul.svg" style="width:16px;height:16px"> Preis wählen
+      </button>
+      <button class="btn btn-md btn-muted" id="btnPickNext" title="Nächsten offenen Preis wählen">
+        <img src="https://api.iconify.design/bx/right-arrow-alt.svg" style="width:16px;height:16px"> Nächster
+      </button>
+    </div>
+  </section>
+
+  <!-- ─── Stage ──────────────────────────────────────────────────────── -->
+  <main class="stage">
+    <section class="wheel-area">
+      <div class="wheel-wrap" id="wheelWrap">
+        <svg class="pointer" viewBox="0 0 56 72">
+          <path d="M 28 70 L 4 8 Q 28 -4 52 8 Z" fill="#1F1F1F" stroke="#fff" stroke-width="3"/>
+          <circle cx="28" cy="14" r="6" fill="#CEA8F0"/>
+        </svg>
+        <canvas class="wheel-canvas idle" id="wheelCanvas" width="900" height="900"></canvas>
+        <div class="hub"><img class="hub-logo" src="assets/logo-pcf.png" alt="Padel Club Freiburg"></div>
+      </div>
+      <div class="spin-controls">
+        <button class="spin-btn" id="btnSpin">Spin the Wheel</button>
+        <div class="spin-hint" id="spinHint"><kbd>Leertaste</kbd> zum Drehen</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ─── Sponsor Strip ──────────────────────────────────────────────── -->
+  <footer class="sponsor-strip">
+    <div class="sponsor-strip-label">Mit Unterstützung von</div>
+    <div class="sponsor-strip-list" id="sponsorStripList">
+      <div style="font-size:12px;color:var(--gray-400);">Noch keine Sponsoren hinzugefügt</div>
+    </div>
+  </footer>
+</div>
+
+<!-- ─── Settings Drawer ──────────────────────────────────────────────── -->
+<div class="overlay drawer-overlay" id="settingsOverlay">
+  <div class="drawer">
+    <div class="modal-header">
+      <div class="modal-title">Verwaltung</div>
+      <button class="icon-btn" data-close="settings"><img src="https://api.iconify.design/bx/x.svg"></button>
+    </div>
+    <div class="drawer-tabs">
+      <button class="drawer-tab active" data-tab="participants">Teilnehmer <span class="count" id="cntParticipants">0</span></button>
+      <button class="drawer-tab" data-tab="sponsors">Sponsoren <span class="count" id="cntSponsors">0</span></button>
+      <button class="drawer-tab" data-tab="prizes">Preise <span class="count" id="cntPrizes">0</span></button>
+      <button class="drawer-tab" data-tab="settings">Einstell.</button>
+    </div>
+    <div class="drawer-body">
+
+      <!-- TAB: PARTICIPANTS -->
+      <div class="tab-pane" id="paneParticipants">
+        <div class="section">
+          <div class="section-label">Excel-Import (eine Person pro Zeile)</div>
+          <textarea class="textarea" id="participantsBulk" placeholder="Anna Müller
+Ben Schmidt
+Carla Wagner
+Daniel Becker
+
+Einfach Liste aus Excel kopieren und einfügen."></textarea>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button class="btn btn-md btn-primary" id="btnAppendParticipants" style="flex:1">
+              <img src="https://api.iconify.design/bx/plus.svg" style="width:16px;height:16px;filter:brightness(0) invert(1)"> Hinzufügen
+            </button>
+            <button class="btn btn-md btn-outline" id="btnReplaceParticipants" style="flex:1">
+              <img src="https://api.iconify.design/bx/refresh.svg" style="width:16px;height:16px"> Ersetzen
+            </button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Einzeln hinzufügen</div>
+          <div class="add-grid-2" style="display:grid; grid-template-columns: 1fr auto; gap:8px;">
+            <input class="input" id="newParticipantName" placeholder="Name *">
+            <button class="btn btn-md btn-primary" id="btnAddParticipant">Anlegen</button>
+          </div>
+        </div>
+        <div class="section">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <div class="section-label" style="margin:0">Aktive Teilnehmer (<span id="participantsActiveCount">0</span>)</div>
+            <button class="icon-btn danger" id="btnClearParticipants" title="Alle entfernen">
+              <img src="https://api.iconify.design/bx/trash.svg">
+            </button>
+          </div>
+          <div class="list" id="participantsList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: SPONSORS -->
+      <div class="tab-pane hidden" id="paneSponsors">
+        <div class="section">
+          <div class="section-label">Neuer Sponsor</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <input class="input" id="newSponsorName" placeholder="Sponsor-Name">
+            <div style="display:grid; grid-template-columns: 1fr auto; gap:8px;">
+              <label class="upload-btn" id="logoUploadLabel">
+                <img src="https://api.iconify.design/bx/image-add.svg">
+                <span id="logoUploadText">Logo wählen (max. 2 MB)</span>
+                <input type="file" id="logoFile" accept="image/*" style="display:none">
+              </label>
+              <button class="btn btn-md btn-primary" id="btnAddSponsor">Speichern</button>
+            </div>
+            <div id="logoPreview" style="display:none; padding:10px; background:var(--gray-50); border-radius:2px; border:1px solid var(--gray-200);">
+              <img id="logoPreviewImg" style="max-height:60px; max-width:100%;">
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Sponsorenliste</div>
+          <div class="list" id="sponsorsList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: PRIZES -->
+      <div class="tab-pane hidden" id="panePrizes">
+        <div class="section">
+          <div class="section-label">Excel-Import (Preisname [TAB] Sponsor-Name)</div>
+          <textarea class="textarea" id="prizesBulk" placeholder="Premium Schläger	11Teamsport
+Padel-Stunde	padel2leon
+T-Shirt	
+Wochenende für 2	Lexware
+
+Sponsor wird per Name gematcht – fehlende werden gemeldet."></textarea>
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button class="btn btn-md btn-primary" id="btnAppendPrizes" style="flex:1">
+              <img src="https://api.iconify.design/bx/plus.svg" style="width:16px;height:16px;filter:brightness(0) invert(1)"> Hinzufügen
+            </button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">Einzeln hinzufügen</div>
+          <div class="add-grid">
+            <input class="input" id="newPrizeName" placeholder="Preisname *">
+            <select class="select" id="newPrizeSponsor"><option value="">Kein Sponsor</option></select>
+            <button class="btn btn-md btn-primary" id="btnAddPrize">Anlegen</button>
+          </div>
+        </div>
+        <div class="section">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <div class="section-label" style="margin:0">Preise</div>
+            <button class="icon-btn danger" id="btnClearPrizes" title="Alle entfernen">
+              <img src="https://api.iconify.design/bx/trash.svg">
+            </button>
+          </div>
+          <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">Alle</button>
+            <button class="filter-tab" data-filter="open">Offen</button>
+            <button class="filter-tab" data-filter="given">Vergeben</button>
+          </div>
+          <div class="list" id="prizesList"></div>
+        </div>
+      </div>
+
+      <!-- TAB: SETTINGS -->
+      <div class="tab-pane hidden" id="paneSettings">
+        <div class="setting-group">
+          <div class="slider-row">
+            <div class="slider-head">
+              <div>
+                <div class="setting-label">Spin-Dauer</div>
+                <div class="setting-desc">Wie lange dreht sich das Rad?</div>
+              </div>
+              <div class="slider-value"><span id="valSpinDuration">6</span>s</div>
+            </div>
+            <input type="range" id="setSpinDuration" min="3" max="15" step="0.5" value="6">
+          </div>
+          <div class="slider-row">
+            <div class="slider-head">
+              <div>
+                <div class="setting-label">Umdrehungen</div>
+                <div class="setting-desc">Volle Drehungen während Spin</div>
+              </div>
+              <div class="slider-value" id="valSpinTurns">6</div>
+            </div>
+            <input type="range" id="setSpinTurns" min="3" max="10" step="1" value="6">
+          </div>
+        </div>
+        <div class="setting-group">
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">Sound-Effekte</div>
+              <div class="setting-desc">Tick beim Vorbeidrehen</div>
+            </div>
+            <div class="toggle on" id="setSound"></div>
+          </div>
+          <div class="setting-row">
+            <div>
+              <div class="setting-label">Konfetti-Effekt</div>
+              <div class="setting-desc">Beim Gewinner-Pop-up</div>
+            </div>
+            <div class="toggle on" id="setConfetti"></div>
+          </div>
+        </div>
+        <div class="setting-group">
+          <div class="setting-label" style="margin-bottom: 10px;">Farb-Theme</div>
+          <div class="theme-grid">
+            <button class="theme-card selected" data-theme="lavender">
+              <div class="theme-swatches">
+                <span style="background:#CEA8F0"></span>
+                <span style="background:#0B2A20"></span>
+                <span style="background:#1F1F1F"></span>
+              </div>
+              <div class="theme-name">Lavendel & Grün</div>
+            </button>
+            <button class="theme-card" data-theme="petrol">
+              <div class="theme-swatches">
+                <span style="background:#5DB7C4"></span>
+                <span style="background:#0F4C5C"></span>
+                <span style="background:#1F1F1F"></span>
+              </div>
+              <div class="theme-name">Petrol & Teal</div>
+            </button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <button class="btn btn-md btn-danger" style="width:100%;" id="btnResetAll">
+            <img src="https://api.iconify.design/bx/trash.svg" style="width:16px;height:16px"> Alle Daten zurücksetzen
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ─── Prize Picker Modal ─────────────────────────────────────────── -->
+<div class="overlay" id="pickerOverlay">
+  <div class="modal picker-modal">
+    <div class="modal-header">
+      <div class="modal-title">Preis auswählen</div>
+      <button class="icon-btn" data-close="picker"><img src="https://api.iconify.design/bx/x.svg"></button>
+    </div>
+    <div class="modal-body">
+      <div class="filter-tabs" style="padding:12px 0 4px;">
+        <button class="filter-tab active" data-pickfilter="open">Offen</button>
+        <button class="filter-tab" data-pickfilter="all">Alle</button>
+        <button class="filter-tab" data-pickfilter="given">Vergeben</button>
+      </div>
+      <div id="pickerList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Winner Modal ───────────────────────────────────────────────── -->
+<div class="overlay" id="winnerOverlay">
+  <div class="modal winner-modal">
+    <div class="winner-glow"></div>
+    <div class="modal-body">
+      <div class="winner-eyebrow">Gewinner</div>
+      <div class="winner-name" id="winnerName">—</div>
+      <div class="winner-prize-line">gewinnt</div>
+      <div class="winner-prize-name" id="winnerPrizeName">—</div>
+      <div id="winnerSponsorWrap" class="hidden">
+        <div class="winner-sponsor">
+          <div class="winner-sponsor-logo" id="winnerSponsorLogo"></div>
+          <div class="winner-sponsor-text">
+            <div class="winner-sponsor-label">Präsentiert von</div>
+            <div class="winner-sponsor-name" id="winnerSponsorName"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-lg btn-muted" id="btnSpinAgain" title="Esc">
+        <img src="https://api.iconify.design/bx/refresh.svg" style="width:16px;height:16px"> Erneut spinnen
+      </button>
+      <button class="btn btn-lg btn-outline" id="btnConfirmKeep">
+        Bestätigen & behalten
+      </button>
+      <button class="btn btn-lg btn-primary" id="btnConfirmRemove" title="Enter">
+        <img src="https://api.iconify.design/bx/check.svg" style="width:16px;height:16px;filter:brightness(0) invert(1)">
+        Bestätigen & entfernen
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── History Modal ──────────────────────────────────────────────── -->
+<div class="overlay" id="historyOverlay">
+  <div class="modal history-modal">
+    <div class="modal-header">
+      <div class="modal-title">Gewinner-Historie</div>
+      <button class="icon-btn" data-close="history"><img src="https://api.iconify.design/bx/x.svg"></button>
+    </div>
+    <div class="modal-body" id="historyList"></div>
+    <div class="modal-footer">
+      <button class="btn btn-md btn-danger" id="btnClearHistory">
+        <img src="https://api.iconify.design/bx/trash.svg" style="width:16px;height:16px"> Historie löschen
+      </button>
+      <button class="btn btn-md btn-primary" id="btnExportCsv">
+        <img src="https://api.iconify.design/bx/download.svg" style="width:16px;height:16px;filter:brightness(0) invert(1)"> Als CSV exportieren
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Confirm ────────────────────────────────────────────────────── -->
+<div class="overlay" id="confirmOverlay">
+  <div class="modal confirm-modal">
+    <div class="modal-header">
+      <div class="modal-title" id="confirmTitle">Bestätigen</div>
+    </div>
+    <div class="modal-body" id="confirmBody">Bist du sicher?</div>
+    <div class="modal-footer">
+      <button class="btn btn-md btn-muted" id="btnConfirmCancel">Abbrechen</button>
+      <button class="btn btn-md btn-primary" id="btnConfirmOk">Bestätigen</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Tour Modal ─────────────────────────────────────────────────── -->
+<div class="overlay" id="tourOverlay">
+  <div class="modal tour-modal">
+    <div class="modal-body">
+      <div class="tour-step-num" id="tourStepNum">1</div>
+      <div class="tour-title" id="tourTitle">Willkommen!</div>
+      <div class="tour-desc" id="tourDesc">…</div>
+      <div class="tour-dots">
+        <span class="tour-dot active"></span>
+        <span class="tour-dot"></span>
+        <span class="tour-dot"></span>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-md btn-muted" id="btnTourSkip">Überspringen</button>
+      <button class="btn btn-md btn-primary" id="btnTourNext">Weiter</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+<canvas id="confettiCanvas"></canvas>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SCRIPTS — modular: DataStore, EventManager, WheelRenderer, UIController
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════════════════════════
+   DataStore — persists all entities in localStorage
+   ════════════════════════════════════════════════════════════════════════════ */
+const DataStore = (() => {
+  const KEY = 'pcfr-tombola-v2';
+  const DEFAULTS = {
+    participants: [],   // [{id, name}]
+    sponsors: [],       // [{id, name, logoDataUrl}]
+    prizes: [],         // [{id, name, sponsorId, status: 'open'|'given', winnerName, winnerHistoryId}]
+    history: [],        // [{id, ts, participantName, prizeName, sponsorName, sponsorLogo, prizeId}]
+    settings: { spinDuration: 6, spinTurns: 6, sound: true, confetti: true, theme: 'lavender' },
+    currentPrizeId: '',
+    tourDone: false,
+  };
+  let state = load();
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return structuredClone(DEFAULTS);
+      const parsed = JSON.parse(raw);
+      return {
+        ...structuredClone(DEFAULTS),
+        ...parsed,
+        settings: { ...DEFAULTS.settings, ...(parsed.settings || {}) },
+      };
+    } catch (e) {
+      return structuredClone(DEFAULTS);
+    }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (e) { console.error('Save failed:', e); return false; }
+  }
+
+  return {
+    get state() { return state; },
+    save,
+    reset() { state = structuredClone(DEFAULTS); save(); },
+
+    // Participants
+    addParticipant(name) {
+      const id = 'p_' + Math.random().toString(36).slice(2,9);
+      state.participants.push({ id, name: String(name).trim() });
+      save(); return id;
+    },
+    updateParticipant(id, patch) {
+      const p = state.participants.find(x => x.id === id);
+      if (p) Object.assign(p, patch); save();
+    },
+    removeParticipant(id) {
+      state.participants = state.participants.filter(x => x.id !== id);
+      save();
+    },
+    clearParticipants() { state.participants = []; save(); },
+    replaceParticipants(arr) { state.participants = arr; save(); },
+
+    // Sponsors
+    addSponsor(name, logoDataUrl='') {
+      const id = 'sp_' + Math.random().toString(36).slice(2,9);
+      state.sponsors.push({ id, name: String(name).trim(), logoDataUrl });
+      save(); return id;
+    },
+    updateSponsor(id, patch) {
+      const s = state.sponsors.find(x => x.id === id);
+      if (s) Object.assign(s, patch); save();
+    },
+    removeSponsor(id, detach=true) {
+      state.sponsors = state.sponsors.filter(x => x.id !== id);
+      if (detach) state.prizes.forEach(pr => { if (pr.sponsorId === id) pr.sponsorId = ''; });
+      save();
+    },
+    removeSponsorAndPrizes(id) {
+      state.sponsors = state.sponsors.filter(x => x.id !== id);
+      state.prizes = state.prizes.filter(pr => pr.sponsorId !== id);
+      save();
+    },
+    getSponsor(id) { return state.sponsors.find(x => x.id === id) || null; },
+    getSponsorByName(name) {
+      if (!name) return null;
+      return state.sponsors.find(x => x.name.toLowerCase() === String(name).toLowerCase()) || null;
+    },
+
+    // Prizes
+    addPrize(name, sponsorId='') {
+      const id = 'pr_' + Math.random().toString(36).slice(2,9);
+      state.prizes.push({ id, name: String(name).trim(), sponsorId, status: 'open', winnerName: '', winnerHistoryId: '' });
+      save(); return id;
+    },
+    updatePrize(id, patch) {
+      const p = state.prizes.find(x => x.id === id);
+      if (p) Object.assign(p, patch); save();
+    },
+    removePrize(id) {
+      state.prizes = state.prizes.filter(x => x.id !== id);
+      if (state.currentPrizeId === id) state.currentPrizeId = '';
+      save();
+    },
+    clearPrizes() { state.prizes = []; state.currentPrizeId = ''; save(); },
+    getPrize(id) { return state.prizes.find(x => x.id === id) || null; },
+
+    // History
+    addHistory(entry) {
+      const id = 'h_' + Math.random().toString(36).slice(2,9);
+      const fullEntry = { id, ts: Date.now(), ...entry };
+      state.history.unshift(fullEntry);
+      save(); return id;
+    },
+    removeHistory(id) {
+      state.history = state.history.filter(x => x.id !== id);
+      save();
+    },
+    clearHistory() { state.history = []; save(); },
+
+    // Current prize
+    setCurrentPrize(id) { state.currentPrizeId = id; save(); },
+
+    // Settings
+    setSetting(key, value) { state.settings[key] = value; save(); },
+
+    // Tour
+    markTourDone() { state.tourDone = true; save(); },
+  };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   EventManager — orchestrates prize selection, wins, undos
+   ════════════════════════════════════════════════════════════════════════════ */
+const EventManager = (() => {
+
+  function openPrizes() { return DataStore.state.prizes.filter(p => p.status === 'open'); }
+  function givenPrizes() { return DataStore.state.prizes.filter(p => p.status === 'given'); }
+
+  function pickPrize(id) {
+    const p = DataStore.getPrize(id);
+    if (!p || p.status !== 'open') return false;
+    DataStore.setCurrentPrize(id);
+    return true;
+  }
+
+  function pickNextOpen() {
+    const open = openPrizes();
+    if (open.length === 0) return null;
+    const cur = DataStore.state.currentPrizeId;
+    const curIdx = open.findIndex(p => p.id === cur);
+    const next = curIdx >= 0 && curIdx < open.length - 1 ? open[curIdx + 1] : open[0];
+    DataStore.setCurrentPrize(next.id);
+    return next;
+  }
+
+  /**
+   * Award current prize to participant. Returns history id.
+   */
+  function awardCurrent(participant, removeParticipant) {
+    const prize = DataStore.getPrize(DataStore.state.currentPrizeId);
+    if (!prize) return null;
+    const sponsor = prize.sponsorId ? DataStore.getSponsor(prize.sponsorId) : null;
+
+    const histId = DataStore.addHistory({
+      participantId: participant.id,
+      participantName: participant.name,
+      prizeId: prize.id,
+      prizeName: prize.name,
+      sponsorName: sponsor ? sponsor.name : '',
+      sponsorLogo: sponsor ? sponsor.logoDataUrl : '',
+    });
+
+    DataStore.updatePrize(prize.id, {
+      status: 'given',
+      winnerName: participant.name,
+      winnerHistoryId: histId,
+    });
+    DataStore.setCurrentPrize('');
+
+    if (removeParticipant) DataStore.removeParticipant(participant.id);
+
+    return histId;
+  }
+
+  /**
+   * Undo a history entry: prize becomes open, participant restored if they were removed.
+   */
+  function undoHistory(historyId) {
+    const h = DataStore.state.history.find(x => x.id === historyId);
+    if (!h) return;
+    // Reopen prize
+    if (h.prizeId) {
+      DataStore.updatePrize(h.prizeId, { status: 'open', winnerName: '', winnerHistoryId: '' });
+    }
+    // Restore participant if not present
+    const exists = DataStore.state.participants.some(p => p.id === h.participantId || p.name === h.participantName);
+    if (!exists && h.participantName) {
+      DataStore.state.participants.push({ id: h.participantId || ('p_' + Math.random().toString(36).slice(2,9)), name: h.participantName });
+      DataStore.save();
+    }
+    DataStore.removeHistory(historyId);
+  }
+
+  return { openPrizes, givenPrizes, pickPrize, pickNextOpen, awardCurrent, undoHistory };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Color generation
+   ════════════════════════════════════════════════════════════════════════════ */
+function generateSliceColors(n, theme='lavender') {
+  const base = theme === 'petrol' ? 188 : 280;
+  const range = 240;
+  const colors = [];
+  for (let i = 0; i < n; i++) {
+    const t = (i + 0.5) / n;
+    const hue = (base - range / 2 + range * t + 360) % 360;
+    const sat = 55 + (i % 3) * 8;
+    const light = 60 + (i % 2 === 0 ? 0 : -8);
+    colors.push(`hsl(${hue.toFixed(1)}, ${sat}%, ${light}%)`);
+  }
+  return colors;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   WheelRenderer — Canvas wheel with cubic-bezier easing
+   ════════════════════════════════════════════════════════════════════════════ */
+const WheelRenderer = (() => {
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
+  let rotation = 0;
+  let items = [];   // participant array
+  let colors = [];
+  let isSpinning = false;
+  let lastTickIndex = -1;
+
+  function resize() {
+    const wrap = document.getElementById('wheelWrap');
+    const rect = wrap.getBoundingClientRect();
+    const size = Math.max(220, Math.min(rect.width, rect.height));
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = size + 'px';
+    canvas.style.height = size + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+
+  function setItems(newItems, theme) {
+    items = newItems;
+    colors = generateSliceColors(newItems.length, theme);
+    draw();
+  }
+
+  function draw() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    const cx = w/2, cy = h/2;
+    const r = Math.min(cx, cy) - 8;
+    ctx.clearRect(0, 0, w, h);
+
+    if (items.length === 0) {
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.fillStyle = '#F2F2F2'; ctx.fill();
+      ctx.strokeStyle = '#D6D1DB'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.setLineDash([8,6]);
+      ctx.arc(cx, cy, r*0.85, 0, Math.PI*2);
+      ctx.strokeStyle = '#A87DD4'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#9CA3AF';
+      ctx.font = '600 18px "Nunito Sans"';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('Keine Teilnehmer', cx, cy - 10);
+      ctx.font = '400 13px "Nunito Sans"';
+      ctx.fillText('In der Verwaltung importieren', cx, cy + 14);
+      return;
+    }
+
+    const n = items.length;
+    const sliceAngle = (Math.PI*2) / n;
+    const isMany = n > 50;
+    const hideText = n > 80;
+
+    for (let i = 0; i < n; i++) {
+      const start = rotation + i*sliceAngle - Math.PI/2;
+      const end = start + sliceAngle;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, end);
+      ctx.closePath();
+      ctx.fillStyle = colors[i % colors.length];
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+      ctx.lineWidth = isMany ? 1 : 2;
+      ctx.stroke();
+
+      if (!hideText) {
+        const mid = start + sliceAngle/2;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(mid);
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        const lm = colors[i].match(/(\d+(?:\.\d+)?)%\)$/);
+        const lightness = lm ? parseFloat(lm[1]) : 60;
+        ctx.fillStyle = lightness > 55 ? '#1F1F1F' : '#FFFFFF';
+        let baseFontSize = Math.max(11, Math.min(28, r*0.075 - n*0.18));
+        if (n > 30) baseFontSize = Math.max(9, baseFontSize * 0.85);
+        let label = isMany ? '#' + (i+1) : items[i].name;
+        ctx.font = `700 ${baseFontSize}px "Nunito Sans"`;
+        const maxW = r - r*0.18;
+        label = truncate(label, maxW);
+        ctx.fillText(label, r - r*0.05, 0);
+        ctx.restore();
+      }
+    }
+
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
+    ctx.strokeStyle = '#1F1F1F'; ctx.lineWidth = 4; ctx.stroke();
+    ctx.fillStyle = '#1F1F1F';
+    for (let k = 0; k < 8; k++) {
+      const ang = (k/8) * Math.PI*2;
+      const bx = cx + Math.cos(ang) * (r-14);
+      const by = cy + Math.sin(ang) * (r-14);
+      ctx.beginPath(); ctx.arc(bx, by, 3.5, 0, Math.PI*2); ctx.fill();
+    }
+  }
+
+  function truncate(text, maxWidth) {
+    if (ctx.measureText(text).width <= maxWidth) return text;
+    let lo = 0, hi = text.length;
+    while (lo < hi) {
+      const mid = (lo+hi+1) >> 1;
+      const t = text.slice(0, mid) + '…';
+      if (ctx.measureText(t).width <= maxWidth) lo = mid; else hi = mid - 1;
+    }
+    return text.slice(0, lo) + '…';
+  }
+
+  function indexAtPointer() {
+    if (items.length === 0) return -1;
+    const sliceAngle = (Math.PI*2) / items.length;
+    let a = ((-rotation) % (Math.PI*2) + Math.PI*2) % (Math.PI*2);
+    return Math.floor(a / sliceAngle) % items.length;
+  }
+
+  function spin({ duration=6, turns=6, onTick }) {
+    if (isSpinning || items.length === 0) return Promise.resolve(-1);
+    isSpinning = true;
+    canvas.classList.remove('idle');
+
+    const targetIdx = Math.floor(Math.random() * items.length);
+    const sliceAngle = (Math.PI*2) / items.length;
+    const jitter = (Math.random() - 0.5) * sliceAngle * 0.7;
+    const finalRotation = -(targetIdx + 0.5) * sliceAngle + jitter;
+    const totalDelta = finalRotation - rotation + Math.PI*2 * turns;
+
+    const startRotation = rotation;
+    const startTime = performance.now();
+    const dur = duration * 1000;
+    lastTickIndex = indexAtPointer();
+
+    return new Promise(resolve => {
+      function animate(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / dur, 1);
+        // ease-out quart: snappy start, slow finish
+        const eased = 1 - Math.pow(1 - t, 4);
+        rotation = startRotation + totalDelta * eased;
+        draw();
+        const idx = indexAtPointer();
+        if (idx !== lastTickIndex && idx >= 0) {
+          lastTickIndex = idx;
+          if (onTick) onTick();
+        }
+        if (t < 1) requestAnimationFrame(animate);
+        else {
+          isSpinning = false;
+          canvas.classList.add('idle');
+          rotation = ((rotation % (Math.PI*2)) + Math.PI*2) % (Math.PI*2);
+          if (rotation > Math.PI) rotation -= Math.PI*2;
+          resolve(targetIdx);
+        }
+      }
+      requestAnimationFrame(animate);
+    });
+  }
+
+  return { resize, setItems, draw, spin, get isSpinning() { return isSpinning; } };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Sound — Web Audio tick + fanfare
+   ════════════════════════════════════════════════════════════════════════════ */
+const Sound = (() => {
+  let ctx;
+  function ensure() {
+    if (!ctx) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){} }
+  }
+  return {
+    tick() {
+      if (!DataStore.state.settings.sound) return;
+      ensure(); if (!ctx) return;
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(1200, now);
+      osc.frequency.exponentialRampToValueAtTime(600, now + 0.05);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now); osc.stop(now + 0.07);
+    },
+    fanfare() {
+      if (!DataStore.state.settings.sound) return;
+      ensure(); if (!ctx) return;
+      const now = ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.5].forEach((f,i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, now + i*0.08);
+        gain.gain.setValueAtTime(0, now + i*0.08);
+        gain.gain.linearRampToValueAtTime(0.15, now + i*0.08 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i*0.08 + 0.4);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(now + i*0.08); osc.stop(now + i*0.08 + 0.45);
+      });
+    }
+  };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Confetti
+   ════════════════════════════════════════════════════════════════════════════ */
+const Confetti = (() => {
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [], running = false;
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function burst() {
+    if (!DataStore.state.settings.confetti) return;
+    resize();
+    const w = innerWidth, h = innerHeight;
+    const colors = ['#CEA8F0', '#0B2A20', '#0F4C5C', '#FBBF24', '#EF4444', '#A87DD4', '#22C55E'];
+    for (let i = 0; i < 220; i++) {
+      particles.push({
+        x: w/2 + (Math.random()-0.5)*200, y: h/2,
+        vx: (Math.random()-0.5)*18, vy: (Math.random()-1)*22 - 4,
+        gravity: 0.5, size: 6 + Math.random()*8,
+        rot: Math.random()*Math.PI*2, vrot: (Math.random()-0.5)*0.4,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        shape: Math.random() < 0.5 ? 'rect' : 'circ',
+      });
+    }
+    if (!running) { running = true; loop(); }
+  }
+  function loop() {
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    particles = particles.filter(p => p.y < innerHeight + 60);
+    particles.forEach(p => {
+      p.vy += p.gravity; p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      if (p.shape === 'rect') ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.4);
+      else { ctx.beginPath(); ctx.arc(0, 0, p.size/2, 0, Math.PI*2); ctx.fill(); }
+      ctx.restore();
+    });
+    if (particles.length > 0) requestAnimationFrame(loop);
+    else { running = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
+  }
+  return { burst };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Toast / Confirm
+   ════════════════════════════════════════════════════════════════════════════ */
+function toast(msg, type='info', timeout=3200) {
+  const c = document.getElementById('toastContainer');
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  const icon = { success: '✓', error: '✕', info: 'ℹ', warn: '⚠' }[type] || '•';
+  t.innerHTML = `<span style="font-size:18px">${icon}</span><span>${escapeHtml(msg)}</span>`;
+  c.appendChild(t);
+  setTimeout(() => { t.classList.add('removing'); setTimeout(() => t.remove(), 300); }, timeout);
+}
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function confirmDialog(title, body, okLabel='Bestätigen', okStyle='btn-primary') {
+  return new Promise(resolve => {
+    const overlay = document.getElementById('confirmOverlay');
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmBody').textContent = body;
+    const ok = document.getElementById('btnConfirmOk');
+    const cancel = document.getElementById('btnConfirmCancel');
+    ok.textContent = okLabel; ok.className = 'btn btn-md ' + okStyle;
+    overlay.classList.add('show');
+    function close(r) {
+      overlay.classList.remove('show');
+      ok.removeEventListener('click', onOk);
+      cancel.removeEventListener('click', onCancel);
+      document.removeEventListener('keydown', onKey);
+      resolve(r);
+    }
+    function onOk(){ close(true); } function onCancel(){ close(false); }
+    function onKey(e){ if (e.key==='Escape') onCancel(); if (e.key==='Enter') onOk(); }
+    ok.addEventListener('click', onOk);
+    cancel.addEventListener('click', onCancel);
+    document.addEventListener('keydown', onKey);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   File reader for logos
+   ════════════════════════════════════════════════════════════════════════════ */
+function readImageFile(file) {
+  return new Promise((resolve, reject) => {
+    if (file.size > 2 * 1024 * 1024) return reject(new Error('Logo ist größer als 2 MB'));
+    if (!file.type.startsWith('image/')) return reject(new Error('Bitte eine Bilddatei auswählen'));
+    const r = new FileReader();
+    r.onload = () => resolve(r.result);
+    r.onerror = () => reject(new Error('Datei konnte nicht gelesen werden'));
+    r.readAsDataURL(file);
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   UIController — wires everything
+   ════════════════════════════════════════════════════════════════════════════ */
+const UIController = (() => {
+  const $ = sel => document.querySelector(sel);
+  const $$ = sel => document.querySelectorAll(sel);
+
+  let pendingLogo = null;
+  let pendingWinner = null; // { participant, prize, sponsor }
+  let prizeFilter = 'all';
+  let pickerFilter = 'open';
+
+  function init() {
+    applyTheme();
+    refreshAll();
+    bindEvents();
+    WheelRenderer.resize();
+    if (!DataStore.state.tourDone) setTimeout(() => Tour.start(), 400);
+  }
+
+  function applyTheme() {
+    document.documentElement.setAttribute('data-theme', DataStore.state.settings.theme);
+  }
+
+  function refreshAll() {
+    refreshWheel();
+    renderPrizeBanner();
+    renderProgress();
+    renderParticipants();
+    renderSponsors();
+    renderPrizes();
+    renderSponsorStrip();
+    renderHistory();
+    renderSettings();
+    updateSpinButtonState();
+    updateCounts();
+  }
+
+  function refreshWheel() {
+    WheelRenderer.setItems(DataStore.state.participants, DataStore.state.settings.theme);
+  }
+
+  function updateCounts() {
+    $('#cntParticipants').textContent = DataStore.state.participants.length;
+    $('#cntSponsors').textContent = DataStore.state.sponsors.length;
+    $('#cntPrizes').textContent = DataStore.state.prizes.length;
+    $('#participantsActiveCount').textContent = DataStore.state.participants.length;
+  }
+
+  function renderProgress() {
+    const total = DataStore.state.prizes.length;
+    const given = EventManager.givenPrizes().length;
+    $('#navProgressText').textContent = total === 0
+      ? 'Keine Preise angelegt'
+      : `Preis ${given} von ${total} vergeben`;
+    $('#navProgressFill').style.width = total === 0 ? '0%' : `${(given/total)*100}%`;
+  }
+
+  function updateSpinButtonState() {
+    const btn = $('#btnSpin');
+    const hint = $('#spinHint');
+    const participants = DataStore.state.participants.length;
+    const open = EventManager.openPrizes().length;
+    const cur = DataStore.state.currentPrizeId;
+
+    if (WheelRenderer.isSpinning) {
+      btn.disabled = true;
+      btn.textContent = 'Dreht …';
+      hint.innerHTML = '';
+      return;
+    }
+    if (participants === 0) {
+      btn.disabled = true;
+      btn.textContent = 'Keine Teilnehmer';
+      hint.innerHTML = '<span class="spin-disabled-hint">Bitte Teilnehmer importieren</span>';
+      return;
+    }
+    if (open === 0) {
+      btn.disabled = true;
+      btn.textContent = 'Alle Preise vergeben';
+      hint.innerHTML = '<span class="spin-disabled-hint">🎉 Tombola abgeschlossen</span>';
+      return;
+    }
+    if (!cur) {
+      btn.disabled = true;
+      btn.textContent = 'Preis wählen';
+      hint.innerHTML = '<span class="spin-disabled-hint">Bitte zuerst Preis auswählen ↑</span>';
+      return;
+    }
+    btn.disabled = false;
+    btn.textContent = 'Spin the Wheel';
+    hint.innerHTML = '<kbd>Leertaste</kbd> zum Drehen';
+  }
+
+  function renderPrizeBanner() {
+    const banner = $('#prizeBanner');
+    const content = $('#prizeBannerContent');
+    const cur = DataStore.state.currentPrizeId ? DataStore.getPrize(DataStore.state.currentPrizeId) : null;
+    if (!cur) {
+      banner.classList.add('empty');
+      content.innerHTML = `<div class="prize-banner-empty-msg">Bitte einen Preis auswählen</div>`;
+      return;
+    }
+    banner.classList.remove('empty');
+    const sp = cur.sponsorId ? DataStore.getSponsor(cur.sponsorId) : null;
+    content.innerHTML = `
+      <div class="prize-banner-name">${escapeHtml(cur.name)}</div>
+      ${sp ? `
+        <div class="prize-banner-sponsor">
+          <div class="prize-banner-sponsor-logo">
+            ${sp.logoDataUrl ? `<img src="${sp.logoDataUrl}" alt="">` : '<span style="font-size:9px">🏆</span>'}
+          </div>
+          <div class="prize-banner-sponsor-text">
+            <div class="prize-banner-sponsor-label">Präsentiert von</div>
+            <div class="prize-banner-sponsor-name">${escapeHtml(sp.name)}</div>
+          </div>
+        </div>
+      ` : ''}
+    `;
+  }
+
+  /* ─── Participants tab ─── */
+  function renderParticipants() {
+    const list = $('#participantsList');
+    if (DataStore.state.participants.length === 0) {
+      list.innerHTML = `<div class="empty-state">Noch keine Teilnehmer.<br>Aus Excel kopieren oder einzeln anlegen.</div>`;
+      return;
+    }
+    list.innerHTML = DataStore.state.participants.map((p, i) => `
+      <div class="row row-participant">
+        <span class="row-num">${i+1}.</span>
+        <input class="name" data-id="${p.id}" data-field="name" value="${escapeHtml(p.name)}">
+        <div class="row-actions">
+          <button class="icon-btn danger" data-action="del-p" data-id="${p.id}">
+            <img src="https://api.iconify.design/bx/x.svg">
+          </button>
+        </div>
+      </div>
+    `).join('');
+    list.querySelectorAll('input[data-field="name"]').forEach(el => {
+      const upd = e => {
+        DataStore.updateParticipant(e.target.dataset.id, { name: e.target.value.trim() });
+        refreshWheel();
+      };
+      el.addEventListener('change', upd); el.addEventListener('blur', upd);
+    });
+    list.querySelectorAll('[data-action="del-p"]').forEach(el => {
+      el.addEventListener('click', () => {
+        DataStore.removeParticipant(el.dataset.id);
+        renderParticipants(); refreshWheel(); updateCounts(); updateSpinButtonState();
+      });
+    });
+  }
+
+  /* ─── Sponsors tab ─── */
+  function renderSponsors() {
+    const list = $('#sponsorsList');
+    if (DataStore.state.sponsors.length === 0) {
+      list.innerHTML = `<div class="empty-state">Noch keine Sponsoren.</div>`;
+    } else {
+      list.innerHTML = DataStore.state.sponsors.map(sp => {
+        const used = DataStore.state.prizes.filter(pr => pr.sponsorId === sp.id).length;
+        return `
+          <div class="row row-sponsor">
+            <div class="sponsor-logo ${sp.logoDataUrl ? '' : 'empty'}">
+              ${sp.logoDataUrl ? `<img src="${sp.logoDataUrl}">` : 'kein Logo'}
+            </div>
+            <div style="min-width:0;">
+              <div class="name" contenteditable="true" data-action="rename-sp" data-id="${sp.id}">${escapeHtml(sp.name)}</div>
+              <div class="meta">${used} ${used===1?'Preis':'Preise'}</div>
+            </div>
+            <div class="row-actions">
+              <label class="icon-btn" title="Logo ändern">
+                <img src="https://api.iconify.design/bx/image.svg">
+                <input type="file" accept="image/*" data-action="logo-sp" data-id="${sp.id}" style="display:none">
+              </label>
+              <button class="icon-btn danger" data-action="del-sp" data-id="${sp.id}">
+                <img src="https://api.iconify.design/bx/trash.svg">
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      list.querySelectorAll('[data-action="rename-sp"]').forEach(el => {
+        el.addEventListener('blur', e => {
+          const newName = e.target.textContent.trim();
+          if (newName) DataStore.updateSponsor(e.target.dataset.id, { name: newName });
+          renderSponsors(); renderPrizes(); renderSponsorStrip(); renderPrizeBanner();
+          refreshSponsorDropdown();
+        });
+        el.addEventListener('keydown', e => { if (e.key==='Enter') { e.preventDefault(); e.target.blur(); } });
+      });
+      list.querySelectorAll('[data-action="logo-sp"]').forEach(el => {
+        el.addEventListener('change', async e => {
+          const file = e.target.files[0]; if (!file) return;
+          try {
+            const url = await readImageFile(file);
+            DataStore.updateSponsor(el.dataset.id, { logoDataUrl: url });
+            renderSponsors(); renderSponsorStrip(); renderPrizeBanner(); renderHistory();
+            toast('Logo aktualisiert', 'success');
+          } catch(err) { toast(err.message, 'error'); }
+        });
+      });
+      list.querySelectorAll('[data-action="del-sp"]').forEach(el => {
+        el.addEventListener('click', async () => {
+          const sp = DataStore.getSponsor(el.dataset.id);
+          const prizesUsed = DataStore.state.prizes.filter(pr => pr.sponsorId === sp.id);
+          if (prizesUsed.length > 0) {
+            const choice = await confirmDialog(
+              'Sponsor mit Preisen löschen?',
+              `„${sp.name}" hat ${prizesUsed.length} zugeordnete${prizesUsed.length===1?'n':''} Preis${prizesUsed.length===1?'':'e'}. Mit OK werden die Preise auf „kein Sponsor" gesetzt. Mit Abbrechen werden sie ebenfalls gelöscht.`,
+              'Preise behalten', 'btn-primary'
+            );
+            // 'true' = behalten (detach), 'false' = mitlöschen
+            if (choice) DataStore.removeSponsor(sp.id, true);
+            else {
+              const reallyDelete = await confirmDialog('Auch Preise löschen?', `${prizesUsed.length} Preis(e) werden mitgelöscht.`, 'Ja, alles löschen', 'btn-danger');
+              if (reallyDelete) DataStore.removeSponsorAndPrizes(sp.id);
+              else return;
+            }
+          } else {
+            const ok = await confirmDialog('Sponsor löschen?', `„${sp.name}" wird entfernt.`, 'Löschen', 'btn-danger');
+            if (!ok) return;
+            DataStore.removeSponsor(sp.id);
+          }
+          refreshAll();
+        });
+      });
+    }
+    refreshSponsorDropdown();
+  }
+
+  function refreshSponsorDropdown() {
+    const sel = $('#newPrizeSponsor');
+    sel.innerHTML = '<option value="">Kein Sponsor</option>' +
+      DataStore.state.sponsors.map(sp => `<option value="${sp.id}">${escapeHtml(sp.name)}</option>`).join('');
+  }
+
+  /* ─── Prizes tab ─── */
+  function renderPrizes() {
+    const list = $('#prizesList');
+    let prizes = DataStore.state.prizes;
+    if (prizeFilter === 'open') prizes = prizes.filter(p => p.status === 'open');
+    if (prizeFilter === 'given') prizes = prizes.filter(p => p.status === 'given');
+    const colors = generateSliceColors(DataStore.state.prizes.length || 1, DataStore.state.settings.theme);
+    if (prizes.length === 0) {
+      list.innerHTML = `<div class="empty-state">Keine Preise in dieser Ansicht.</div>`;
+      return;
+    }
+    list.innerHTML = prizes.map(pr => {
+      const idx = DataStore.state.prizes.findIndex(x => x.id === pr.id);
+      const sp = pr.sponsorId ? DataStore.getSponsor(pr.sponsorId) : null;
+      const isGiven = pr.status === 'given';
+      return `
+        <div class="row row-prize ${isGiven ? 'given' : ''}" data-id="${pr.id}">
+          <span class="prize-color ${isGiven ? 'given' : ''}" style="background:${colors[idx % colors.length]}"></span>
+          <div style="min-width:0;">
+            <input class="name" data-id="${pr.id}" data-field="name" value="${escapeHtml(pr.name)}">
+            <div class="meta">
+              ${sp ? escapeHtml(sp.name) : '<em>kein Sponsor</em>'}
+              ${isGiven ? ` · Gewonnen von <strong>${escapeHtml(pr.winnerName)}</strong>` : ''}
+            </div>
+          </div>
+          <span class="badge ${isGiven ? 'badge-given' : 'badge-open'}">${isGiven ? 'Vergeben' : 'Offen'}</span>
+          <div class="row-actions">
+            <select class="select" data-id="${pr.id}" data-field="sponsorId" style="width:auto; padding:4px 6px; font-size:11px;">
+              <option value="">— Sponsor —</option>
+              ${DataStore.state.sponsors.map(s => `<option value="${s.id}" ${s.id === pr.sponsorId ? 'selected' : ''}>${escapeHtml(s.name)}</option>`).join('')}
+            </select>
+            ${isGiven
+              ? `<button class="icon-btn" data-action="reopen-prize" data-id="${pr.id}" title="Wieder offen markieren"><img src="https://api.iconify.design/bx/undo.svg"></button>`
+              : ''}
+            <button class="icon-btn danger" data-action="del-prize" data-id="${pr.id}"><img src="https://api.iconify.design/bx/trash.svg"></button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    list.querySelectorAll('input[data-field="name"]').forEach(el => {
+      const upd = e => DataStore.updatePrize(e.target.dataset.id, { name: e.target.value.trim() });
+      el.addEventListener('change', upd); el.addEventListener('blur', () => { upd({ target: el }); renderPrizeBanner(); });
+    });
+    list.querySelectorAll('select[data-field="sponsorId"]').forEach(el => {
+      el.addEventListener('change', e => {
+        DataStore.updatePrize(e.target.dataset.id, { sponsorId: e.target.value });
+        renderPrizes(); renderPrizeBanner();
+      });
+    });
+    list.querySelectorAll('[data-action="del-prize"]').forEach(el => {
+      el.addEventListener('click', async () => {
+        const pr = DataStore.getPrize(el.dataset.id);
+        const ok = await confirmDialog('Preis löschen?', `„${pr.name}" wird entfernt.`, 'Löschen', 'btn-danger');
+        if (!ok) return;
+        // If given, also remove related history
+        if (pr.status === 'given' && pr.winnerHistoryId) DataStore.removeHistory(pr.winnerHistoryId);
+        DataStore.removePrize(pr.id);
+        refreshAll();
+      });
+    });
+    list.querySelectorAll('[data-action="reopen-prize"]').forEach(el => {
+      el.addEventListener('click', async () => {
+        const pr = DataStore.getPrize(el.dataset.id);
+        const ok = await confirmDialog('Preis wieder als offen markieren?',
+          `„${pr.name}" wird wieder offen, Historien-Eintrag „${pr.winnerName}" wird gelöscht.`, 'Bestätigen');
+        if (!ok) return;
+        if (pr.winnerHistoryId) DataStore.removeHistory(pr.winnerHistoryId);
+        DataStore.updatePrize(pr.id, { status: 'open', winnerName: '', winnerHistoryId: '' });
+        refreshAll();
+      });
+    });
+  }
+
+  /* ─── Sponsor strip ─── */
+  function renderSponsorStrip() {
+    const strip = $('#sponsorStripList');
+    if (DataStore.state.sponsors.length === 0) {
+      strip.innerHTML = `<div style="font-size:12px;color:var(--gray-400);">Noch keine Sponsoren hinzugefügt</div>`;
+      return;
+    }
+    strip.innerHTML = DataStore.state.sponsors.map(sp => `
+      <div class="sponsor-strip-item" title="${escapeHtml(sp.name)}">
+        ${sp.logoDataUrl ? `<img src="${sp.logoDataUrl}" alt="${escapeHtml(sp.name)}">` : `<span class="name">${escapeHtml(sp.name)}</span>`}
+      </div>
+    `).join('');
+  }
+
+  /* ─── History ─── */
+  function renderHistory() {
+    const list = $('#historyList');
+    if (DataStore.state.history.length === 0) {
+      list.innerHTML = `<div class="empty-state" style="margin:24px 0;">Noch keine Gewinner. Dreh das Rad! 🎉</div>`;
+      return;
+    }
+    list.innerHTML = DataStore.state.history.map(h => {
+      const d = new Date(h.ts);
+      const time = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+      const day = d.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' });
+      return `
+        <div class="history-item">
+          <div class="history-logo">
+            ${h.sponsorLogo ? `<img src="${h.sponsorLogo}">` : '<span style="font-size:10px;color:var(--gray-400)">PCFR</span>'}
+          </div>
+          <div style="min-width:0;">
+            <div class="history-name">${escapeHtml(h.participantName)} · ${escapeHtml(h.prizeName)}</div>
+            <div class="history-meta">${h.sponsorName ? 'Sponsor: ' + escapeHtml(h.sponsorName) : 'kein Sponsor'}</div>
+          </div>
+          <div class="history-actions">
+            <div class="history-time">${day}<br>${time}</div>
+            <button class="icon-btn danger" data-action="del-hist" data-id="${h.id}" title="Eintrag löschen (öffnet Preis wieder)">
+              <img src="https://api.iconify.design/bx/x.svg">
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+    list.querySelectorAll('[data-action="del-hist"]').forEach(el => {
+      el.addEventListener('click', async () => {
+        const ok = await confirmDialog(
+          'Eintrag rückgängig machen?',
+          'Der Preis wird wieder als offen markiert und die Person ggf. wieder zur Teilnehmerliste hinzugefügt.',
+          'Rückgängig', 'btn-primary'
+        );
+        if (!ok) return;
+        EventManager.undoHistory(el.dataset.id);
+        refreshAll();
+        toast('Eintrag rückgängig gemacht', 'success');
+      });
+    });
+  }
+
+  /* ─── Settings ─── */
+  function renderSettings() {
+    const s = DataStore.state.settings;
+    $('#setSpinDuration').value = s.spinDuration; $('#valSpinDuration').textContent = s.spinDuration;
+    $('#setSpinTurns').value = s.spinTurns; $('#valSpinTurns').textContent = s.spinTurns;
+    $('#setSound').classList.toggle('on', !!s.sound);
+    $('#setConfetti').classList.toggle('on', !!s.confetti);
+    $$('.theme-card').forEach(c => c.classList.toggle('selected', c.dataset.theme === s.theme));
+  }
+
+  /* ─── Bulk imports ─── */
+  function parseParticipants(text) {
+    return text.split(/\r?\n/).map(l => l.split(/\t/)[0].trim()).filter(Boolean);
+  }
+  function handleParticipantsBulk(mode) {
+    const names = parseParticipants($('#participantsBulk').value);
+    if (names.length === 0) { toast('Keine gültigen Zeilen erkannt', 'error'); return; }
+    if (mode === 'replace') {
+      DataStore.replaceParticipants(names.map(n => ({ id: 'p_' + Math.random().toString(36).slice(2,9), name: n })));
+    } else {
+      names.forEach(n => DataStore.addParticipant(n));
+    }
+    $('#participantsBulk').value = '';
+    refreshAll();
+    toast(`${names.length} Teilnehmer importiert`, 'success');
+  }
+
+  function parsePrizes(text) {
+    const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const items = [], unmatched = new Set();
+    for (const line of lines) {
+      const parts = line.split(/\t/);
+      const name = parts[0]?.trim();
+      if (!name) continue;
+      const sponsorRaw = (parts[1] || '').trim();
+      let sponsorId = '';
+      if (sponsorRaw) {
+        const ex = DataStore.getSponsorByName(sponsorRaw);
+        if (ex) sponsorId = ex.id;
+        else unmatched.add(sponsorRaw);
+      }
+      items.push({ name, sponsorId });
+    }
+    return { items, unmatched: [...unmatched] };
+  }
+  function handlePrizesBulk() {
+    const { items, unmatched } = parsePrizes($('#prizesBulk').value);
+    if (items.length === 0) { toast('Keine gültigen Zeilen erkannt', 'error'); return; }
+    items.forEach(it => DataStore.addPrize(it.name, it.sponsorId));
+    $('#prizesBulk').value = '';
+    refreshAll();
+    if (unmatched.length > 0) {
+      toast(`${items.length} Preis(e) importiert. Nicht gematchte Sponsoren: ${unmatched.join(', ')}`, 'warn', 5500);
+    } else {
+      toast(`${items.length} Preise importiert`, 'success');
+    }
+  }
+
+  /* ─── Modal helpers ─── */
+  function openModal(id) { $('#'+id).classList.add('show'); }
+  function closeModal(id) { $('#'+id).classList.remove('show'); }
+
+  /* ─── Picker ─── */
+  function renderPicker() {
+    const list = $('#pickerList');
+    let prizes = DataStore.state.prizes;
+    if (pickerFilter === 'open') prizes = prizes.filter(p => p.status === 'open');
+    if (pickerFilter === 'given') prizes = prizes.filter(p => p.status === 'given');
+    if (prizes.length === 0) {
+      list.innerHTML = `<div class="empty-state" style="margin:16px 0;">Keine Preise in dieser Ansicht.</div>`;
+      return;
+    }
+    const colors = generateSliceColors(DataStore.state.prizes.length || 1, DataStore.state.settings.theme);
+    list.innerHTML = prizes.map(pr => {
+      const idx = DataStore.state.prizes.findIndex(x => x.id === pr.id);
+      const sp = pr.sponsorId ? DataStore.getSponsor(pr.sponsorId) : null;
+      const isGiven = pr.status === 'given';
+      return `
+        <div class="picker-prize ${isGiven ? 'given' : ''}" data-id="${pr.id}">
+          <span class="picker-prize-color" style="background:${colors[idx % colors.length]}"></span>
+          <div style="min-width:0;">
+            <div class="picker-prize-name">${escapeHtml(pr.name)}</div>
+            <div class="picker-prize-meta">
+              ${sp && sp.logoDataUrl ? `<img src="${sp.logoDataUrl}" alt="">` : ''}
+              ${sp ? escapeHtml(sp.name) : '<em>kein Sponsor</em>'}
+            </div>
+            ${isGiven ? `<div class="picker-prize-winner">Gewonnen von ${escapeHtml(pr.winnerName)}</div>` : ''}
+          </div>
+          <span class="badge ${isGiven ? 'badge-given' : 'badge-open'}">${isGiven ? 'Vergeben' : 'Offen'}</span>
+        </div>
+      `;
+    }).join('');
+    list.querySelectorAll('.picker-prize:not(.given)').forEach(el => {
+      el.addEventListener('click', () => {
+        const ok = EventManager.pickPrize(el.dataset.id);
+        if (ok) {
+          renderPrizeBanner();
+          updateSpinButtonState();
+          closeModal('pickerOverlay');
+          toast('Preis ausgewählt', 'success');
+        }
+      });
+    });
+  }
+
+  /* ─── Spin flow ─── */
+  let lastSpinAt = 0;
+  async function doSpin() {
+    if (WheelRenderer.isSpinning) return;
+    if (Date.now() - lastSpinAt < 800) return;
+    if (DataStore.state.participants.length === 0) return;
+    if (!DataStore.state.currentPrizeId) return;
+    if (EventManager.openPrizes().length === 0) return;
+    lastSpinAt = Date.now();
+
+    closeModal('winnerOverlay');
+    updateSpinButtonState();
+
+    const idx = await WheelRenderer.spin({
+      duration: DataStore.state.settings.spinDuration,
+      turns: DataStore.state.settings.spinTurns,
+      onTick: () => Sound.tick(),
+    });
+    if (idx < 0) { updateSpinButtonState(); return; }
+
+    const participant = DataStore.state.participants[idx];
+    const prize = DataStore.getPrize(DataStore.state.currentPrizeId);
+    if (!participant || !prize) { updateSpinButtonState(); return; }
+
+    const sponsor = prize.sponsorId ? DataStore.getSponsor(prize.sponsorId) : null;
+    pendingWinner = { participant, prize, sponsor };
+    showWinner();
+    updateSpinButtonState();
+  }
+
+  function showWinner() {
+    const { participant, prize, sponsor } = pendingWinner;
+    $('#winnerName').textContent = participant.name;
+    $('#winnerPrizeName').textContent = prize.name;
+    if (sponsor) {
+      $('#winnerSponsorWrap').classList.remove('hidden');
+      $('#winnerSponsorName').textContent = sponsor.name;
+      const lg = $('#winnerSponsorLogo');
+      lg.innerHTML = sponsor.logoDataUrl ? `<img src="${sponsor.logoDataUrl}" alt="">` : '';
+    } else $('#winnerSponsorWrap').classList.add('hidden');
+    openModal('winnerOverlay');
+    setTimeout(() => Confetti.burst(), 80);
+    setTimeout(() => Sound.fanfare(), 80);
+  }
+
+  function finalizeWin(removeParticipant) {
+    if (!pendingWinner) return;
+    EventManager.awardCurrent(pendingWinner.participant, removeParticipant);
+    pendingWinner = null;
+    closeModal('winnerOverlay');
+    refreshAll();
+    // Auto-pick next open prize for convenience
+    const next = EventManager.pickNextOpen ? null : null;
+  }
+
+  function spinAgain() {
+    pendingWinner = null;
+    closeModal('winnerOverlay');
+    setTimeout(doSpin, 350);
+  }
+
+  /* ─── CSV Export ─── */
+  function exportCSV() {
+    const rows = [['Zeitstempel', 'Gewinner', 'Preis', 'Sponsor']];
+    DataStore.state.history.forEach(h => {
+      rows.push([new Date(h.ts).toLocaleString('de-DE'), h.participantName, h.prizeName, h.sponsorName || '']);
+    });
+    const csv = rows.map(r => r.map(c => {
+      const s = String(c ?? '');
+      return /[",;\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+    }).join(';')).join('\r\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `pcfr-tombola-${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    toast('CSV exportiert', 'success');
+  }
+
+  /* ─── Bind events ─── */
+  function bindEvents() {
+    window.addEventListener('resize', () => WheelRenderer.resize());
+
+    // Drawer tabs
+    $$('.drawer-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        $$('.drawer-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        $$('.tab-pane').forEach(p => p.classList.add('hidden'));
+        const cap = tab.dataset.tab[0].toUpperCase() + tab.dataset.tab.slice(1);
+        $('#pane' + cap).classList.remove('hidden');
+      });
+    });
+
+    // Spin
+    $('#btnSpin').addEventListener('click', doSpin);
+    document.addEventListener('keydown', e => {
+      const tag = (e.target.tagName || '').toUpperCase();
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable) return;
+      if (e.key === ' ' || e.code === 'Space') {
+        e.preventDefault();
+        if ($('#winnerOverlay').classList.contains('show')) return;
+        doSpin();
+      }
+      if (e.key === 'Escape') {
+        if ($('#winnerOverlay').classList.contains('show')) { spinAgain(); return; }
+        $$('.overlay.show').forEach(o => o.classList.remove('show'));
+      }
+      if (e.key === 'Enter' && $('#winnerOverlay').classList.contains('show')) {
+        e.preventDefault();
+        finalizeWin(true);
+      }
+      if (e.key.toLowerCase() === 'f' && !$$('.overlay.show').length) {
+        document.getElementById('app').classList.toggle('fullscreen');
+        setTimeout(() => WheelRenderer.resize(), 50);
+      }
+    });
+
+    // Participants bulk
+    $('#btnAppendParticipants').addEventListener('click', () => handleParticipantsBulk('append'));
+    $('#btnReplaceParticipants').addEventListener('click', async () => {
+      if (DataStore.state.participants.length > 0) {
+        const ok = await confirmDialog('Liste ersetzen?', 'Alle aktuellen Teilnehmer werden ersetzt.', 'Ersetzen');
+        if (!ok) return;
+      }
+      handleParticipantsBulk('replace');
+    });
+    $('#btnAddParticipant').addEventListener('click', () => {
+      const name = $('#newParticipantName').value.trim();
+      if (!name) { toast('Bitte Namen eingeben', 'error'); return; }
+      DataStore.addParticipant(name);
+      $('#newParticipantName').value = '';
+      refreshAll();
+      toast('Teilnehmer hinzugefügt', 'success');
+    });
+    $('#newParticipantName').addEventListener('keydown', e => { if (e.key==='Enter') $('#btnAddParticipant').click(); });
+    $('#btnClearParticipants').addEventListener('click', async () => {
+      if (DataStore.state.participants.length === 0) return;
+      const ok = await confirmDialog('Alle Teilnehmer löschen?', `${DataStore.state.participants.length} werden entfernt.`, 'Alle löschen', 'btn-danger');
+      if (!ok) return;
+      DataStore.clearParticipants(); refreshAll();
+      toast('Alle Teilnehmer entfernt', 'success');
+    });
+
+    // Sponsors
+    $('#logoFile').addEventListener('change', async e => {
+      const f = e.target.files[0]; if (!f) return;
+      try {
+        const url = await readImageFile(f);
+        pendingLogo = { dataUrl: url };
+        $('#logoUploadText').textContent = f.name.length > 24 ? f.name.slice(0,21)+'…' : f.name;
+        $('#logoUploadLabel').classList.add('has-file');
+        $('#logoPreview').style.display = 'block';
+        $('#logoPreviewImg').src = url;
+      } catch (err) {
+        toast(err.message, 'error');
+        $('#logoFile').value = '';
+      }
+    });
+    $('#btnAddSponsor').addEventListener('click', () => {
+      const name = $('#newSponsorName').value.trim();
+      if (!name) { toast('Bitte Sponsor-Namen eingeben', 'error'); return; }
+      DataStore.addSponsor(name, pendingLogo ? pendingLogo.dataUrl : '');
+      $('#newSponsorName').value = '';
+      $('#logoFile').value = '';
+      $('#logoUploadText').textContent = 'Logo wählen (max. 2 MB)';
+      $('#logoUploadLabel').classList.remove('has-file');
+      $('#logoPreview').style.display = 'none';
+      pendingLogo = null;
+      refreshAll();
+      toast('Sponsor hinzugefügt', 'success');
+    });
+
+    // Prizes
+    $('#btnAppendPrizes').addEventListener('click', handlePrizesBulk);
+    $('#btnAddPrize').addEventListener('click', () => {
+      const name = $('#newPrizeName').value.trim();
+      if (!name) { toast('Bitte Preisname eingeben', 'error'); return; }
+      DataStore.addPrize(name, $('#newPrizeSponsor').value);
+      $('#newPrizeName').value = ''; $('#newPrizeSponsor').value = '';
+      refreshAll();
+      toast('Preis hinzugefügt', 'success');
+    });
+    $('#newPrizeName').addEventListener('keydown', e => { if (e.key==='Enter') $('#btnAddPrize').click(); });
+    $('#btnClearPrizes').addEventListener('click', async () => {
+      if (DataStore.state.prizes.length === 0) return;
+      const ok = await confirmDialog('Alle Preise löschen?', `${DataStore.state.prizes.length} werden entfernt. Historien-Einträge bleiben.`, 'Alle löschen', 'btn-danger');
+      if (!ok) return;
+      DataStore.clearPrizes(); refreshAll();
+      toast('Alle Preise entfernt', 'success');
+    });
+    $$('[data-filter]').forEach(b => {
+      b.addEventListener('click', () => {
+        $$('[data-filter]').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        prizeFilter = b.dataset.filter;
+        renderPrizes();
+      });
+    });
+
+    // Picker
+    $('#btnPickPrize').addEventListener('click', () => {
+      pickerFilter = 'open';
+      $$('[data-pickfilter]').forEach(x => x.classList.toggle('active', x.dataset.pickfilter === 'open'));
+      renderPicker();
+      openModal('pickerOverlay');
+    });
+    $('#btnPickNext').addEventListener('click', () => {
+      const next = EventManager.pickNextOpen();
+      if (!next) { toast('Keine offenen Preise mehr', 'warn'); return; }
+      renderPrizeBanner(); updateSpinButtonState();
+      toast(`Aktueller Preis: ${next.name}`, 'success');
+    });
+    $$('[data-pickfilter]').forEach(b => {
+      b.addEventListener('click', () => {
+        $$('[data-pickfilter]').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        pickerFilter = b.dataset.pickfilter;
+        renderPicker();
+      });
+    });
+    $('#pickerOverlay').addEventListener('click', e => {
+      if (e.target.id === 'pickerOverlay') closeModal('pickerOverlay');
+    });
+
+    // Settings drawer
+    $('#btnSettings').addEventListener('click', () => openModal('settingsOverlay'));
+    $$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close + 'Overlay')));
+    $('#settingsOverlay').addEventListener('click', e => {
+      if (e.target.id === 'settingsOverlay') closeModal('settingsOverlay');
+    });
+
+    $('#setSpinDuration').addEventListener('input', e => {
+      const v = parseFloat(e.target.value);
+      $('#valSpinDuration').textContent = v;
+      DataStore.setSetting('spinDuration', v);
+    });
+    $('#setSpinTurns').addEventListener('input', e => {
+      const v = parseInt(e.target.value, 10);
+      $('#valSpinTurns').textContent = v;
+      DataStore.setSetting('spinTurns', v);
+    });
+    $('#setSound').addEventListener('click', () => { DataStore.setSetting('sound', !DataStore.state.settings.sound); renderSettings(); });
+    $('#setConfetti').addEventListener('click', () => { DataStore.setSetting('confetti', !DataStore.state.settings.confetti); renderSettings(); });
+    $$('.theme-card').forEach(c => c.addEventListener('click', () => {
+      DataStore.setSetting('theme', c.dataset.theme); applyTheme(); refreshAll();
+    }));
+    $('#btnResetAll').addEventListener('click', async () => {
+      const ok = await confirmDialog('Alle Daten zurücksetzen?',
+        'Teilnehmer, Sponsoren, Preise, Historie und Einstellungen werden gelöscht.',
+        'Zurücksetzen', 'btn-danger');
+      if (!ok) return;
+      DataStore.reset();
+      applyTheme(); refreshAll();
+      closeModal('settingsOverlay');
+      toast('Alle Daten zurückgesetzt', 'success');
+    });
+
+    // History
+    $('#btnHistory').addEventListener('click', () => { renderHistory(); openModal('historyOverlay'); });
+    $('#btnClearHistory').addEventListener('click', async () => {
+      if (DataStore.state.history.length === 0) return;
+      const ok = await confirmDialog('Historie löschen?', 'Alle Einträge werden entfernt. Vergebene Preise bleiben vergeben.', 'Löschen', 'btn-danger');
+      if (!ok) return;
+      DataStore.clearHistory(); renderHistory();
+      toast('Historie gelöscht', 'success');
+    });
+    $('#btnExportCsv').addEventListener('click', () => {
+      if (DataStore.state.history.length === 0) { toast('Historie ist leer', 'error'); return; }
+      exportCSV();
+    });
+    $('#historyOverlay').addEventListener('click', e => {
+      if (e.target.id === 'historyOverlay') closeModal('historyOverlay');
+    });
+
+    // Winner modal actions
+    $('#btnConfirmRemove').addEventListener('click', () => finalizeWin(true));
+    $('#btnConfirmKeep').addEventListener('click', () => finalizeWin(false));
+    $('#btnSpinAgain').addEventListener('click', spinAgain);
+    $('#winnerOverlay').addEventListener('click', e => {
+      if (e.target.id === 'winnerOverlay') spinAgain();
+    });
+
+    // Fullscreen
+    $('#btnFullscreen').addEventListener('click', () => {
+      document.getElementById('app').classList.toggle('fullscreen');
+      setTimeout(() => WheelRenderer.resize(), 50);
+    });
+
+    // Tour
+    $('#btnTourNext').addEventListener('click', () => Tour.next());
+    $('#btnTourSkip').addEventListener('click', () => Tour.end());
+  }
+
+  return { init, refreshAll };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Tour — 3-step onboarding
+   ════════════════════════════════════════════════════════════════════════════ */
+const Tour = (() => {
+  const steps = [
+    { num:'1', title:'Teilnehmer importieren', desc:'Öffne die <strong>Verwaltung</strong> und füge die Liste aller Teilnehmer ein – einfach aus Excel kopieren. Diese Personen erscheinen als Slices auf dem Rad.' },
+    { num:'2', title:'Sponsoren & Preise anlegen', desc:'Lege im zweiten und dritten Tab die Sponsoren mit Logos und die Preise an. Jeder Preis kann einem Sponsor zugeordnet werden.' },
+    { num:'3', title:'Spinnen!', desc:'Wähle vor jedem Spin einen <strong>Preis</strong> aus und drehe das Rad – mit dem Button oder der <strong>Leertaste</strong>. Das Pop-up zeigt den Gewinner.' },
+  ];
+  let i = 0;
+  function start() { i = 0; show(); document.getElementById('tourOverlay').classList.add('show'); }
+  function show() {
+    const s = steps[i];
+    document.getElementById('tourStepNum').textContent = s.num;
+    document.getElementById('tourTitle').textContent = s.title;
+    document.getElementById('tourDesc').innerHTML = s.desc;
+    document.querySelectorAll('.tour-dot').forEach((d, idx) => d.classList.toggle('active', idx === i));
+    document.getElementById('btnTourNext').textContent = i === steps.length - 1 ? 'Los geht\'s' : 'Weiter';
+  }
+  function next() { i++; if (i >= steps.length) end(); else show(); }
+  function end() {
+    document.getElementById('tourOverlay').classList.remove('show');
+    DataStore.markTourDone();
+  }
+  return { start, next, end };
+})();
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Boot + seed
+   ════════════════════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', UIController.init);
+
+(function seedIfEmpty() {
+  const s = DataStore.state;
+  if (s.participants.length === 0 && s.sponsors.length === 0 && s.prizes.length === 0 && s.history.length === 0) {
+    const sp1 = DataStore.addSponsor('11Teamsport', '');
+    const sp2 = DataStore.addSponsor('padel2leon', '');
+    const sp3 = DataStore.addSponsor('Lexware', '');
+    DataStore.addPrize('Premium Padel-Schläger', sp1);
+    DataStore.addPrize('1h Padel-Stunde', sp2);
+    DataStore.addPrize('PCFR Vereins-Shirt', '');
+    DataStore.addPrize('Wochenend-Trip für 2', sp3);
+    DataStore.addPrize('Padel-Ball-Set', sp1);
+    ['Anna Müller','Ben Schmidt','Carla Wagner','Daniel Becker','Elena Fischer','Felix Hoffmann','Greta Klein','Hannes Lang','Inga Mayer','Jonas Neumann','Klara Pohl','Lukas Roth'].forEach(n => DataStore.addParticipant(n));
+  }
+})();
+</script>
+</body>
+</html>
