@@ -9,11 +9,16 @@
 //
 // remaining = capacityTotal - confirmedFromSheet - activeHolds
 
+import { EVENT_CONFIG } from "./event-config.js";
+
 const HOLD_PREFIX = "hold:";
 const PROCESSED_PREFIX = "processed:";
 const EMAIL_FAILED_PREFIX = "email-failed:";
 
-const HOLD_TTL_SECONDS = 30 * 60; // matches the Stripe Checkout Session expiry
+// Always a few minutes longer than the Stripe Checkout Session itself, so a
+// hold can never expire while its checkout page might technically still be
+// payable.
+const HOLD_TTL_SECONDS = (EVENT_CONFIG.checkoutExpiresInMinutes + 5) * 60;
 const CONFIRMED_HOLD_TTL_SECONDS = 48 * 60 * 60; // safety net once payment succeeded
 const PROCESSED_TTL_SECONDS = 30 * 24 * 60 * 60;
 const EMAIL_FAILED_TTL_SECONDS = 30 * 24 * 60 * 60;

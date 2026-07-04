@@ -386,10 +386,23 @@
   const EXTRA_LOS_PRICE = 20;
 
   let memberVerified = false;
+  let checkToken = 0;
+  let lastCheckedKey = null;
 
   function isMemberSelected(){
     const el = form.querySelector('input[name="isMember"]:checked');
     return el && el.value === 'ja';
+  }
+
+  function currentMemberKey(){
+    return [firstNameInput.value.trim(), familyNameInput.value.trim(), membershipNumberInput.value.trim()].join('|');
+  }
+
+  function resetMemberCheckState(){
+    memberVerified = false;
+    lastCheckedKey = null;
+    checkStatus.textContent = '';
+    checkStatus.className = 'check-status';
   }
 
   function updateMemberPanelVisibility(){
@@ -397,9 +410,18 @@
     memberPanel.classList.toggle('visible', show);
     membershipNumberInput.required = show;
     if(!show){
-      memberVerified = false;
-      checkStatus.textContent = '';
-      checkStatus.className = 'check-status';
+      resetMemberCheckState();
+      updateSummary();
+    }
+  }
+
+  // If the person edits name or number after a check already ran, the old
+  // checkmark would otherwise keep showing while they type a different
+  // value. Clear it immediately; the blur handler re-checks the new value.
+  function invalidateIfChanged(){
+    if(!isMemberSelected() || lastCheckedKey === null) return;
+    if(currentMemberKey() !== lastCheckedKey){
+      resetMemberCheckState();
       updateSummary();
     }
   }
@@ -409,13 +431,16 @@
     const firstName = firstNameInput.value.trim();
     const familyName = familyNameInput.value.trim();
     const membershipNumber = membershipNumberInput.value.trim();
+    const key = [firstName, familyName, membershipNumber].join('|');
+
     if(!firstName || !familyName || !membershipNumber){
-      memberVerified = false;
-      checkStatus.textContent = '';
-      checkStatus.className = 'check-status';
+      resetMemberCheckState();
       updateSummary();
       return;
     }
+    if(key === lastCheckedKey) return; // unchanged since the last check, nothing to do
+
+    const myToken = ++checkToken;
     checkStatus.textContent = 'Mitgliedschaft wird geprüft …';
     checkStatus.className = 'check-status checking';
     try{
@@ -425,16 +450,20 @@
         body: JSON.stringify({firstName, familyName, membershipNumber})
       });
       const data = await res.json();
+      if(myToken !== checkToken) return; // a newer check started meanwhile, ignore this stale result
       memberVerified = !!data.verified;
+      lastCheckedKey = key;
       if(memberVerified){
         checkStatus.textContent = '✓ Mitgliedschaft bestätigt, du hast ein Extra-Los.';
         checkStatus.className = 'check-status ok';
       } else {
-        checkStatus.textContent = 'Mitgliedsnummer und Name konnten nicht zugeordnet werden. Du kannst dich trotzdem anmelden, ohne Mitglieds-Los.';
+        checkStatus.textContent = 'Mitgliedsnummer ungültig. Du kannst dich trotzdem anmelden, ohne Mitglieds-Los.';
         checkStatus.className = 'check-status fail';
       }
     } catch(err){
+      if(myToken !== checkToken) return;
       memberVerified = false;
+      lastCheckedKey = null;
       checkStatus.textContent = 'Prüfung gerade nicht möglich, das wird bei der Zahlung erneut versucht.';
       checkStatus.className = 'check-status fail';
     }
@@ -453,6 +482,9 @@
 
   form.querySelectorAll('input[name="isMember"]').forEach(el => {
     el.addEventListener('change', updateMemberPanelVisibility);
+  });
+  [firstNameInput, familyNameInput, membershipNumberInput].forEach(el => {
+    el.addEventListener('input', invalidateIfChanged);
   });
   membershipNumberInput.addEventListener('blur', runMembershipCheck);
   firstNameInput.addEventListener('blur', () => { if(membershipNumberInput.value.trim()) runMembershipCheck(); });

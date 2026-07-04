@@ -68,6 +68,7 @@ export async function onRequestPost(context) {
     String(totalLose),
     amountPaidEuros.toFixed(2),
     sessionId,
+    meta.memberCheckError || "nein",
   ];
 
   try {

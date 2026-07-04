@@ -11,6 +11,11 @@ export const EVENT_CONFIG = {
 
   capacityTotal: 56,
 
+  // Stripe requires expires_at to be at least 30 minutes out; 32 leaves a
+  // safety margin so normal network latency can never push a request
+  // under that floor and cause Stripe to reject session creation outright.
+  checkoutExpiresInMinutes: 32,
+
   priceBaseCents: 2500, // EUR 25 Startgebühr
   priceExtraLosCents: 2000, // EUR 20 Zusatzlos
 

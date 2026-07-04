@@ -32,7 +32,7 @@ function toFormBody(obj) {
  */
 export async function createCheckoutSession(
   env,
-  { lineItems, metadata, successUrl, cancelUrl, customerEmail, expiresInMinutes = 30 }
+  { lineItems, metadata, successUrl, cancelUrl, customerEmail, expiresInMinutes = 32 }
 ) {
   const expiresAt = Math.floor(Date.now() / 1000) + expiresInMinutes * 60;
 
@@ -47,6 +47,7 @@ export async function createCheckoutSession(
 
   const body = toFormBody({
     mode: "payment",
+    locale: "de",
     success_url: successUrl,
     cancel_url: cancelUrl,
     line_items: stripeLineItems,
