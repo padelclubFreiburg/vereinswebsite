@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anmeldung Americano Turnier – Padel Club Freiburg</title>
+<meta name="description" content="Anmeldung zum Americano Turnier des Padel Club Freiburg, 25.07.2026 bei Blackforest Padel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lilac:#cea8f0;
+    --lilac-soft:#f4ecfc;
+    --ink:#1f1f1f;
+    --ink-soft:#5c5c5c;
+    --white:#ffffff;
+    --grey:#f2f2f2;
+    --grey-line:#e2e0e0;
+    --lime:#c8f000;
+    --lime-dark:#a8ca00;
+    --petrol:#0f4c5c;
+    --petrol-soft:#e4eef0;
+    --radius:14px;
+    --shadow:0 12px 28px -16px rgba(31,31,31,.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    letter-spacing:-.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:var(--petrol);}
+  topbar, .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:800px; margin:0 auto; padding:20px 24px 0;
+  }
+  .topbar img{height:40px; display:block;}
+  .topbar a{font-size:13.5px; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .topbar a:hover{color:var(--petrol);}
+
+  .hero{
+    max-width:800px; margin:0 auto; padding:28px 24px 8px; position:relative;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    background:var(--lilac-soft); color:#6a3fa0;
+    padding:7px 14px; border-radius:999px;
+    margin-bottom:20px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--lilac);}
+  h1{font-size:clamp(32px,6vw,50px); line-height:1.05; max-width:14ch;}
+  .hero-sub{
+    margin-top:16px; font-size:17px; max-width:56ch; color:var(--ink-soft);
+  }
+  .hero-meta{
+    margin-top:26px; display:flex; flex-wrap:wrap; gap:10px 30px;
+    padding-bottom:26px; border-bottom:1px solid var(--grey-line);
+  }
+  .hero-meta div{font-size:14.5px; color:var(--ink-soft);}
+  .hero-meta strong{display:block; font-size:16.5px; font-weight:800; color:var(--ink);}
+
+  main{max-width:800px; margin:0 auto; padding:0 24px;}
+  .card{
+    background:var(--white);
+    border:1px solid var(--grey-line);
+    border-radius:var(--radius);
+    padding:32px;
+    margin-top:24px;
+  }
+  h2{font-size:21px; margin-bottom:16px;}
+  .format-list{margin:0 0 24px; padding-left:20px; color:var(--ink-soft);}
+  .format-list li{margin-bottom:8px;}
+
+  .perks{
+    display:flex; flex-wrap:wrap; gap:22px; margin:20px 0 26px;
+  }
+  .perk{display:flex; align-items:center; gap:10px; font-size:14px; font-weight:700; min-width:150px;}
+  .perk .icon{
+    width:38px; height:38px; border-radius:50%; background:var(--lilac);
+    display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0;
+  }
+
+  .tombola-callout{
+    background:var(--petrol);
+    color:#eaf3f3;
+    border-radius:12px;
+    padding:20px 22px;
+    font-size:14.5px;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  .tombola-callout .icon{font-size:26px; line-height:1;}
+  .tombola-callout strong{color:var(--white);}
+
+  .where-when{
+    display:flex; gap:32px; flex-wrap:wrap; margin-top:24px;
+    padding-top:22px; border-top:1px solid var(--grey-line);
+  }
+  .where-when div strong{display:block; font-size:14.5px; margin-bottom:2px;}
+
+  form{display:flex; flex-direction:column; gap:20px;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{font-size:13.5px; font-weight:700;}
+  .field .hint{font-size:12.5px; color:var(--ink-soft); font-weight:400;}
+  input[type=text], input[type=email], input[type=tel], select{
+    font:inherit; padding:12px 14px; border-radius:10px;
+    border:1.5px solid var(--grey-line); background:var(--grey);
+    color:var(--ink);
+  }
+  input:focus-visible, select:focus-visible, button:focus-visible, .toggle input:focus-visible + span{
+    outline:3px solid var(--petrol); outline-offset:2px;
+  }
+  .row-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:520px){ .row-2{grid-template-columns:1fr;} }
+
+  .toggle-group{display:flex; gap:10px;}
+  .toggle{position:relative;}
+  .toggle input{position:absolute; opacity:0; inset:0; cursor:pointer;}
+  .toggle span{
+    display:block; padding:11px 22px; border-radius:999px;
+    border:1.5px solid var(--grey-line); background:var(--grey);
+    font-weight:700; font-size:14px; cursor:pointer; transition:background .15s, border-color .15s, color .15s;
+  }
+  .toggle input:checked + span{
+    background:var(--ink); border-color:var(--ink); color:var(--white);
+  }
+
+  .member-panel{
+    border-left:3px solid var(--lilac); background:var(--lilac-soft);
+    border-radius:0 10px 10px 0; padding:16px 18px; display:none; flex-direction:column; gap:10px;
+  }
+  .member-panel.visible{display:flex;}
+  .member-link{font-size:12.5px; color:var(--ink-soft);}
+  .member-link a{color:var(--ink-soft); text-decoration:underline;}
+  .check-status{font-size:13.5px; font-weight:700; min-height:18px;}
+  .check-status.checking{color:var(--ink-soft); font-weight:500;}
+  .check-status.ok{color:#6a3fa0;}
+  .check-status.fail{color:var(--ink-soft); font-weight:500;}
+
+  .checkbox-row{display:flex; align-items:flex-start; gap:10px;}
+  .checkbox-row input{margin-top:3px; width:18px; height:18px; accent-color:var(--petrol);}
+  .checkbox-row label{font-size:14.5px; font-weight:500;}
+
+  .tickets{
+    display:flex; gap:10px; flex-wrap:wrap; margin:4px 0 2px;
+  }
+  .ticket{
+    flex:1 1 110px;
+    border:1.5px dashed var(--grey-line);
+    border-radius:10px;
+    padding:10px 12px;
+    font-size:12.5px; font-weight:700; text-align:center;
+    color:var(--ink-soft);
+    background:var(--grey);
+    transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+  }
+  .ticket .n{display:block; font-weight:900; font-size:20px; margin-bottom:2px;}
+  .ticket.active{
+    border-style:solid; border-color:var(--lime-dark); background:var(--lime); color:var(--ink);
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .ticket.active{animation:pop .28s ease;}
+  }
+  @keyframes pop{ 0%{transform:scale(1);} 45%{transform:scale(1.06);} 100%{transform:scale(1);} }
+
+  .summary{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-top:1px solid var(--grey-line); padding-top:16px; margin-top:4px;
+  }
+  .summary .label{font-size:14px; color:var(--ink-soft);}
+  .summary .amount{font-weight:900; font-size:26px; color:var(--ink);}
+
+  button.submit{
+    font:inherit; font-weight:800; font-size:16px;
+    background:var(--lime); color:var(--ink); border:none;
+    padding:16px; border-radius:10px; cursor:pointer;
+    transition:background .15s;
+  }
+  button.submit:hover{background:var(--lime-dark);}
+  button.submit:disabled{background:var(--grey-line); color:var(--ink-soft); cursor:not-allowed;}
+
+  .notice{
+    border-radius:10px; padding:14px 16px; font-size:14px; font-weight:500;
+  }
+  .notice.error{background:#fbe9e4; color:#9c3717; border:1px solid #f0c6b6;}
+  .notice.info{background:var(--petrol-soft); color:var(--petrol); border:1px solid #cfe1e5;}
+
+  .sold-out{
+    text-align:center; padding:28px 16px;
+  }
+  .sold-out h3{font-size:20px; margin-bottom:8px;}
+
+  .seats-left{font-size:13px; color:var(--ink-soft); margin-top:-8px;}
+
+  footer{max-width:800px; margin:0 auto; padding:36px 24px 56px; font-size:13.5px; color:var(--ink-soft);}
+  footer a{color:var(--petrol); font-weight:600;}
+
+  [hidden]{display:none !important;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="pcf-logo.png" alt="Padel Club Freiburg e.V.">
+  <a href="https://www.padelclub-freiburg.de/" target="_blank" rel="noopener">Zur Website ↗</a>
+</div>
+
+<header class="hero">
+  <span class="eyebrow"><span class="dot"></span>Padel Club Freiburg e.V.</span>
+  <h1>Americano Turnier</h1>
+  <p class="hero-sub">Ein Tag lockeres Padel mit wechselnden Partner:innen, Café-Vibes und einer Tombola, bei der eine Reise in den Robinson Club winkt.</p>
+  <div class="hero-meta">
+    <div><strong>25.07.2026</strong>Sonntag, 11:00 – 17:00 Uhr</div>
+    <div><strong>Blackforest Padel</strong>Austragungsort</div>
+    <div><strong>EUR 25</strong>Startgebühr</div>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Americano-Format</h2>
+    <p style="color:var(--ink-soft)">Gespielt wird in einem lockeren Americano-Format mit wechselnden Spielpartner:innen.</p>
+    <ul class="format-list">
+      <li>Du meldest dich alleine an.</li>
+      <li>In jeder Runde bekommst du einen neuen Partner oder eine neue Partnerin und neue Gegner:innen.</li>
+      <li>So lernst du viele verschiedene Spieler:innen kennen und hast abwechslungsreiche Matches.</li>
+    </ul>
+
+    <h2>Was dich erwartet</h2>
+    <div class="perks">
+      <div class="perk"><span class="icon">☕</span>Café &amp; gute Vibes</div>
+      <div class="perk"><span class="icon">🥤</span>Drinks</div>
+      <div class="perk"><span class="icon">🍴</span>Food &amp; Snacks</div>
+      <div class="perk"><span class="icon">🎯</span>Schlägertesting &amp; Side-Events</div>
+    </div>
+
+    <div class="tombola-callout">
+      <span class="icon">🎟️</span>
+      <div><strong>Tombola mit einer Reise in den Robinson Club (3 Tage)</strong> und weiteren Preisen. Jede Anmeldung bringt automatisch ein Los, Mitglieder und Zusatzlos-Käufer:innen bekommen mehr Chancen, Details dazu direkt im Formular.</div>
+    </div>
+
+    <div class="where-when">
+      <div><strong>Wann</strong>Sonntag, 25.07.2026, 11:00 – 17:00 Uhr</div>
+      <div><strong>Wo</strong>Blackforest Padel</div>
+    </div>
+  </section>
+
+  <section class="card" id="registration">
+    <h2>Anmeldung</h2>
+
+    <p id="seats-left" class="seats-left" hidden></p>
+
+    <div id="sold-out" class="sold-out" hidden>
+      <h3>Ausgebucht</h3>
+      <p>Alle 56 Plätze sind vergeben. Schreib uns gerne, falls jemand absagt und ein Platz frei wird.</p>
+    </div>
+
+    <div id="cancelled-notice" class="notice info" hidden style="margin-bottom:18px;">
+      Die Zahlung wurde abgebrochen. Du kannst es unten gerne erneut versuchen, es wurde nichts abgebucht.
+    </div>
+
+    <form id="reg-form">
+      <div class="row-2">
+        <div class="field">
+          <label for="firstName">Vorname *</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="familyName">Nachname *</label>
+          <input type="text" id="familyName" name="familyName" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">E-Mail *</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="mobile">Mobil-Nr. *</label>
+          <input type="tel" id="mobile" name="mobile" required autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="playtomicLevel">Playtomic Level</label>
+          <input type="text" id="playtomicLevel" name="playtomicLevel" placeholder="z. B. 2,4">
+          <span class="hint">Optional, hilft uns bei der Rundeneinteilung.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="gender">Geschlecht *</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Bitte wählen</option>
+          <option value="weiblich">Weiblich</option>
+          <option value="maennlich">Männlich</option>
+          <option value="divers">Divers</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Bist du Mitglied des Padel Club Freiburg? *</label>
+        <div class="toggle-group" role="radiogroup" aria-label="Mitgliedschaft">
+          <label class="toggle">
+            <input type="radio" name="isMember" value="nein" checked>
+            <span>Nein</span>
+          </label>
+          <label class="toggle">
+            <input type="radio" name="isMember" value="ja">
+            <span>Ja</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="member-panel" id="member-panel">
+        <div class="field">
+          <label for="membershipNumber">Mitgliedsnummer *</label>
+          <input type="text" id="membershipNumber" name="membershipNumber" inputmode="numeric" autocomplete="off">
+        </div>
+        <p class="check-status" id="check-status" aria-live="polite"></p>
+        <p class="member-link">Noch kein Mitglied? <a href="https://www.padelclub-freiburg.de/mitgliedschaft/" target="_blank" rel="noopener">Hier informieren</a></p>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="wantsExtraLos" name="wantsExtraLos">
+        <label for="wantsExtraLos">Ich möchte ein Zusatzlos für die Tombola dazu buchen (EUR 20, maximal eines pro Person)</label>
+      </div>
+
+      <div>
+        <div class="tickets" aria-hidden="true">
+          <div class="ticket active" id="ticket-base"><span class="n">1</span>Basis-Los</div>
+          <div class="ticket" id="ticket-member"><span class="n">+1</span>Mitglieds-Los</div>
+          <div class="ticket" id="ticket-extra"><span class="n">+1</span>Zusatzlos</div>
+        </div>
+        <p class="hint" id="lose-summary">Aktuell 1 Los für die Tombola.</p>
+      </div>
+
+      <div class="summary">
+        <span class="label">Gesamtbetrag</span>
+        <span class="amount" id="total-amount">EUR 25,00</span>
+      </div>
+
+      <div id="submit-error" class="notice error" hidden></div>
+
+      <button type="submit" class="submit" id="submit-btn">Weiter zur Zahlung</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  Im Anschluss findet die One-Shot-Challenge statt, die Anmeldung dafür läuft über ein separates Formular:
+  <a href="https://pretix.eu/pcfreiburg/one-shot/" target="_blank" rel="noopener">pretix.eu/pcfreiburg/one-shot</a>
+</footer>
+
+<script>
+(function(){
+  const memberPanel = document.getElementById('member-panel');
+  const membershipNumberInput = document.getElementById('membershipNumber');
+  const firstNameInput = document.getElementById('firstName');
+  const familyNameInput = document.getElementById('familyName');
+  const checkStatus = document.getElementById('check-status');
+  const extraLosCheckbox = document.getElementById('wantsExtraLos');
+  const ticketMember = document.getElementById('ticket-member');
+  const ticketExtra = document.getElementById('ticket-extra');
+  const loseSummary = document.getElementById('lose-summary');
+  const totalAmount = document.getElementById('total-amount');
+  const form = document.getElementById('reg-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitError = document.getElementById('submit-error');
+  const seatsLeftEl = document.getElementById('seats-left');
+  const soldOutEl = document.getElementById('sold-out');
+  const cancelledNotice = document.getElementById('cancelled-notice');
+
+  const BASE_PRICE = 25;
+  const EXTRA_LOS_PRICE = 20;
+
+  let memberVerified = false;
+
+  function isMemberSelected(){
+    const el = form.querySelector('input[name="isMember"]:checked');
+    return el && el.value === 'ja';
+  }
+
+  function updateMemberPanelVisibility(){
+    const show = isMemberSelected();
+    memberPanel.classList.toggle('visible', show);
+    membershipNumberInput.required = show;
+    if(!show){
+      memberVerified = false;
+      checkStatus.textContent = '';
+      checkStatus.className = 'check-status';
+      updateSummary();
+    }
+  }
+
+  async function runMembershipCheck(){
+    if(!isMemberSelected()) return;
+    const firstName = firstNameInput.value.trim();
+    const familyName = familyNameInput.value.trim();
+    const membershipNumber = membershipNumberInput.value.trim();
+    if(!firstName || !familyName || !membershipNumber){
+      memberVerified = false;
+      checkStatus.textContent = '';
+      checkStatus.className = 'check-status';
+      updateSummary();
+      return;
+    }
+    checkStatus.textContent = 'Mitgliedschaft wird geprüft …';
+    checkStatus.className = 'check-status checking';
+    try{
+      const res = await fetch('/api/check-membership', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({firstName, familyName, membershipNumber})
+      });
+      const data = await res.json();
+      memberVerified = !!data.verified;
+      if(memberVerified){
+        checkStatus.textContent = '✓ Mitgliedschaft bestätigt, du hast ein Extra-Los.';
+        checkStatus.className = 'check-status ok';
+      } else {
+        checkStatus.textContent = 'Mitgliedsnummer und Name konnten nicht zugeordnet werden. Du kannst dich trotzdem anmelden, ohne Mitglieds-Los.';
+        checkStatus.className = 'check-status fail';
+      }
+    } catch(err){
+      memberVerified = false;
+      checkStatus.textContent = 'Prüfung gerade nicht möglich, das wird bei der Zahlung erneut versucht.';
+      checkStatus.className = 'check-status fail';
+    }
+    updateSummary();
+  }
+
+  function updateSummary(){
+    const extra = extraLosCheckbox.checked;
+    ticketMember.classList.toggle('active', memberVerified);
+    ticketExtra.classList.toggle('active', extra);
+    const total = 1 + (memberVerified ? 1 : 0) + (extra ? 1 : 0);
+    loseSummary.textContent = 'Aktuell ' + total + ' Los' + (total === 1 ? '' : 'e') + ' für die Tombola.';
+    const amount = BASE_PRICE + (extra ? EXTRA_LOS_PRICE : 0);
+    totalAmount.textContent = 'EUR ' + amount.toFixed(2).replace('.', ',');
+  }
+
+  form.querySelectorAll('input[name="isMember"]').forEach(el => {
+    el.addEventListener('change', updateMemberPanelVisibility);
+  });
+  membershipNumberInput.addEventListener('blur', runMembershipCheck);
+  firstNameInput.addEventListener('blur', () => { if(membershipNumberInput.value.trim()) runMembershipCheck(); });
+  familyNameInput.addEventListener('blur', () => { if(membershipNumberInput.value.trim()) runMembershipCheck(); });
+  extraLosCheckbox.addEventListener('change', updateSummary);
+
+  updateMemberPanelVisibility();
+  updateSummary();
+
+  if(new URLSearchParams(location.search).get('cancelled') === '1'){
+    cancelledNotice.hidden = false;
+  }
+
+  async function loadAvailability(){
+    try{
+      const res = await fetch('/api/availability');
+      const data = await res.json();
+      if(data.full){
+        form.hidden = true;
+        soldOutEl.hidden = false;
+      } else if(typeof data.remaining === 'number'){
+        seatsLeftEl.hidden = false;
+        seatsLeftEl.textContent = 'Noch ' + data.remaining + ' von ' + data.total + ' Plätzen frei.';
+      }
+    } catch(err){
+      // If the check itself fails, just let people try to submit -- the
+      // server re-checks capacity authoritatively at that point anyway.
+    }
+  }
+  loadAvailability();
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    submitError.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird vorbereitet …';
+
+    const payload = {
+      firstName: firstNameInput.value.trim(),
+      familyName: familyNameInput.value.trim(),
+      email: document.getElementById('email').value.trim(),
+      mobile: document.getElementById('mobile').value.trim(),
+      playtomicLevel: document.getElementById('playtomicLevel').value.trim(),
+      gender: document.getElementById('gender').value,
+      isMember: isMemberSelected(),
+      membershipNumber: membershipNumberInput.value.trim(),
+      wantsExtraLos: extraLosCheckbox.checked
+    };
+
+    try{
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if(!res.ok){
+        throw new Error(data.message || 'Anmeldung fehlgeschlagen.');
+      }
+      window.location.href = data.url;
+    } catch(err){
+      submitError.textContent = err.message || 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
+      submitError.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Weiter zur Zahlung';
+    }
+  });
+})();
+</script>
+</body>
+</html>
