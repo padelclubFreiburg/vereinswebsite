@@ -72,10 +72,11 @@ export async function onRequestPost(context) {
       try {
         const result = await verifyMembership(env, { firstName, familyName, membershipNumber });
         bonusLos = result.verified ? 1 : 0;
-      } catch {
+      } catch (err) {
         // Fail closed on the ticket, but flag it distinctly from "genuinely no
         // match" so Fabio can spot-check the sheet for anyone who may have
         // missed a bonus ticket purely because easyVerein was unreachable.
+        console.error("create-checkout-session: easyVerein call failed:", err.message || err);
         bonusLos = 0;
         memberCheckError = true;
       }
@@ -148,6 +149,7 @@ export async function onRequestPost(context) {
     // Safety net for anything unexpected above: never let a raw exception
     // reach the client (the frontend always expects JSON back), and never
     // leave a seat reserved for a registration that didn't actually start.
+    console.error("create-checkout-session: unexpected failure:", err.message || err);
     if (holdId) {
       try {
         await releaseHold(env, holdId);

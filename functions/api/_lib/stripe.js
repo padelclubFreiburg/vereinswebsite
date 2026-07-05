@@ -59,7 +59,7 @@ export async function createCheckoutSession(
   const res = await fetch("https://api.stripe.com/v1/checkout/sessions", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
+      Authorization: `Bearer ${String(env.STRIPE_SECRET_KEY || "").trim()}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body,
@@ -100,6 +100,7 @@ function timingSafeEqual(a, b) {
  */
 export async function constructEvent(rawBody, sigHeader, secret, toleranceSeconds = 300) {
   if (!sigHeader) throw new Error("Missing Stripe-Signature header");
+  const cleanSecret = String(secret || "").trim();
 
   const timestamp = sigHeader.match(/t=(\d+)/)?.[1];
   const signatures = [...sigHeader.matchAll(/v1=([a-f0-9]+)/g)].map((m) => m[1]);
@@ -113,7 +114,7 @@ export async function constructEvent(rawBody, sigHeader, secret, toleranceSecond
     throw new Error("Stripe webhook timestamp outside tolerance");
   }
 
-  const expected = await hmacSha256Hex(secret, `${timestamp}.${rawBody}`);
+  const expected = await hmacSha256Hex(cleanSecret, `${timestamp}.${rawBody}`);
   const matches = signatures.some((sig) => timingSafeEqual(expected, sig));
   if (!matches) {
     throw new Error("Stripe webhook signature mismatch");

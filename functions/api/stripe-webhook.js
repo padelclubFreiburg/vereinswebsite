@@ -21,6 +21,7 @@ export async function onRequestPost(context) {
   try {
     event = await constructEvent(rawBody, sigHeader, env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
+    console.error("stripe-webhook: signature verification failed:", err.message || err);
     return new Response(`Webhook signature verification failed: ${err.message}`, { status: 400 });
   }
 
@@ -76,6 +77,7 @@ export async function onRequestPost(context) {
   } catch (err) {
     // Sheet write failed: return 500 so Stripe retries this webhook later.
     // The extended hold above keeps the seat reserved in the meantime.
+    console.error("stripe-webhook: sheet write failed:", err.message || err);
     return new Response(`Sheet write failed: ${err.message}`, { status: 500 });
   }
 

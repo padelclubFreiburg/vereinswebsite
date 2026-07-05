@@ -11,9 +11,10 @@ export async function onRequestGet(context) {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err) {
-    return new Response(
-      JSON.stringify({ error: "availability-check-failed", message: String(err.message || err) }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    console.error("availability: check failed:", err.message || err);
+    return new Response(JSON.stringify({ error: "availability-check-failed" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }

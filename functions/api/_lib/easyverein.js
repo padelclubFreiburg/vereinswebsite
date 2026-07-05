@@ -34,7 +34,10 @@ export async function verifyMembership(env, { firstName, familyName, membershipN
 
   const res = await fetch(`${BASE_URL}?${params.toString()}`, {
     headers: {
-      Authorization: `Bearer ${env.EASYVEREIN_API_KEY}`,
+      // .trim() guards against a trailing newline/space from copy-pasting the
+      // key into Cloudflare's secret field -- invisible in the dashboard, but
+      // it silently breaks Bearer auth and looks identical to "not found".
+      Authorization: `Bearer ${String(env.EASYVEREIN_API_KEY || "").trim()}`,
       "Content-Type": "application/json",
     },
   });

@@ -34,7 +34,7 @@ Wo: ${EVENT_CONFIG.location}
 
 Format: Lockeres Americano mit wechselnden Partner:innen und Gegner:innen, du meldest dich alleine an. In jeder Runde bekommst du einen neuen Partner oder eine neue Partnerin und neue Gegner:innen.
 
-Deine Lose für die Tombola (Hauptpreis: 3 Tage Robinson Club, plus weitere Preise):
+Deine Lose für die Tombola (Hauptpreis: 3 Tage Robinson Club, gesponsert von Reiseloft, plus weitere Preise):
 ${loseLines.map((l) => "- " + l).join("\n")}
 Gesamt: ${totalLose} Los${totalLose === 1 ? "" : "e"}
 
@@ -53,7 +53,7 @@ Padel Club Freiburg e.V.`;
 <p>Format: Lockeres Americano mit wechselnden Partner:innen und Gegner:innen, du meldest dich
 alleine an. In jeder Runde bekommst du einen neuen Partner oder eine neue Partnerin und neue
 Gegner:innen.</p>
-<p><strong>Deine Lose für die Tombola</strong> (Hauptpreis: 3 Tage Robinson Club, plus weitere Preise):</p>
+<p><strong>Deine Lose für die Tombola</strong> (Hauptpreis: 3 Tage Robinson Club, gesponsert von Reiseloft, plus weitere Preise):</p>
 <ul>${loseLines.map((l) => `<li>${l}</li>`).join("")}</ul>
 <p>Gesamt: <strong>${totalLose} Los${totalLose === 1 ? "" : "e"}</strong></p>
 <p>Im Anschluss findet die One-Shot-Challenge statt. Anmeldung dafür läuft separat:<br>
@@ -70,7 +70,7 @@ export async function sendConfirmationEmail(env, reg) {
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${String(env.RESEND_API_KEY || "").trim()}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({

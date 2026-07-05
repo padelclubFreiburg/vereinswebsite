@@ -102,6 +102,26 @@
   }
   .tombola-callout .icon{font-size:26px; line-height:1;}
   .tombola-callout strong{color:var(--white);}
+  .sponsor-badge{
+    display:inline-flex; align-items:center;
+    background:var(--white);
+    border-radius:8px;
+    padding:5px 12px;
+    margin-top:12px;
+  }
+  .sponsor-badge img{height:18px; display:block;}
+
+  .evening-callout{
+    background:var(--ink);
+    color:#ece8df;
+    border-radius:12px;
+    padding:20px 22px;
+    font-size:14.5px;
+    display:flex; gap:14px; align-items:flex-start;
+    margin-top:18px;
+  }
+  .evening-callout .icon{font-size:26px; line-height:1;}
+  .evening-callout strong{color:var(--lime);}
 
   .where-when{
     display:flex; gap:32px; flex-wrap:wrap; margin-top:24px;
@@ -247,12 +267,20 @@
 
     <div class="tombola-callout">
       <span class="icon">🎟️</span>
-      <div><strong>Tombola mit einer Reise in den Robinson Club (3 Tage)</strong> und weiteren Preisen. Jede Anmeldung bringt automatisch ein Los, Mitglieder und Zusatzlos-Käufer:innen bekommen mehr Chancen, Details dazu direkt im Formular.</div>
+      <div>
+        <div><strong>Tombola mit einer Reise in den Robinson Club (3 Tage)</strong>, gesponsert von Reiseloft, und weiteren Preisen. Jede Anmeldung bringt automatisch ein Los, Mitglieder und Zusatzlos-Käufer:innen bekommen mehr Chancen, Details dazu direkt im Formular.</div>
+        <div class="sponsor-badge"><img src="reiseloft-logo.png" alt="Reiseloft"></div>
+      </div>
     </div>
 
     <div class="where-when">
       <div><strong>Wann</strong>Sonntag, 25.07.2026, 11:00 – 17:00 Uhr</div>
       <div><strong>Wo</strong>Blackforest Padel</div>
+    </div>
+
+    <div class="evening-callout">
+      <span class="icon">🎧</span>
+      <div><strong>Der Tag hört hier nicht auf.</strong> Direkt im Anschluss an die Tombola startet bei Blackforest Padel der Abend mit Gin, Pizza und DJ, ein eigener Vibe nach dem Turnier. Dafür ist eine separate Anmeldung nötig (Details folgen), am besten gleich den ganzen Tag und Abend freihalten.</div>
     </div>
   </section>
 
@@ -327,6 +355,7 @@
         <div class="field">
           <label for="membershipNumber">Mitgliedsnummer *</label>
           <input type="text" id="membershipNumber" name="membershipNumber" inputmode="numeric" autocomplete="off">
+          <span class="hint">Du findest sie auf deinem digitalen Mitgliedsausweis.</span>
         </div>
         <p class="check-status" id="check-status" aria-live="polite"></p>
         <p class="member-link">Noch kein Mitglied? <a href="https://www.padelclub-freiburg.de/mitgliedschaft/" target="_blank" rel="noopener">Hier informieren</a></p>
@@ -451,14 +480,22 @@
       });
       const data = await res.json();
       if(myToken !== checkToken) return; // a newer check started meanwhile, ignore this stale result
-      memberVerified = !!data.verified;
-      lastCheckedKey = key;
-      if(memberVerified){
-        checkStatus.textContent = '✓ Mitgliedschaft bestätigt, du hast ein Extra-Los.';
-        checkStatus.className = 'check-status ok';
-      } else {
-        checkStatus.textContent = 'Mitgliedsnummer ungültig. Du kannst dich trotzdem anmelden, ohne Mitglieds-Los.';
+      if(data.reason === 'check-unavailable'){
+        // Backend/API problem (e.g. credentials, network), not a real mismatch.
+        // Not cached as lastCheckedKey, so the next blur retries automatically.
+        memberVerified = false;
+        checkStatus.textContent = 'Mitgliedsprüfung gerade technisch nicht möglich. Das wird bei der Zahlung automatisch erneut versucht.';
         checkStatus.className = 'check-status fail';
+      } else {
+        memberVerified = !!data.verified;
+        lastCheckedKey = key;
+        if(memberVerified){
+          checkStatus.textContent = '✓ Mitgliedschaft bestätigt, du hast ein Extra-Los.';
+          checkStatus.className = 'check-status ok';
+        } else {
+          checkStatus.textContent = 'Mitgliedsnummer ungültig. Du kannst dich trotzdem anmelden, ohne Mitglieds-Los.';
+          checkStatus.className = 'check-status fail';
+        }
       }
     } catch(err){
       if(myToken !== checkToken) return;

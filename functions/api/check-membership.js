@@ -31,6 +31,7 @@ export async function onRequestPost(context) {
     const result = await verifyMembership(env, { firstName, familyName, membershipNumber });
     return jsonResponse(result);
   } catch (err) {
+    console.error("check-membership: easyVerein call failed:", err.message || err);
     return jsonResponse({ verified: false, reason: "check-unavailable" });
   }
 }

@@ -27,7 +27,7 @@ function base64UrlEncodeString(str) {
 }
 
 function pemToArrayBuffer(pem) {
-  const normalized = pem.replace(/\\n/g, "\n");
+  const normalized = String(pem || "").trim().replace(/\\n/g, "\n");
   const base64Body = normalized
     .replace(/-----BEGIN PRIVATE KEY-----/, "")
     .replace(/-----END PRIVATE KEY-----/, "")
@@ -42,7 +42,7 @@ async function createSignedJwt(env) {
   const header = { alg: "RS256", typ: "JWT" };
   const now = Math.floor(Date.now() / 1000);
   const claims = {
-    iss: env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    iss: String(env.GOOGLE_SERVICE_ACCOUNT_EMAIL || "").trim(),
     scope: "https://www.googleapis.com/auth/spreadsheets",
     aud: "https://oauth2.googleapis.com/token",
     iat: now,
