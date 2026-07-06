@@ -61,17 +61,6 @@ Egal ob Anfänger oder erfahrener Spieler: Bei der One-Point-Challenge kann jede
 
 ---
 
-## Gut zu wissen
-
-| | |
-|---|---|
-| **Adresse** | Black Forest Padel, Orschweier |
-| **Plätze** | Begrenzt – frühzeitige Anmeldung empfohlen |
-| **Ausrüstung** | Bälle werden gestellt. Schläger-Leihe vor Ort möglich (begrenzte Anzahl) |
-| **Mitbringen** | Sportkleidung, Wasser und Sonnenschutz — es geht den ganzen Tag draußen auf dem Court zu |
-
----
-
 ## Häufige Fragen
 
 ### Zwei Events an einem Tag
