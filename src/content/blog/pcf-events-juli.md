@@ -1,6 +1,6 @@
 ---
 draft: false
-title: "One-Point-Challenge & Amricano mit Tombola am 25. Juli"
+title: "One-Point-Challenge & Americano mit Tombola am 25. Juli"
 snippet: "Ornare cum cursus laoreet sagittis nunc fusce posuere per euismod dis vehicula a, semper fames lacus maecenas dictumst pulvinar neque enim non potenti. Torquent hac sociosqu eleifend potenti."
 image: {
     src: "./pics/pcfxblackforest.png",
