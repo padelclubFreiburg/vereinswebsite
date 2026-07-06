@@ -11,15 +11,12 @@ category: "Turnier"
 author: "Team"
 tags: [Turnier, Event]
 ---
-## Das Padel-Highlight des Sommers 🎾☀️
 
 **Padel Club Freiburg × Black Forest Padel**
 
 Am 25.07. laden wir euch gemeinsam mit Black Forest Padel zu einem unvergesslichen Community-Tag ein: **zwei Events an einem Tag** — tagsüber das Community Americano mit Tombola, abends die One-Point-Challenge mit Preisgeld.
 
 📍 Black Forest Padel, Orschweier · 📅 25.07.2026
-
----
 
 ## Zwei Events, ein Tag
 
@@ -58,8 +55,10 @@ Egal ob Anfänger oder erfahrener Spieler: Bei der One-Point-Challenge kann jede
 - 🍦 **Eis** – Für die Abkühlung zwischen den Matches.
 - 🧊 **Ice Bath** – Erholung für die Beine nach intensiven Ballwechseln.
 - 🧘 **Pilates im Schatten** – Entspannter Ausgleich abseits des Courts.
+- 🎧 **DJ** – Für die passende Stimmung den ganzen Tag über.
+- 🎾 **Schlägertesting** – Neue Modelle direkt vor Ort ausprobieren.
 
----
+
 
 ## Häufige Fragen
 
@@ -126,7 +125,7 @@ Abends, voraussichtlich von ca. 18–21 Uhr.
 
 <details>
 <summary>Wie ist das Format der One-Point-Challenge?</summary>
-Es wird im KO-System gespielt.
+Gespielt wird im KO-System, und jedes Match wird nur über einen einzigen Punkt entschieden: Wer ihn gewinnt, kommt eine Runde weiter — wer ihn verliert, scheidet direkt aus. Kein Satz, kein langes Match, keine zweite Chance. Genau dieser eine Ballwechsel sorgt für maximale Spannung.
 </details>
 
 <details>
@@ -149,6 +148,11 @@ Ja, über die Schläger-Automaten von Black Forest Padel vor Ort. Die Anzahl der
 <details>
 <summary>Gibt es Essen und Trinken vor Ort?</summary>
 Ja, es gibt Pizza, einen Verpflegungsstand und Eis vor Ort.
+</details>
+
+<details>
+<summary>Was sollte ich mitbringen?</summary>
+Sportkleidung, Wasser und Sonnenschutz — der Tag findet komplett draußen auf dem Court statt.
 </details>
 
 ### Hansefit & Wetter
