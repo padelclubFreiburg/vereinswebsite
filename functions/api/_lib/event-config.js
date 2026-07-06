@@ -3,7 +3,7 @@
 
 export const EVENT_CONFIG = {
   name: "Padel Americano Turnier",
-  dateLabel: "Sonntag, 25.07.2026",
+  dateLabel: "Samstag, 25.07.2026",
   timeLabel: "11:00 – 17:00 Uhr",
   location: "Blackforest Padel",
   oneShotUrl: "https://pretix.eu/pcfreiburg/one-shot/",
