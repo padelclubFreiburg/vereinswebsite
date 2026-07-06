@@ -6,7 +6,7 @@ image: {
     src: "./pics/pcfxblackforest.png",
     alt: "padelcourt und baelle"
 }
-publishDate: "2026-07-05 09:05"
+publishDate: "2026-07-05 07:20"
 category: "Turnier"
 author: "Team"
 tags: [Turnier, Event]
