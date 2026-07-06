@@ -11,7 +11,7 @@ category: "Turnier"
 author: "Team"
 tags: [Turnier, Event]
 ---
-# Das Padel-Highlight des Sommers 🎾☀️
+## Das Padel-Highlight des Sommers 🎾☀️
 
 **Padel Club Freiburg × Black Forest Padel**
 
