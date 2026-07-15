@@ -36,7 +36,7 @@ Am 25.07. laden wir euch gemeinsam mit Black Forest Padel zu einem unvergesslich
 ### 2️⃣ One-Game-Challenge
 | | |
 |---|---|
-| **Format** | One-Game-Challenge mit KO-System |
+| **Format** | One-Point-Challenge mit KO-System |
 | **Zeit** | ca. 18–21 Uhr |
 | **Preisgeld** | mehrere Hundert € (Überraschung, wird am Eventtag bekanntgegeben) |
 | **Teilnahmegebühr** | 20 € pro Team |
@@ -62,8 +62,8 @@ Egal ob Anfänger oder erfahrener Spieler: Bei der One-Game-Challenge kann jeder
 ### Zwei Events an einem Tag
  
 <details>
-<summary>Sind "Americano mit Tombola" und die "One-Game-Challenge" das gleiche Turnier?</summary>
-Nein — es sind zwei komplett separate Events am selben Tag: tagsüber das Community Americano mit Tombola, abends die One-Game-Challenge. Ihr könnt euch für eines oder für beide anmelden.
+<summary>Sind "Americano mit Tombola" und die "One-Point-Challenge" das gleiche Turnier?</summary>
+Nein — es sind zwei komplett separate Events am selben Tag: tagsüber das Community Americano mit Tombola, abends die One-Point-Challenge. Ihr könnt euch für eines oder für beide anmelden.
 </details>
 <details>
 <summary>Brauche ich für jedes Event eine eigene Anmeldung?</summary>
@@ -75,11 +75,11 @@ Der Anmeldeschluss ist am 22. Juli. Die Plätze sind limitiert, eine frühzeitig
 </details>
 <details>
 <summary>Ich muss um eine bestimmte Uhrzeit weg — kann ich trotzdem teilnehmen?</summary>
-Ja, kein Problem. Da beide Events separat laufen, könnt ihr z. B. nur beim Americano mit Tombola bis 17 Uhr teilnehmen und die One-Game-Challenge am Abend auslassen — oder umgekehrt.
+Ja, kein Problem. Da beide Events separat laufen, könnt ihr z. B. nur beim Americano mit Tombola bis 17 Uhr teilnehmen und die One-Point-Challenge am Abend auslassen — oder umgekehrt.
 </details>
+
 ### Community Americano mit Tombola
- 
-<details>
+ <details>
 <summary>Wie läuft das Americano-Turnier ab?</summary>
 Ihr spielt über den Tag verteilt mit wechselnden Partnerinnen und Gegnern, die Punkte werden individuell gezählt. Alle Teilnehmenden nehmen automatisch an der Tombola teil.
 </details>
@@ -99,26 +99,8 @@ Nein. Die Tombola-Teilnahme ist automatisch an die Anmeldung zum Americano-Turni
 <summary>Kann ich bei der Tombola gewinnen, auch wenn ich schon nicht mehr vor Ort bin?</summary>
 Ja, ein Gewinn ist auch in Abwesenheit möglich.
 </details>
-### One-Game-Challenge
- 
-<details>
-<summary>Wie viel Preisgeld gibt es zu gewinnen?</summary>
-Es gibt ein Preisgeld im Wert von mehreren Hundert Euro, die genaue Höhe bleibt bis zum Eventtag eine Überraschung.
-</details>
-<details>
-<summary>Wann findet die One-Game-Challenge statt?</summary>
-Abends, voraussichtlich von ca. 18–21 Uhr, im Anschluss geht es mit Good Vibes, DJ und Drinks weiter.
-</details>
-<details>
-<summary>Wie ist das Format der One-Game-Challenge?</summary>
-Gespielt wird im klassischen KO-System (Turnierbaum). Pro Runde entscheidet ein einzelnes Game (Zählweise 15-30-40, bei Einstand Golden Point), euer Team muss also vier Punkte gewinnen, um weiterzukommen. Gespielt wird durchgehend im selben, festen Team mit der Person, mit der ihr euch gemeinsam angemeldet habt.
-</details>
-<details>
-<summary>Was kostet die Teilnahme?</summary>
-20 € pro Team.
-</details>
+
 ### Ausrüstung & Verpflegung
- 
 <details>
 <summary>Muss ich eigene Bälle mitbringen?</summary>
 Nein, die Bälle werden gestellt.
