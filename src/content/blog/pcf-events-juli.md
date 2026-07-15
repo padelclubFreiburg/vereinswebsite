@@ -117,9 +117,9 @@ Ja, es gibt Pizza, einen Verpflegungsstand und Eis vor Ort.
 <summary>Was sollte ich mitbringen?</summary>
 Sportkleidung, Wasser und Sonnenschutz — der Tag findet komplett draußen auf dem Court statt.
 </details>
+
 ### Hansefit & Wetter
- 
-<details>
+ <details>
 <summary>Kann ich wieder mit Hansefit einchecken?</summary>
 Ja, vor Ort könnt ihr das machen. Schickt uns anschließend den Screenshot des Check-ins — dafür gibt es vor Ort eine kleine Kompensation.
 </details>
