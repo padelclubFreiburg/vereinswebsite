@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anmeldung One-Game-Challenge – Padel Club Freiburg</title>
+<meta name="description" content="Team-Anmeldung zur One-Game-Challenge, 18:00 Uhr im Anschluss an die Americano-Tombola, 25.07.2026 bei Blackforest Padel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lilac:#cea8f0;
+    --lilac-soft:#f4ecfc;
+    --ink:#1f1f1f;
+    --ink-soft:#5c5c5c;
+    --white:#ffffff;
+    --grey:#f2f2f2;
+    --grey-line:#e2e0e0;
+    --lime:#c8f000;
+    --lime-dark:#a8ca00;
+    --petrol:#0f4c5c;
+    --petrol-soft:#e4eef0;
+    --radius:14px;
+    --shadow:0 12px 28px -16px rgba(31,31,31,.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Inter',sans-serif;
+    font-weight:800;
+    letter-spacing:-.01em;
+    margin:0;
+    color:var(--ink);
+  }
+  a{color:var(--petrol);}
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:800px; margin:0 auto; padding:20px 24px 0;
+  }
+  .topbar img{height:40px; display:block;}
+  .topbar a{font-size:13.5px; font-weight:600; color:var(--ink-soft); text-decoration:none;}
+  .topbar a:hover{color:var(--petrol);}
+
+  .hero{max-width:800px; margin:0 auto; padding:28px 24px 8px; position:relative;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    background:var(--lilac-soft); color:#6a3fa0;
+    padding:7px 14px; border-radius:999px;
+    margin-bottom:20px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--lilac);}
+  h1{font-size:clamp(24px,7vw,50px); line-height:1.05; white-space:nowrap;}
+  .hero-sub{margin-top:16px; font-size:17px; max-width:56ch; color:var(--ink-soft);}
+  .hero-meta{
+    margin-top:26px; display:flex; flex-wrap:wrap; gap:10px 30px;
+    padding-bottom:26px; border-bottom:1px solid var(--grey-line);
+  }
+  .hero-meta div{font-size:14.5px; color:var(--ink-soft);}
+  .hero-meta strong{display:block; font-size:16.5px; font-weight:800; color:var(--ink);}
+
+  main{max-width:800px; margin:0 auto; padding:0 24px 56px;}
+  .card{
+    background:var(--white);
+    border:1px solid var(--grey-line);
+    border-radius:var(--radius);
+    padding:32px;
+    margin-top:24px;
+  }
+  h2{font-size:21px; margin-bottom:16px;}
+
+  .prize-callout{
+    background:var(--ink);
+    color:#ece8df;
+    border-radius:12px;
+    padding:20px 22px;
+    font-size:14.5px;
+    display:flex; gap:14px; align-items:flex-start;
+  }
+  .prize-callout .icon{font-size:26px; line-height:1;}
+  .prize-callout strong{color:var(--lime);}
+
+  .where-when{
+    display:flex; gap:32px; flex-wrap:wrap; margin-top:22px;
+    padding-top:20px; border-top:1px solid var(--grey-line);
+  }
+  .where-when div strong{display:block; font-size:14.5px; margin-bottom:2px;}
+
+  form{display:flex; flex-direction:column; gap:20px;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{font-size:13.5px; font-weight:700;}
+  .field .hint{font-size:12.5px; color:var(--ink-soft); font-weight:400;}
+  input[type=text], input[type=email], input[type=tel]{
+    font:inherit; padding:12px 14px; border-radius:10px;
+    border:1.5px solid var(--grey-line); background:var(--grey);
+    color:var(--ink);
+  }
+  input:focus-visible, button:focus-visible{
+    outline:3px solid var(--petrol); outline-offset:2px;
+  }
+  .row-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media (max-width:520px){ .row-2{grid-template-columns:1fr;} }
+
+  .group-heading{
+    font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em;
+    color:var(--ink-soft); margin:4px 0 -6px;
+  }
+
+  .summary{
+    display:flex; justify-content:space-between; align-items:baseline;
+    border-top:1px solid var(--grey-line); padding-top:16px; margin-top:4px;
+  }
+  .summary .label{font-size:14px; color:var(--ink-soft);}
+  .summary .amount{font-weight:900; font-size:26px; color:var(--ink);}
+
+  button.submit{
+    font:inherit; font-weight:800; font-size:16px;
+    background:var(--lime); color:var(--ink); border:none;
+    padding:16px; border-radius:10px; cursor:pointer;
+    transition:background .15s;
+  }
+  button.submit:hover{background:var(--lime-dark);}
+  button.submit:disabled{background:var(--grey-line); color:var(--ink-soft); cursor:not-allowed;}
+
+  .notice{border-radius:10px; padding:14px 16px; font-size:14px; font-weight:500;}
+  .notice.error{background:#fbe9e4; color:#9c3717; border:1px solid #f0c6b6;}
+  .notice.info{background:var(--petrol-soft); color:var(--petrol); border:1px solid #cfe1e5;}
+
+  .sold-out{text-align:center; padding:28px 16px;}
+  .sold-out h3{font-size:20px; margin-bottom:8px;}
+  .seats-left{font-size:13px; color:var(--ink-soft); margin-top:-8px;}
+
+  [hidden]{display:none !important;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <img src="pcf-logo.png" alt="Padel Club Freiburg e.V.">
+  <a href="https://www.padelclub-freiburg.de/" target="_blank" rel="noopener">Zur Website ↗</a>
+</div>
+
+<header class="hero">
+  <span class="eyebrow"><span class="dot"></span>Padel Club Freiburg e.V.</span>
+  <h1>One-Game-Challenge</h1>
+  <p class="hero-sub">Tretet als Team im K.-o.-System an, ab 18:00 Uhr im Anschluss an die Americano-Tombola, mit DJ und der Chance auf ein Preisgeld.</p>
+  <div class="hero-meta">
+    <div><strong>25.07.2026</strong>18:00 – ca. 21:00 Uhr</div>
+    <div><strong>Blackforest Padel</strong>Austragungsort</div>
+    <div><strong>EUR 20</strong>Pro Team</div>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Format</h2>
+    <p>Gespielt wird im klassischen K.-o.-System (Turnierbaum).</p>
+    <ul class="format-list">
+      <li>Pro Runde entscheidet nur ein einzelnes Game (Zählweise 15-30-40, bei Einstand Golden Point).</li>
+      <li>Ihr müsst als Team vier Punkte gewinnen, um eine Runde weiterzukommen.</li>
+      <li>Gespielt wird durchgehend im selben, festen Team mit der Person, mit der ihr euch gemeinsam angemeldet habt.</li>
+    </ul>
+
+    <h2>Preisgeld</h2>
+    <div class="prize-callout">
+      <span class="icon">🏆</span>
+      <div><strong>Es gibt ein Preisgeld</strong>, mehrere Hundert Euro, die genaue Höhe bleibt bis zum Eventtag eine Überraschung.</div>
+    </div>
+
+    <div class="where-when">
+      <div><strong>Wann</strong>Sonntag, 25.07.2026, 18:00 – ca. 21:00 Uhr, im Anschluss weiterhin Good Vibes mit DJ und Drinks</div>
+      <div><strong>Wo</strong>Blackforest Padel</div>
+    </div>
+  </section>
+
+  <section class="card" id="registration">
+    <h2>Team-Anmeldung</h2>
+
+    <p id="seats-left" class="seats-left" hidden></p>
+
+    <div id="sold-out" class="sold-out" hidden>
+      <h3>Alle Teamplätze vergeben</h3>
+      <p>Aktuell sind alle 32 Teamplätze belegt. Schreib uns gerne, falls ein Team absagt und ein Platz frei wird.</p>
+    </div>
+
+    <div id="cancelled-notice" class="notice info" hidden style="margin-bottom:18px;">
+      Die Zahlung wurde abgebrochen. Ihr könnt es unten gerne erneut versuchen, es wurde nichts abgebucht.
+    </div>
+
+    <form id="reg-form">
+      <p class="group-heading">Anmeldende Person (erhält die Bestätigung)</p>
+      <div class="row-2">
+        <div class="field">
+          <label for="captainFirstName">Vorname *</label>
+          <input type="text" id="captainFirstName" name="captainFirstName" required autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="captainFamilyName">Nachname *</label>
+          <input type="text" id="captainFamilyName" name="captainFamilyName" required autocomplete="family-name">
+        </div>
+      </div>
+      <div class="field">
+        <label for="captainEmail">E-Mail *</label>
+        <input type="email" id="captainEmail" name="captainEmail" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="captainMobile">Mobil-Nr. *</label>
+        <input type="tel" id="captainMobile" name="captainMobile" required autocomplete="tel">
+      </div>
+
+      <p class="group-heading">Teampartner:in</p>
+      <div class="row-2">
+        <div class="field">
+          <label for="partnerFirstName">Vorname *</label>
+          <input type="text" id="partnerFirstName" name="partnerFirstName" required>
+        </div>
+        <div class="field">
+          <label for="partnerFamilyName">Nachname *</label>
+          <input type="text" id="partnerFamilyName" name="partnerFamilyName" required>
+        </div>
+      </div>
+      <span class="hint">Die Bestätigungsmail geht nur an die anmeldende Person oben, nicht separat an den Teampartner / die Teampartnerin.</span>
+
+      <div class="summary">
+        <span class="label">Anmeldegebühr pro Team</span>
+        <span class="amount">EUR 20,00</span>
+      </div>
+
+      <div id="submit-error" class="notice error" hidden></div>
+
+      <button type="submit" class="submit" id="submit-btn">Weiter zur Zahlung</button>
+    </form>
+  </section>
+</main>
+
+<script>
+(function(){
+  const form = document.getElementById('reg-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const submitError = document.getElementById('submit-error');
+  const seatsLeftEl = document.getElementById('seats-left');
+  const soldOutEl = document.getElementById('sold-out');
+  const cancelledNotice = document.getElementById('cancelled-notice');
+
+  if(new URLSearchParams(location.search).get('cancelled') === '1'){
+    cancelledNotice.hidden = false;
+  }
+
+  async function loadAvailability(){
+    try{
+      const res = await fetch('/api/one-game/availability');
+      const data = await res.json();
+      if(data.full){
+        form.hidden = true;
+        soldOutEl.hidden = false;
+      } else if(typeof data.remaining === 'number'){
+        seatsLeftEl.hidden = false;
+        seatsLeftEl.textContent = 'Noch ' + data.remaining + ' von ' + data.total + ' Teamplätzen frei.';
+      }
+    } catch(err){
+      // Server re-checks authoritatively at submit time regardless.
+    }
+  }
+  loadAvailability();
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    submitError.hidden = true;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird vorbereitet …';
+
+    const payload = {
+      captainFirstName: document.getElementById('captainFirstName').value.trim(),
+      captainFamilyName: document.getElementById('captainFamilyName').value.trim(),
+      captainEmail: document.getElementById('captainEmail').value.trim(),
+      captainMobile: document.getElementById('captainMobile').value.trim(),
+      partnerFirstName: document.getElementById('partnerFirstName').value.trim(),
+      partnerFamilyName: document.getElementById('partnerFamilyName').value.trim()
+    };
+
+    try{
+      const res = await fetch('/api/one-game/create-checkout-session', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if(!res.ok){
+        throw new Error(data.message || 'Anmeldung fehlgeschlagen.');
+      }
+      window.location.href = data.url;
+    } catch(err){
+      submitError.textContent = err.message || 'Etwas ist schiefgelaufen. Bitte erneut versuchen.';
+      submitError.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Weiter zur Zahlung';
+    }
+  });
+})();
+</script>
+</body>
+</html>
