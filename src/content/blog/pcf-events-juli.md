@@ -33,7 +33,7 @@ Am 25.07. laden wir euch gemeinsam mit Black Forest Padel zu einem unvergesslich
 **[→ Jetzt anmelden: Americano mit Tombola](https://www.padelclub-freiburg.de/anmeldung)**
 ⚠️ Plätze sind limitiert.
  
-### 2️⃣ One-Game-Challenge
+### 2️⃣ One-Point-Challenge
 | | |
 |---|---|
 | **Format** | One-Point-Challenge mit KO-System |
