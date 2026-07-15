@@ -38,7 +38,7 @@ Am 25.07. laden wir euch gemeinsam mit Black Forest Padel zu einem unvergesslich
 |---|---|
 | **Format** | One-Point-Challenge mit KO-System |
 | **Zeit** | ca. 18–21 Uhr |
-| **Preisgeld** | mehrere Hundert € (Überraschung, wird am Eventtag bekanntgegeben) |
+| **Preisgeld** | Überraschung, wird am Eventtag bekanntgegeben |
 | **Teilnahmegebühr** | 20 € pro Team |
 | **Anmeldeschluss** | 22. Juli |
  
