@@ -27,7 +27,14 @@ export async function onRequestPost(context) {
 
   // Abandoned/expired checkout: free the seat immediately instead of waiting for the TTL.
   if (event.type === "checkout.session.expired") {
-    const holdId = event.data.object.metadata?.holdId;
+    const expiredSession = event.data.object;
+    // Stripe delivers this event to EVERY webhook endpoint subscribed to it on
+    // the account, not just the one whose code created the session. Without
+    // this check, this handler would also fire for One Game Challenge sessions.
+    if (expiredSession.metadata?.process !== "tournament") {
+      return new Response("ignored (different process)");
+    }
+    const holdId = expiredSession.metadata?.holdId;
     await releaseHold(env, holdId);
     return new Response("ok");
   }
@@ -37,6 +44,12 @@ export async function onRequestPost(context) {
   }
 
   const session = event.data.object;
+
+  // Same reasoning as above: only handle sessions this process itself created.
+  if (session.metadata?.process !== "tournament") {
+    return new Response("ignored (different process)");
+  }
+
   const sessionId = session.id;
   const holdId = session.metadata?.holdId;
 

@@ -114,6 +114,7 @@ export async function onRequestPost(context) {
     const origin = new URL(request.url).origin;
 
     const metadata = {
+      process: "tournament",
       holdId,
       firstName,
       familyName,
