@@ -42,7 +42,7 @@ Am 25.07. laden wir euch gemeinsam mit Black Forest Padel zu einem unvergesslich
 | **Teilnahmegebühr** | 20 € pro Team |
 | **Anmeldeschluss** | 22. Juli |
  
-**[→ Jetzt anmelden: One-Game-Challenge](https://www.padelclub-freiburg.de/one-game-challenge)**
+**[→ Jetzt anmelden: One-Point-Challenge](https://www.padelclub-freiburg.de/one-game-challenge)**
 ⚠️ Plätze sind limitiert.
  
 Egal ob Anfänger oder erfahrener Spieler: Bei der One-Game-Challenge kann jeder mitmachen und sich die Chance auf das Preisgeld sichern. Beide Events laufen unabhängig voneinander — ihr könnt bei einem, dem anderen oder bei beiden dabei sein.
