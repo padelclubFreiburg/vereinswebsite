@@ -9,7 +9,7 @@ export const EVENT_CONFIG = {
   oneShotUrl: "https://pretix.eu/pcfreiburg/one-shot/",
   membershipUrl: "https://www.padelclub-freiburg.de/mitgliedschaft/",
 
-  capacityTotal: 56,
+  capacityTotal: 72,
 
   // Stripe requires expires_at to be at least 30 minutes out; 32 leaves a
   // safety margin so normal network latency can never push a request
