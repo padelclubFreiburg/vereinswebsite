@@ -1,5 +1,6 @@
 // 1. Import utilities from `astro:content`
 import { z, defineCollection } from 'astro:content';
+import { file } from 'astro/loaders';
 
 // 2. Define your collection(s)
 const blogCollection = defineCollection({
@@ -32,9 +33,41 @@ const teamCollection = defineCollection({
   }),
 });
 
+// Häufige Fragen: src/data/faq.yaml (Kategorien mit Fragen, Antworten in Markdown)
+const faqCollection = defineCollection({
+  loader: file('src/data/faq.yaml'),
+  schema: z.object({
+    titel: z.string(),
+    kurz: z.string(),
+    fragen: z
+      .array(
+        z.object({
+          id: z.string().regex(/^[a-z0-9-]+$/, 'Die id darf nur Kleinbuchstaben, Ziffern und Bindestriche enthalten.'),
+          frage: z.string(),
+          antwort: z.string(),
+        })
+      )
+      .min(1),
+  }),
+});
+
+// Courts in der Region: src/data/courts.yaml
+const courtsCollection = defineCollection({
+  loader: file('src/data/courts.yaml'),
+  schema: z.object({
+    name: z.string(),
+    ort: z.string(),
+    merkmale: z.array(z.string()).default([]),
+    webseite: z.string().url(),
+    whatsapp: z.string().url().optional(),
+  }),
+});
+
 // 3. Export a single `collections` object to register your collection(s)
 //    This key should match your collection directory name in "src/content"
 export const collections = {
   'blog': blogCollection,
   'team': teamCollection,
+  'faq': faqCollection,
+  'courts': courtsCollection,
 };

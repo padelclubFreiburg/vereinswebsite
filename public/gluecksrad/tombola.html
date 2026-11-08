@@ -1946,7 +1946,7 @@ const UIController = (() => {
       return `
         <div class="history-item">
           <div class="history-logo">
-            ${h.sponsorLogo ? `<img src="${h.sponsorLogo}">` : '<span style="font-size:10px;color:var(--gray-400)">PCFR</span>'}
+            ${h.sponsorLogo ? `<img src="${h.sponsorLogo}">` : '<span style="font-size:10px;color:var(--gray-400)">PCF</span>'}
           </div>
           <div style="min-width:0;">
             <div class="history-name">${escapeHtml(h.participantName)} · ${escapeHtml(h.prizeName)}</div>
@@ -2419,7 +2419,7 @@ document.addEventListener('DOMContentLoaded', UIController.init);
     const sp3 = DataStore.addSponsor('Lexware', '');
     DataStore.addPrize('Premium Padel-Schläger', sp1);
     DataStore.addPrize('1h Padel-Stunde', sp2);
-    DataStore.addPrize('PCFR Vereins-Shirt', '');
+    DataStore.addPrize('PCF Vereins-Shirt', '');
     DataStore.addPrize('Wochenend-Trip für 2', sp3);
     DataStore.addPrize('Padel-Ball-Set', sp1);
     ['Anna Müller','Ben Schmidt','Carla Wagner','Daniel Becker','Elena Fischer','Felix Hoffmann','Greta Klein','Hannes Lang','Inga Mayer','Jonas Neumann','Klara Pohl','Lukas Roth'].forEach(n => DataStore.addParticipant(n));

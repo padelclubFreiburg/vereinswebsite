@@ -5,48 +5,44 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 
-// Filter team entries with 'draft: false' & date before current date
+// Nur veröffentlichte Einträge (draft: false, Datum in der Vergangenheit)
 const publishedTeamMembers = await getCollection("team", ({ data }) => {
   return !data.draft && data.publishDate < new Date();
 });
 
-// 2. SORTIEREN (HIER steuerst du die Reihenfolge)
-const sortedTeamMembers = publishedTeamMembers.sort(
-  (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999)
-);
+// Reihenfolge über das Feld `order` in der jeweiligen Datei
+const sortedTeamMembers = publishedTeamMembers.sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 ---
 
-<Layout title="Team">
+<Layout title="Team" description="Der Vorstand des Padel Club Freiburg e.V. stellt sich vor.">
   <Container>
     <Sectionhead>
       <Fragment slot="title">Team</Fragment>
-      <Fragment slot="desc">Du willst auch mitwirken? Melde dich bei uns.</Fragment>
+      <Fragment slot="desc">
+        Du willst auch mitwirken?
+        <a href="/contact?thema=mitmachen" class="text-primary-dark underline hover:no-underline">Melde dich bei uns</a>.
+      </Fragment>
     </Sectionhead>
 
-    <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-4xl mt-12">
+    <ul class="mx-auto mt-12 grid max-w-[60rem] gap-10 sm:grid-cols-2 md:grid-cols-3">
       {
         sortedTeamMembers.map((teamMemberEntry) => (
-          <div class="group">
-            <div class="w-full aspect-square">
-              <Picture
-                src={teamMemberEntry.data.avatar.src}
-                alt={teamMemberEntry.data.avatar.alt}
-                sizes="(max-width: 800px) 100vw, 400px"
-                width={400}
-                height={400}
-                class="w-full rounded-sm transition group-hover:-translate-y-1 group-hover:shadow-xl bg-white object-cover object-center aspect-square"
-              />
-            </div>
-
+          <li>
+            <Picture
+              src={teamMemberEntry.data.avatar.src}
+              alt={teamMemberEntry.data.avatar.alt}
+              sizes="(max-width: 640px) 100vw, 320px"
+              width={400}
+              height={400}
+              class="aspect-square w-full rounded-lg bg-neutrallight object-cover object-center"
+            />
             <div class="mt-4 text-center">
-              <h2 class="text-lg text-gray-800">{teamMemberEntry.data.name}</h2>
-              <h3 class="text-sm text-slate-500">
-                {teamMemberEntry.data.title}
-              </h3>
+              <h2 class="type-h3">{teamMemberEntry.data.name}</h2>
+              <p class="text-base leading-6 text-text-muted">{teamMemberEntry.data.title}</p>
             </div>
-          </div>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </Container>
 </Layout>

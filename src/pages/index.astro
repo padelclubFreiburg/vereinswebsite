@@ -4,14 +4,20 @@ import Cta from "@/components/cta.astro";
 import Features from "@/components/features.astro";
 import Hero from "@/components/hero.astro";
 import Logos from "@/components/logos.astro";
+import FaqTeaser from "@/components/faq/faq-teaser.astro";
 import Layout from "@/layouts/Layout.astro";
 ---
 
-<Layout title="Padel Club Freiburg e.V.">
+<Layout>
   <Container>
     <Hero />
     <Features />
     <Cta />
+  </Container>
+  <div class="mt-16 lg:mt-24">
+    <FaqTeaser />
+  </div>
+  <Container>
     <Logos />
   </Container>
 </Layout>

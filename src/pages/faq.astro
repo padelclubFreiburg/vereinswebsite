@@ -1,0 +1,285 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import Link from "@/components/ui/link.astro";
+import FaqItem from "@/components/faq/faq-item.astro";
+import { getFaq, absoluteLinks, SITE_URL } from "@/lib/faq";
+
+// Stand der Inhalte (bei größeren Änderungen an src/data/faq.yaml anpassen)
+const STAND = "September 2026";
+
+const { kategorien } = await getFaq();
+const courts = await getCollection("courts");
+
+// Strukturierte Daten für Suchmaschinen (FAQPage)
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  url: `${SITE_URL}/faq`,
+  mainEntity: kategorien.flatMap((k) =>
+    k.fragen.map((f) => ({
+      "@type": "Question",
+      name: f.frage,
+      acceptedAnswer: { "@type": "Answer", text: absoluteLinks(f.html) },
+    }))
+  ),
+};
+
+const sprungmarken = [
+  { id: "was-ist-padel", kurz: "Was ist Padel?" },
+  ...kategorien.map((k) => ({ id: k.id, kurz: k.kurz })),
+  { id: "courts", kurz: "Courts in der Region" },
+];
+---
+
+<Layout
+  title="Häufige Fragen"
+  description="Antworten auf die häufigsten Fragen rund um Padel in Freiburg und den Padel Club Freiburg e.V.: Courts buchen, Kosten, Mitgliedschaft, Training, Turniere und Jugend.">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Häufige Fragen</Fragment>
+      <Fragment slot="desc">
+        Hier beantworten wir die Fragen, die uns am häufigsten erreichen: zum Spielen in Freiburg, zum Verein, zu
+        Training und Turnieren. Stand: {STAND}.
+      </Fragment>
+    </Sectionhead>
+
+    <div class="mx-auto mt-8 max-w-[40rem]">
+      <label for="faq-suche" class="block text-base leading-6 font-semibold">Frage suchen</label>
+      <div class="relative mt-2">
+        <Icon
+          name="lucide:search"
+          class="icon-stroke pointer-events-none absolute top-1/2 left-3 size-5 -translate-y-1/2 text-text-muted"
+          aria-hidden="true"
+        />
+        <input
+          id="faq-suche"
+          type="search"
+          autocomplete="off"
+          placeholder="z. B. Court buchen, Hansefit, Training"
+          aria-describedby="faq-status"
+          class="min-h-touch w-full rounded-sm border border-field-border bg-white py-2 pr-3 pl-10 text-base leading-6 placeholder:text-text-muted"
+        />
+      </div>
+      <p id="faq-status" class="mt-2 min-h-6 text-base text-text-muted" aria-live="polite"></p>
+    </div>
+
+    <nav aria-label="Kategorien" class="mx-auto mt-2 max-w-[52rem]" data-faq-chips>
+      <ul class="flex flex-wrap justify-center gap-2">
+        {
+          sprungmarken.map((s) => (
+            <li>
+              <a
+                href={`#${s.id}`}
+                class="inline-flex min-h-touch items-center rounded-sm border border-field-border bg-white px-4 text-base font-semibold text-neutraldark transition-colors hover:bg-primary-tint">
+                {s.kurz}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="mx-auto mt-12 max-w-[52rem]">
+      <section id="was-ist-padel" data-faq-section aria-labelledby="was-ist-padel-titel">
+        <div class="rounded-lg border border-border bg-neutrallight p-6" data-faq-item>
+          <h2 id="was-ist-padel-titel" class="type-h3">Was ist Padel?</h2>
+          <p class="mt-2 text-base leading-6 text-text-muted">
+            Padel ist eine dynamische Rückschlagsportart, die Elemente aus Tennis und Squash verbindet. Gespielt wird
+            meistens im Doppel auf einem Court, der rundum von Glas- und Gitterwänden umgeben ist. Die Wände werden aktiv
+            ins Spiel einbezogen. Padel ist leicht zu erlernen und eignet sich deshalb für Einsteiger:innen genauso wie
+            für erfahrene Racket-Sportler:innen.
+          </p>
+          <ul class="mt-4 flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:gap-x-6">
+            <li>
+              <a
+                class="inline-flex min-h-touch items-center gap-2 text-primary-dark underline hover:no-underline"
+                href="https://www.ardmediathek.de/video/landesschau-rheinland-pfalz/neue-trendsportart-warum-padel-so-beliebt-ist/swr-rlp/Y3JpZDovL3N3ci5kZS9hZXgvbzIzNDYxMTY"
+                target="_blank"
+                rel="noopener">
+                <Icon name="lucide:circle-play" class="icon-stroke size-5" aria-hidden="true" />
+                Video: Warum Padel so beliebt ist (SWR, ARD Mediathek)
+              </a>
+            </li>
+            <li>
+              <a
+                class="inline-flex min-h-touch items-center gap-2 text-primary-dark underline hover:no-underline"
+                href="https://www.youtube.com/watch?v=aUNF84DcUVw"
+                target="_blank"
+                rel="noopener">
+                <Icon name="lucide:circle-play" class="icon-stroke size-5" aria-hidden="true" />
+                Video: Die wichtigsten Regeln
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {
+        kategorien.map((k) => (
+          <section id={k.id} class="mt-14" data-faq-section aria-labelledby={`${k.id}-titel`}>
+            <h2 id={`${k.id}-titel`} class="text-[2rem] leading-tight font-bold tracking-[-0.025em]">
+              {k.titel}
+            </h2>
+            <div class="mt-5 border-t border-border">
+              {k.fragen.map((f) => (
+                <FaqItem frage={f} anchor />
+              ))}
+            </div>
+          </section>
+        ))
+      }
+
+      <section id="courts" class="mt-14" data-faq-section aria-labelledby="courts-titel">
+        <h2 id="courts-titel" class="text-[2rem] leading-tight font-bold tracking-[-0.025em]">
+          Courts in Freiburg und Umgebung
+        </h2>
+        <p class="mt-3 text-base leading-6 text-text-muted">
+          Alphabetisch sortiert. Gebucht wird direkt beim Betreiber, meistens über die Playtomic-App.
+        </p>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+          {
+            courts.map((c) => (
+              <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6" data-faq-item>
+                <h3 class="type-h3">{c.data.name}</h3>
+                <p class="mt-1 flex items-center gap-1.5 text-base text-text-muted">
+                  <Icon name="lucide:map-pin" class="icon-stroke size-4 shrink-0" aria-hidden="true" />
+                  {c.data.ort}
+                </p>
+                <ul class="mt-4 flex flex-wrap gap-2" aria-label="Ausstattung">
+                  {c.data.merkmale.map((m) => (
+                    <li class="rounded-sm bg-primary-tint px-3 py-1 text-sm leading-5 font-semibold text-primary-dark">
+                      {m}
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-auto flex flex-wrap gap-x-6 pt-4">
+                  <a
+                    href={c.data.webseite}
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-flex min-h-touch items-center gap-1.5 text-primary-dark underline hover:no-underline">
+                    Webseite
+                    <Icon name="lucide:external-link" class="icon-stroke size-4" aria-hidden="true" />
+                    <span class="sr-only">von {c.data.name} (öffnet in neuem Tab)</span>
+                  </a>
+                  {c.data.whatsapp && (
+                    <a
+                      href={c.data.whatsapp}
+                      target="_blank"
+                      rel="noopener"
+                      class="inline-flex min-h-touch items-center gap-1.5 text-primary-dark underline hover:no-underline">
+                      WhatsApp-Community
+                      <Icon name="lucide:external-link" class="icon-stroke size-4" aria-hidden="true" />
+                      <span class="sr-only">von {c.data.name} (öffnet in neuem Tab)</span>
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <div id="faq-leer" hidden class="mt-6 rounded-sm border border-border border-l-4 border-l-secondary bg-white px-6 py-4">
+        <p class="text-base leading-6 font-semibold">Info: Dazu haben wir noch keine Antwort.</p>
+        <p class="mt-1 text-base leading-6 text-text-muted">
+          Versuch einen anderen Suchbegriff oder <a href="/contact" class="text-primary-dark underline">schreib uns</a>.
+        </p>
+      </div>
+
+      <section class="mt-16 text-center" aria-labelledby="nicht-dabei">
+        <h2 id="nicht-dabei" class="text-[2rem] leading-tight font-bold tracking-[-0.025em]">
+          Deine Frage war nicht dabei?
+        </h2>
+        <p class="type-body mt-3">Schreib uns, wir antworten so schnell wir können.</p>
+        <div class="mt-6">
+          <Link href="/contact">Zum Kontaktformular</Link>
+        </div>
+      </section>
+    </div>
+  </Container>
+</Layout>
+
+<script>
+  const normalize = (s: string) =>
+    s
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/ß/g, "ss");
+
+  // Frage aus der Adresse (/faq#court-buchen) öffnen
+  function openFromHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target instanceof HTMLDetailsElement) {
+      target.open = true;
+      target.scrollIntoView({ block: "start" });
+    }
+  }
+  openFromHash();
+  window.addEventListener("hashchange", openFromHash);
+
+  // Suche
+  const input = document.getElementById("faq-suche") as HTMLInputElement | null;
+  const status = document.getElementById("faq-status");
+  const empty = document.getElementById("faq-leer");
+  const chips = document.querySelector<HTMLElement>("[data-faq-chips]");
+  const items = Array.from(document.querySelectorAll<HTMLElement>("[data-faq-item]"));
+  const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-faq-section]"));
+  const texts = new Map(items.map((el) => [el, normalize(el.textContent || "")]));
+  const openedBySearch = new Set<HTMLDetailsElement>();
+
+  input?.addEventListener("input", () => {
+    const terms = normalize(input.value.trim()).split(/\s+/).filter(Boolean);
+    const searching = terms.length > 0;
+    let hits = 0;
+    for (const el of items) {
+      const match = terms.every((t) => texts.get(el)!.includes(t));
+      el.hidden = !match;
+      if (match) hits++;
+      if (el instanceof HTMLDetailsElement) {
+        if (match && searching && input.value.trim().length >= 3 && !el.open) {
+          el.open = true;
+          openedBySearch.add(el);
+        } else if ((!searching || !match) && openedBySearch.has(el)) {
+          el.open = false;
+          openedBySearch.delete(el);
+        }
+      }
+    }
+    for (const section of sections) {
+      section.hidden = !section.querySelector("[data-faq-item]:not([hidden])");
+    }
+    if (chips) chips.hidden = searching;
+    if (empty) empty.hidden = !searching || hits > 0;
+    if (status) status.textContent = searching ? (hits === 1 ? "1 Treffer" : `${hits} Treffer`) : "";
+  });
+
+  // „Link zu dieser Frage kopieren“
+  if (navigator.clipboard) {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy-link]")) {
+      button.hidden = false;
+      const label = button.querySelector("[data-copy-label]");
+      button.addEventListener("click", async () => {
+        const url = `${location.origin}/faq#${button.dataset.copyLink}`;
+        try {
+          await navigator.clipboard.writeText(url);
+          if (label) label.textContent = "Link kopiert";
+        } catch {
+          if (label) label.textContent = url;
+        }
+        setTimeout(() => {
+          if (label) label.textContent = "Link zu dieser Frage kopieren";
+        }, 2500);
+      });
+    }
+  }
+</script>

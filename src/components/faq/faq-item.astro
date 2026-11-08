@@ -1,0 +1,39 @@
+---
+// Eine aufklappbare Frage. Mit `anchor` bekommt sie eine Sprungmarke (/faq#id) und einen Button „Link kopieren“.
+import { Icon } from "astro-icon/components";
+import type { FaqFrage } from "@/lib/faq";
+
+interface Props {
+  frage: FaqFrage;
+  anchor?: boolean;
+}
+
+const { frage, anchor = false } = Astro.props;
+---
+
+<details id={anchor ? frage.id : undefined} class="group border-b border-border bg-white" data-faq-item>
+  <summary
+    class="flex min-h-touch cursor-pointer list-none items-center justify-between gap-4 px-4 py-4 transition-colors hover:bg-primary-tint sm:px-5 [&::-webkit-details-marker]:hidden">
+    <h3 class="type-h3">{frage.frage}</h3>
+    <Icon
+      name="lucide:chevron-down"
+      class="icon-stroke size-5 shrink-0 text-neutraldark transition-transform group-open:rotate-180"
+      aria-hidden="true"
+    />
+  </summary>
+  <div class="px-4 pb-5 sm:px-5">
+    <div class="faq-answer max-w-[72ch]" set:html={frage.html} />
+    {
+      anchor && (
+        <button
+          type="button"
+          data-copy-link={frage.id}
+          hidden
+          class="mt-3 inline-flex min-h-touch items-center gap-2 rounded-sm text-base font-semibold text-primary-dark underline underline-offset-4 hover:no-underline">
+          <Icon name="lucide:link" class="icon-stroke size-4" aria-hidden="true" />
+          <span data-copy-label>Link zu dieser Frage kopieren</span>
+        </button>
+      )
+    }
+  </div>
+</details>

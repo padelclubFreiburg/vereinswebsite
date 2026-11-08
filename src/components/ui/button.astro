@@ -1,39 +1,25 @@
 ---
+// Echter Button für Aktionen (z. B. Formular absenden). Für Navigation ui/link.astro nehmen.
+import { buttonBase, buttonVariants, type ButtonVariant } from "./button-styles";
+
 interface Props {
-  size?: "md" | "lg";
+  variant?: ButtonVariant;
   block?: boolean;
-  style?: "outline" | "primary" | "inverted";
   class?: string;
   [x: string]: any;
 }
 
-const {
-  size = "md",
-  style = "primary",
-  block,
-  class: className,
-  ...rest
-} = Astro.props;
-
-const sizes = {
-  md: "px-5 py-2.5",
-  lg: "px-6 py-3",
-};
-
-const styles = {
-  outline: "border-2 border-black hover:bg-black text-black hover:text-white",
-  primary: "bg-neutraldark text-white hover:bg-slate-900  border-2 border-transparent",
-};
+const { variant = "primary", block, class: className, ...rest } = Astro.props;
 ---
 
 <button
   {...rest}
   class:list={[
-    "rounded-sm text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200",
+    buttonBase,
+    buttonVariants[variant],
+    "disabled:cursor-not-allowed disabled:opacity-50",
     block && "w-full",
-    sizes[size],
-    styles[style],
     className,
   ]}
-  ><slot />
-</button>
+  ><slot /></button
+>

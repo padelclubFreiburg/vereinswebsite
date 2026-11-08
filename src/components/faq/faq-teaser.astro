@@ -1,0 +1,24 @@
+---
+// Block „Noch Fragen?“ auf der Startseite: zeigt einige Fragen aus src/data/faq.yaml und verlinkt auf /faq.
+import Container from "@/components/container.astro";
+import Link from "@/components/ui/link.astro";
+import FaqItem from "./faq-item.astro";
+import { getFragen } from "@/lib/faq";
+
+const fragen = await getFragen(["wo-spielen", "ohne-mitgliedschaft", "kosten", "beitrag"]);
+---
+
+<section class="bg-primary-tint py-16 lg:py-24" aria-labelledby="noch-fragen">
+  <Container>
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 id="noch-fragen" class="type-h2">Noch Fragen?</h2>
+        <p class="type-body mt-3">Die Antworten auf die häufigsten Fragen findest du hier.</p>
+      </div>
+      <Link href="/faq" variant="secondary" class="self-start sm:self-auto">Alle Fragen ansehen</Link>
+    </div>
+    <div class="mt-8 overflow-hidden rounded-lg border border-border bg-white [&>details:last-child]:border-b-0">
+      {fragen.map((frage) => <FaqItem frage={frage} />)}
+    </div>
+  </Container>
+</section>

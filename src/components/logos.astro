@@ -1,45 +1,33 @@
 ---
-// @ts-ignore
-import { Icon } from "astro-icon/components";
-import { Picture } from "astro:assets";
+import { Image } from "astro:assets";
 
 import passcreatorLogo from "@/assets/partner/passcreator_logo.svg";
 import teamsportlogo from "@/assets/partner/11Teamsport_Logo.svg";
 import lexwarelogo from "@/assets/partner/Lexware.svg";
-import padel2leon from "@/assets/partner/padel2leon.svg";
 
+// Partnerlogos: SVG nach src/assets/partner/ legen und hier eintragen.
 const partners = [
-  {
-    name: "11Teamsport",
-    url: "https://b2b.11teamsports.com/de-de/",
-    logo: teamsportlogo,
-  },
-  {
-    name: "Lexware",
-    url: "https://www.lexware.de/",
-    logo: lexwarelogo,
-  },
-  {
-    name: "Passcreator",
-    url: "https://passcreator.de",
-    logo: passcreatorLogo,
-  },
+  { name: "11Teamsport", url: "https://b2b.11teamsports.com/de-de/", logo: teamsportlogo },
+  { name: "Lexware", url: "https://www.lexware.de/", logo: lexwarelogo },
+  { name: "Passcreator", url: "https://passcreator.de", logo: passcreatorLogo },
 ];
 ---
 
-<div class="mt-24">
-  <h2 class="text-4xl text-center lg:text-5xl font-bold lg:tracking-tight" id="partner">Unsere Partner</h2>
-  <div class="flex gap-8 md:gap-20 items-center justify-center mt-10 flex-wrap">
-
-    {partners.map((p) => (
-    <a href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
-      <Picture
-        src={p.logo}
-        alt={p.name}
-        class="h-8 md:h-12 w-auto opacity-80 hover:opacity-100 transition"
-        loading="lazy"
-      />
-    </a>
-  ))}
-  </div>
-</div>
+<section class="py-16 lg:py-24" aria-labelledby="partner">
+  <h2 id="partner" class="type-h2 text-center">Unsere Partner</h2>
+  <ul class="mt-10 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-16">
+    {
+      partners.map((p) => (
+        <li>
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block rounded-sm p-2 opacity-80 transition-opacity hover:opacity-100">
+            <Image src={p.logo} alt={p.name} class="h-8 w-auto md:h-10" loading="lazy" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

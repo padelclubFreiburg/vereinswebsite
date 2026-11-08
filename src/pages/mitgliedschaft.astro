@@ -4,16 +4,13 @@ import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import PricingCard from "@/components/pricing.astro";
 
+// Mitgliedsantrag bei easyVerein (die Kennung PCFR in der URL ist von easyVerein vorgegeben)
+const ANTRAG = "https://easyverein.com/public/PCFR/applicationform/20109";
+
 const pricing = [
-    {
+  {
     name: "Aktiv",
-    price: {
-      monthly: "95€ / Jahr",
-      annual: "$16",
-      discount: "10%",
-      original: "$24",
-    },
-    popular: false,
+    price: "95 €",
     features: [
       "Sportliche Mitgliedschaft",
       "Partner-Benefits & Rabatte",
@@ -22,70 +19,45 @@ const pricing = [
       "Early Access bei Turnieren",
       "Vereins-Trikot zum Start",
     ],
-    button: {
-      text: "Auswählen",
-      link: "https://easyverein.com/public/PCFR/applicationform/20109",
-    },
+    button: { text: "Auswählen", link: ANTRAG },
   },
   {
     name: "Passiv",
-    price: "60€ / Jahr",
-    popular: false,
-    features: [
-      "Ideelle Unterstützung",
-      "Partner-Benefits & Rabatte",
-      "Rabatte bei Events",
-      "Keine sportliche Teilnahme",
-    ],
-    button: {
-      text: "Auswählen",
-      link: "https://easyverein.com/public/PCFR/applicationform/20109",
-    },
+    price: "60 €",
+    features: ["Ideelle Unterstützung", "Partner-Benefits & Rabatte", "Rabatte bei Events", "Keine sportliche Teilnahme"],
+    button: { text: "Auswählen", link: ANTRAG },
   },
   {
     name: "Jugend",
-    price: "30€ / Jahr",
-    popular: false,
-    features: [
-      "Gleich wie Aktiv",
-      "Bis einschließlich 18 Jahre",
-    ],
-    button: {
-      text: "Auswählen",
-      link: "https://easyverein.com/public/PCFR/applicationform/20109",
-    },
+    price: "30 €",
+    features: ["Gleich wie Aktiv", "Bis einschließlich 18 Jahre"],
+    button: { text: "Auswählen", link: ANTRAG },
   },
-
-   {
+  {
     name: "Fördermitglied",
-    price: "ab 100€ / Jahr",
-    popular: false,
-    features: [
-      "Gleich wie Aktiv",
-      "Freiwillig erhöhter Beitrag",
-      "für Aufbau und Entwicklung",
-    ],
-    button: {
-      text: "Auswählen",
-      link: "https://easyverein.com/public/PCFR/applicationform/20109",
-    },
+    price: "ab 100 €",
+    features: ["Gleich wie Aktiv", "Freiwillig erhöhter Beitrag", "für Aufbau und Entwicklung"],
+    button: { text: "Auswählen", link: ANTRAG },
   },
 ];
 ---
 
-<Layout title="Mitgliedschaft">
-
+<Layout
+  title="Mitgliedschaft"
+  description="Mitglied im Padel Club Freiburg e.V. werden: Aktiv 95 €, Passiv 60 €, Jugend 30 € oder Fördermitglied ab 100 € im Jahr. Antrag direkt online.">
   <Container>
     <Sectionhead>
       <Fragment slot="title">Mitgliedschaft</Fragment>
-      <Fragment slot="desc">
-        Wähle die passende Mitgliedschaft für dich.
-      </Fragment>
+      <Fragment slot="desc">Wähle die passende Mitgliedschaft für dich. Den Antrag füllst du direkt online aus.</Fragment>
     </Sectionhead>
 
-    <div
-      class="grid md:grid-cols-3 gap-10 mx-auto max-w-(--breakpoint-lg) mt-12">
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {pricing.map((item) => <PricingCard plan={item} />)}
     </div>
+
+    <p class="type-body mt-10 text-center">
+      Fragen zur Mitgliedschaft? Die Antworten stehen in unseren
+      <a href="/faq#verein" class="text-primary-dark underline hover:no-underline">häufigen Fragen</a>.
+    </p>
   </Container>
 </Layout>

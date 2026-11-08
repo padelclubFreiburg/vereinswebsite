@@ -1,51 +1,35 @@
 ---
-import { Picture } from "astro:assets";
+import { Image } from "astro:assets";
 import heroImage from "@/assets/hero.svg";
 import Link from "@/components/ui/link.astro";
-import { Icon } from "astro-icon/components";
 ---
 
-<main
-  class="grid lg:grid-cols-2 place-items-center pt-6 pb-8 md:pt-8 md:pb-24">
-<div class="pt-0 pb-6 order-first lg:order-1 flex justify-center lg:block">
-  <Picture
-    src={heroImage}
-    alt="Logo Padel Club Freiburg"
-    widths={[200, 400, 600]}
-    sizes="(max-width: 640px) 180px, (max-width: 1024px) 300px, 620px"
-    class="w-40 sm:w-52 md:w-64 lg:w-auto"
-    loading="eager"
-    format="avif"
-  />
-</div>
+<section
+  class="grid items-center gap-8 pt-8 pb-8 lg:grid-cols-[3fr_2fr] lg:gap-10 lg:pt-16 lg:pb-12"
+  aria-labelledby="hero-title">
+  <div class="order-first flex lg:order-last lg:justify-center">
+    <Image
+      src={heroImage}
+      alt=""
+      width={420}
+      height={420}
+      loading="eager"
+      class="w-32 sm:w-44 lg:w-full lg:max-w-[22rem]"
+    />
+  </div>
   <div>
-    <h1
-      class="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter">
-      Willkommen beim Padel Club Freiburg
+    <h1 id="hero-title" class="type-hero max-[389px]:text-[length:calc((100vw-2rem)/6)] lg:text-[length:min(6rem,7vw)]">
+      <span class="block lg:whitespace-nowrap">Willkommen beim</span>
+      <span class="block lg:whitespace-nowrap">Padel Club Freiburg</span>
     </h1>
-    <p class="text-lg mt-4 text-slate-600 max-w-xl">
-      <b>Padel Club Freiburg e.V.</b> ist der erste Padel-Verein im Raum Freiburg und die Heimat für alle, die diesen dynamischen Sport lieben.
-      Unsere Vision ist es, den Padelsport nachhaltig zu fördern und in allen Bereichen weiterzuentwickeln – vom Breiten- bis zum Leistungssport.
-      Wir schaffen eine starke Community, moderne Strukturen und beste Bedingungen für Spieler:innen jeder Spielstärke.
+    <p class="type-body mt-6 max-w-[56ch]">
+      <strong class="font-semibold text-neutraldark">Die Heimat für Padel in Freiburg.</strong>
+      Der Padel Club Freiburg e.V. ist der erste Padel-Verein im Raum Freiburg. Wir fördern den Sport vom
+      Breiten- bis zum Leistungssport, mit einer starken Community für Spieler:innen jeder Spielstärke.
     </p>
-    <div class="mt-6 flex flex-col sm:flex-row gap-3">
-      <Link
-        href="#"
-        href="#vision"
-        class="flex gap-2 items-center justify-center"
-        rel="noopener">
-        <Icon class="text-white w-5 h-5" name="bx:rocket" />
-
-        Zur Vision
-      </Link>
-      <Link
-        size="lg"
-        style="outline"
-        rel="noopener"
-        href="/mitgliedschaft"
-        class="flex gap-2 items-center justify-center">
-        Mitgliedschaften
-      </Link>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <Link href="/mitgliedschaft">Mitglied werden</Link>
+      <Link href="/faq" variant="secondary">Häufige Fragen</Link>
     </div>
   </div>
-</main>
+</section>
