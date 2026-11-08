@@ -2,38 +2,169 @@
 
 @plugin '@tailwindcss/typography';
 
+/*
+  Design-Tokens nach CI-Guide v1.4, Abschnitt 9 (docs/ci-guide.md).
+  Farben nach Funktion vergeben, nicht nach Einsatzort.
+*/
 @theme {
-  --font-sans:
-    Nunito Sans, Inter Variable, Inter, ui-sans-serif,
-    system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  /* Marke */
+  --color-primary: #cea8f0;        /* Lavendel: Flächen, Icon-Kreise, Logo. Nie Text/Icon auf Weiß */
+  --color-primary-dark: #6f42a8;   /* Links, Hover, Fokus auf hell, 6,95:1 */
+  --color-primary-tint: #f6f0fc;   /* Sektionen, Zebra, Hover, Badge-Grund */
 
-  
-  /* Brand colors */
-  --color-primary: #CEA8F0; /* Lavendel */
-  --color-neutraldark: #1F1F1F;   /* Anthrazit */
-  --color-neutrallight: #F2F2F2; /* Hellgrau */
-  --color-akzent: #0B2A20; /*Neon-Gelbgrün (Padelball-Akzent)*/
-  --color-akzent2: #0F4C5C; /* Petrol */
-  --color-optional: #D6D1DB; /* Warm Grau-Lila */
+  /* Neutral */
+  --color-white: #ffffff;
+  --color-neutraldark: #1f1f1f;    /* Text, Primär-Button, dunkle Flächen */
+  --color-text-muted: #55505c;     /* Sekundärtext, 7,81:1 */
+  --color-neutrallight: #f2f2f2;   /* Cards, Sektionen */
+  --color-border: #d6d1db;         /* Card-Rand, Trenner; Text auf Anthrazit */
+  --color-field-border: #8a8591;   /* Formularfelder, 3,59:1 */
 
+  /* Signal und Sekundär */
+  --color-signal: #c8f000;         /* Neon, nur auf dunklem Grund */
+  --color-signal-hover: #b5d900;
+  --color-secondary: #0f4c5c;      /* Petrol: große Flächen, Info */
 
+  /* Status */
+  --color-success: #1b7f4b;
+  --color-warning: #8a5300;
+  --color-danger: #c62828;
+
+  /* Schrift */
+  --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
+  --font-display: "Bebas Neue", "Arial Narrow", Impact, sans-serif; /* H1, Banner, große Zahlen; nur Versalien */
+
+  /* Form */
+  --radius-sm: 0.25rem;            /* 4 px: Buttons, Felder */
+  --radius-lg: 0.5rem;             /* 8 px: Cards, Bilder */
+
+  /* Maße */
+  --spacing-touch: 2.75rem;        /* 44 px: Touch-Ziel, Mindesthöhe Button und Feld */
+  --container-content: 70rem;      /* 1120 px: Content-Spalte */
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+:root {
+  --border-width: 1px;             /* Card-Rand, Feldrand */
+  --border-width-strong: 2px;      /* Button-Rahmen, Fokusring */
+  --court-line-min: 0.06;          /* Spielfeldlinien-Muster, Deckkraft */
+  --court-line-max: 0.22;
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-border, currentColor);
   }
+
+  html {
+    color: var(--color-neutraldark);
+    background-color: var(--color-white);
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  a {
+    text-underline-offset: 0.15em;
+  }
+
+  /* Fokusring ist Pflicht (CI 3): 2 px Lavendel Dark, auf dunklem Grund Lavendel */
+  :focus-visible {
+    outline: var(--border-width-strong) solid var(--color-primary-dark);
+    outline-offset: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-primary);
+  }
+
+  /* Sprungziele nicht unter den Rand scrollen */
+  [id] {
+    scroll-margin-top: 1.5rem;
+  }
+}
+
+/* Schrift-Stile nach CI 4.3 */
+@utility type-hero {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  font-size: clamp(3.75rem, 2.4rem + 4.2vw, 6rem); /* mobil 60 px, Desktop 96 px */
+}
+
+@utility type-banner {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  font-size: clamp(2.75rem, 2.1rem + 2.2vw, 4rem); /* mobil 44 px, Desktop 64 px */
+}
+
+@utility type-big-number {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  font-size: 3rem;
+}
+
+@utility type-h2 {
+  font-size: clamp(2rem, 1.5rem + 1.8vw, 3rem); /* mobil 32 px, Desktop 48 px */
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+@utility type-h3 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+}
+
+@utility type-body {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: var(--color-text-muted);
+}
+
+/* Outline-Icons (Lucide) mit 1,75 px Strich bei 24 px (CI 6) */
+@utility icon-stroke {
+  & path,
+  & circle,
+  & line,
+  & polyline,
+  & rect {
+    stroke-width: 1.75;
+  }
+}
+
+/* Farben für Markdown-Inhalte (News-Beiträge). Ohne Layer, damit sie die Typography-Voreinstellung überschreiben. */
+.prose {
+  --tw-prose-body: var(--color-text-muted);
+  --tw-prose-headings: var(--color-neutraldark);
+  --tw-prose-lead: var(--color-text-muted);
+  --tw-prose-links: var(--color-primary-dark);
+  --tw-prose-bold: var(--color-neutraldark);
+  --tw-prose-counters: var(--color-text-muted);
+  --tw-prose-bullets: var(--color-field-border);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-neutraldark);
+  --tw-prose-quote-borders: var(--color-primary);
+  --tw-prose-captions: var(--color-text-muted);
+  --tw-prose-code: var(--color-neutraldark);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
 }

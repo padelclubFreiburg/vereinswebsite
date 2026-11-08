@@ -1,94 +1,103 @@
 ---
+import { Image } from "astro:assets";
 import Container from "@/components/container.astro";
 import Link from "@/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
-import { Astronav, MenuItems, MenuIcon } from "astro-navbar";
-import { Icon } from "astro-icon/components";
+import { Astronav, MenuItems } from "astro-navbar";
+import logo from "@/assets/logos/pcf-logo-horizontal-hell-transparent.png";
 
+// Menüeinträge. Einträge mit `children` werden zum Dropdown.
 const menuitems = [
-  {
-    title: "Home",
-    path: "/",
-
-  },
+  { title: "Home", path: "/" },
   {
     title: "Der Club",
     path: "#",
-        children: [
-      { title: "Team", path: "/team", },
-      { title: "Partnerschaften", path: "/#partner" }
+    children: [
+      { title: "Team", path: "/team" },
+      { title: "Partnerschaften", path: "/#partner" },
     ],
   },
-  {
-    title: "News & Events",
-    path: "/news",
-  },
-  {
-    title: "Mitgliedschaft",
-    path: "/mitgliedschaft",
-  },
-  {
-    title: "Kontakt",
-    path: "/contact",
-  }
+  { title: "News & Events", path: "/news" },
+  { title: "Mitgliedschaft", path: "/mitgliedschaft" },
+  { title: "FAQ", path: "/faq" },
+  { title: "Kontakt", path: "/contact" },
 ];
+
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (path: string) => path === current;
 ---
 
-<Container>
-  <header class="flex flex-col lg:flex-row justify-between items-center my-5">
+<header class="border-b border-border bg-white">
+  <Container class="flex flex-col py-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
     <Astronav>
-      <div class="flex w-full lg:w-auto items-center justify-between">
-        <a href="/" class="text-lg"
-          ><span class="font-bold text-primary">Padel Club </span><span
-            class="text-secondary2">Freiburg e.V.</span
-          >
+      <div class="flex w-full items-center justify-between lg:w-auto">
+        <a href="/" class="block rounded-sm" aria-label="Padel Club Freiburg e.V., zur Startseite">
+          <Image
+            src={logo}
+            alt=""
+            height={48}
+            densities={[1, 2]}
+            loading="eager"
+            class="h-11 w-auto lg:h-12"
+          />
         </a>
-        <div class="block lg:hidden">
-          <MenuIcon class="w-4 h-4 text-secondary2" />
-        </div>
+        <button
+          id="astronav-menu"
+          type="button"
+          class="inline-flex size-touch items-center justify-center rounded-sm border-2 border-neutraldark bg-white text-neutraldark lg:hidden"
+          aria-label="Menü"
+          aria-controls="hauptmenue"
+          aria-expanded="false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path class="astronav-toggle" d="M4 7h16M4 12h16M4 17h16"></path>
+            <path class="astronav-toggle hidden" d="M6 6l12 12M18 6L6 18"></path>
+          </svg>
+        </button>
       </div>
-      <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
-        <ul class="flex flex-col lg:flex-row lg:gap-3">
+      <MenuItems id="hauptmenue" class="hidden w-full lg:flex lg:w-auto" aria-label="Hauptmenü">
+        <ul class="flex flex-col py-2 lg:flex-row lg:gap-1 lg:py-0">
           {
-            menuitems.map((item, index) => (
-              <>
-                {item.children && (
-                  <Dropdown
-                    title={item.title}
-                    children={item.children}
-                    lastItem={index === menuitems.length - 1}
-                  />
-                )}
-
-                {!item.children && (
-                  <li>
-                    <a
-                      href={item.path}
-                      class="flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900">
-                      <span> {item.title}</span>
-                    </a>
-                  </li>
-                )}
-              </>
-            ))
+            menuitems.map((item, index) =>
+              item.children ? (
+                <Dropdown title={item.title} children={item.children} lastItem={index === menuitems.length - 1} />
+              ) : (
+                <li>
+                  <a
+                    href={item.path}
+                    aria-current={isActive(item.path) ? "page" : undefined}
+                    class:list={[
+                      "flex min-h-touch items-center rounded-sm px-3 text-base transition-colors hover:bg-primary-tint hover:text-neutraldark",
+                      isActive(item.path)
+                        ? "font-semibold text-neutraldark lg:rounded-none lg:shadow-[inset_0_-2px_0_var(--color-primary-dark)] lg:hover:bg-transparent"
+                        : "text-text-muted",
+                    ]}>
+                    {item.title}
+                  </a>
+                </li>
+              )
+            )
           }
         </ul>
-        <!--
-        <div class="lg:hidden flex items-center mt-3 gap-4">
-          <Link href="#" style="muted" block size="md">Log in</Link>
-          <Link href="#" size="md" block>Sign up</Link>
+        <div class="pb-4 lg:hidden">
+          <Link href="/mitgliedschaft" block>Mitglied werden</Link>
         </div>
-        -->
       </MenuItems>
     </Astronav>
-    
-    <div>
-      
-      <div class="hidden lg:flex items-center gap-4">
-        <!-- <a href="#">Log in</a> -->
-        <Link href="./mitgliedschaft" size="md">Mitglied werden</Link>
-      </div>
-      
+
+    <div class="hidden lg:block">
+      <Link href="/mitgliedschaft">Mitglied werden</Link>
     </div>
-  </header>
-</Container>
+  </Container>
+</header>
+
+<script>
+  // aria-expanded für den Menü-Button pflegen (das Umschalten selbst macht astro-navbar)
+  const menuButton = () => document.getElementById("astronav-menu");
+  document.addEventListener("click", (event) => {
+    const button = menuButton();
+    if (!button || !(event.target instanceof Node) || !button.contains(event.target)) return;
+    const menu = document.getElementById("hauptmenue");
+    const open = !!menu && !menu.classList.contains("hidden");
+    button.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+</script>

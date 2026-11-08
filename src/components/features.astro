@@ -1,68 +1,65 @@
 ---
-// @ts-ignore
 import { Icon } from "astro-icon/components";
 
+// Icons: Lucide (Outline). Namen siehe https://lucide.dev/icons
 const features = [
   {
     title: "Starke Community",
     description:
       "Wir verbinden Menschen durch Padel und schaffen einen offenen, lebendigen Verein für alle Spielstärken und Altersgruppen.",
-    icon: "bx:group",
+    icon: "lucide:users",
   },
   {
     title: "Sportliche Entwicklung",
-    description:
-      "Vom Einstieg bis zum Wettkampfsport fördern wir Spieler:innen gezielt und nachhaltig.",
-    icon: "bx:award",
+    description: "Vom Einstieg bis zum Wettkampfsport fördern wir Spieler:innen gezielt und nachhaltig.",
+    icon: "lucide:award",
   },
   {
     title: "Nachwuchsförderung",
     description:
-      "Kinder und Jugendliche sind die Zukunft des Padelsports – wir bieten ihnen professionelle und altersgerechte Trainingsstrukturen.",
-    icon: "bx:bxs-data",
+      "Kinder und Jugendliche sind die Zukunft des Padelsports. Wir bauen altersgerechte Trainingsstrukturen auf.",
+    icon: "lucide:sprout",
   },
   {
     title: "Spielzeiten & Infrastruktur",
     description:
-      "Wir setzen uns aktiv dafür ein, die verfügbaren Spielmöglichkeiten im Raum Freiburg auszubauen – indem wir relevante Akteure vernetzen, Kooperationen fördern und gezielte Impulse setzen.",
-    icon: "bx:been-here",
+      "Wir vernetzen Anlagen und Betreiber, um die Spielmöglichkeiten im Raum Freiburg auszubauen.",
+    icon: "lucide:map-pin",
   },
   {
     title: "Wachstum & Sichtbarkeit",
-    description:
-      "Wir machen Padel im Raum Freiburg sichtbar und etablieren den Sport langfristig in der Region.",
-    icon: "bx:rocket",
+    description: "Wir machen Padel im Raum Freiburg sichtbar und etablieren den Sport langfristig in der Region.",
+    icon: "lucide:trending-up",
   },
   {
     title: "Partnerschaften",
     description:
-      "Durch starke Kooperationen mit Vereinen, Schulen und Unternehmen treiben wir die Entwicklung des Padelsports gemeinsam voran.",
-    icon: "bx:bxs-user",
+      "Mit Vereinen, Schulen und Unternehmen treiben wir die Entwicklung des Padelsports gemeinsam voran.",
+    icon: "lucide:handshake",
   },
 ];
 ---
 
-<div class="mt-16 md:mt-0">
-  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight" id="vision">
-    Unsere Vision als Padel Club Freiburg e.V.
-  </h2>
-  <p class="text-lg mt-4 text-slate-600">
-    Gemeinsam gestalten wir die Zukunft des Padelsports im Raum Freiburg – mit Leidenschaft, Gemeinschaft und klaren Zielen.
+<section class="py-16 lg:py-24" aria-labelledby="vision">
+  <h2 id="vision" class="type-h2">Unsere Vision</h2>
+  <p class="type-body mt-4 max-w-[70ch]">
+    Gemeinsam gestalten wir die Zukunft des Padelsports im Raum Freiburg, mit Leidenschaft, Gemeinschaft und
+    klaren Zielen.
   </p>
-</div>
 
-<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
-  {
-    features.map((item) => (
-      <div class="flex gap-4 items-start">
-        <div class="mt-1 bg-primary rounded-full  p-2 w-8 h-8 shrink-0">
-          <Icon class="text-white" name={item.icon} />
-        </div>
-        <div>
-          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
-          <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
-        </div>
-      </div>
-    ))
-  }
-</div>
+  <ul class="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      features.map((item) => (
+        <li class="flex items-start gap-4">
+          <span class="flex size-touch shrink-0 items-center justify-center rounded-full bg-primary">
+            <Icon name={item.icon} class="icon-stroke size-6 text-neutraldark" aria-hidden="true" />
+          </span>
+          <div>
+            <h3 class="type-h3">{item.title}</h3>
+            <p class="mt-1 text-base leading-6 text-text-muted">{item.description}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>

@@ -1,45 +1,21 @@
 ---
+// Link in Button-Optik (Navigation). Für Aktionen ui/button.astro nehmen.
+import { buttonBase, buttonVariants, type ButtonVariant } from "./button-styles";
+
 interface Props {
   href: string;
-  size?: "md" | "lg";
+  variant?: ButtonVariant;
   block?: boolean;
-  style?: "outline" | "primary" | "inverted" | "muted";
   class?: string;
   [x: string]: any;
 }
 
-const {
-  href,
-  block,
-  size = "lg",
-  style = "primary",
-  class: className,
-  ...rest
-} = Astro.props;
-
-const sizes = {
-  lg: "px-5 py-2.5",
-  md: "px-4 py-2",
-};
-
-const styles = {
-  outline: "bg-white border-2 border-black hover:bg-gray-100 text-black ",
-  primary: "bg-akzent text-white hover:bg-gray-800  border-2 border-transparent",
-  inverted: "bg-white text-black   border-2 border-black",
-  invertedakzenzt: "bg-white text-akzent   border-2 border-akzent",
-  muted: "bg-gray-100 hover:bg-gray-200   border-2 border-transparent",
-};
+const { href, variant = "primary", block, class: className, ...rest } = Astro.props;
 ---
 
 <a
   href={href}
   {...rest}
-  class:list={[
-    "rounded-sm text-center transition focus-visible:ring-2 ring-offset-2 ring-gray-200",
-    block && "w-full",
-    sizes[size],
-    styles[style],
-    className,
-  ]}
-  ><slot />
-</a>
+  class:list={[buttonBase, buttonVariants[variant], block && "w-full", className]}
+  ><slot /></a
+>

@@ -1,0 +1,17 @@
+---
+// Spielfeld-Muster nach CI-Guide 6: Padel-Court 10 × 20 von oben (Bande, Netz, Aufschlaglinien,
+// Mittellinie), weiße Linien mit 6–22 % Deckkraft, 2 px stark, Ball als Neon-Punkt.
+// Nur auf dunklem Grund einsetzen.
+const { class: className } = Astro.props;
+---
+
+<svg class={className} viewBox="0 0 220 120" fill="none" aria-hidden="true" focusable="false">
+  <g stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke">
+    <rect x="10" y="10" width="200" height="100" stroke-opacity="0.2" vector-effect="non-scaling-stroke"></rect>
+    <line x1="110" y1="4" x2="110" y2="116" stroke-opacity="0.22" vector-effect="non-scaling-stroke"></line>
+    <line x1="40.5" y1="10" x2="40.5" y2="110" stroke-opacity="0.12" vector-effect="non-scaling-stroke"></line>
+    <line x1="179.5" y1="10" x2="179.5" y2="110" stroke-opacity="0.12" vector-effect="non-scaling-stroke"></line>
+    <line x1="40.5" y1="60" x2="179.5" y2="60" stroke-opacity="0.08" vector-effect="non-scaling-stroke"></line>
+  </g>
+  <circle cx="152" cy="34" r="4" fill="#c8f000"></circle>
+</svg>
