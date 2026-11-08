@@ -1,14 +1,20 @@
 ---
 import Container from "@/components/container.astro";
 import Layout from "@/layouts/Layout.astro";
+import Link from "@/components/ui/link.astro";
 ---
 
-<Layout title="404 Not Found">
+<Layout title="Seite nicht gefunden">
   <Container>
-    <div class="min-h-[calc(100vh-16rem)] flex items-center justify-center">
-      <div class="mt-16 text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">404</h1>
-        <p class="text-lg mt-4 text-slate-600">Page not found.</p>
+    <div class="flex min-h-[calc(100vh-24rem)] flex-col items-center justify-center pt-16 text-center">
+      <p class="type-hero">404</p>
+      <h1 class="type-h2 mt-4">Seite nicht gefunden</h1>
+      <p class="type-body mt-4 max-w-[48ch]">
+        Diese Seite gibt es nicht (mehr). Vielleicht hilft dir die Startseite oder unsere Sammlung häufiger Fragen weiter.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <Link href="/">Zur Startseite</Link>
+        <Link href="/faq" variant="secondary">Häufige Fragen</Link>
       </div>
     </div>
   </Container>
