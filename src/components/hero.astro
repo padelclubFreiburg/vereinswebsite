@@ -7,14 +7,16 @@ import Link from "@/components/ui/link.astro";
 <section
   class="grid items-center gap-8 pt-8 pb-8 lg:grid-cols-[3fr_2fr] lg:gap-10 lg:pt-16 lg:pb-12"
   aria-labelledby="hero-title">
-  <div class="order-first flex lg:order-last lg:justify-center">
+  <!-- Monogramm nur, wenn es neben dem Text Platz hat (ab lg). Darunter stünde es über der Überschrift
+       und doppelt sich mit dem Logo im Header. -->
+  <div class="hidden lg:order-last lg:flex lg:justify-center">
     <Image
       src={heroImage}
       alt=""
       width={420}
       height={420}
       loading="eager"
-      class="w-32 sm:w-44 lg:w-full lg:max-w-[22rem]"
+      class="w-full max-w-[22rem]"
     />
   </div>
   <div>
