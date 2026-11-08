@@ -1,0 +1,289 @@
+# Häufige Fragen (Seite /faq und Block „Noch Fragen?“ auf der Startseite)
+#
+# So pflegst du die Fragen:
+# - Jede Kategorie hat eine `id` (Sprungmarke, z. B. /faq#verein), einen `titel` und einen kurzen Namen `kurz`
+#   für die Kategorie-Buttons oben auf der Seite.
+# - Jede Frage hat eine eindeutige `id`. Daraus wird der Link zur Frage, z. B. /faq#court-buchen.
+#   Die id nicht mehr ändern, wenn der Link schon verschickt wurde.
+# - In `antwort` geht Markdown: **fett**, [Linktext](/mitgliedschaft), Leerzeile = neuer Absatz.
+#   Links auf die Court-Übersicht: (#courts), auf eine andere Frage: (#id-der-frage),
+#   aufs Kontaktformular mit Thema: (/contact?thema=training).
+#   Mögliche Themen: spielen, mitglied, training, turniere, jugend, sponsoring, mitmachen, sonstiges.
+# - Reihenfolge hier = Reihenfolge auf der Seite.
+# - Die Courts stehen in src/data/courts.yaml.
+#
+# Quelle: FAQ-PDF des Vereins, Stand September 2026.
+
+- id: padel-spielen
+  titel: Padel spielen in Freiburg und Umgebung
+  kurz: Padel spielen
+  fragen:
+    - id: wo-spielen
+      frage: "Wo kann ich in Freiburg und Umgebung Padel spielen?"
+      antwort: |
+        In und rund um Freiburg gibt es inzwischen mehrere Möglichkeiten, Padel zu spielen. Eine aktuelle Übersicht der Courts findest du in der Playtomic-App oder [weiter unten auf dieser Seite](/faq#courts).
+
+        Ganz wichtig: Lade dir zuerst die **Playtomic-App** herunter, die brauchst du auf jeden Fall.
+
+    - id: anlagen
+      frage: "Welche Padelanlagen gibt es in der Region?"
+      antwort: |
+        Die Padel-Landschaft rund um Freiburg entwickelt sich gerade sehr dynamisch. Neben Angeboten in Freiburg entstehen auch im Umland neue Indoor- und Outdoor-Courts. Wir aktualisieren unsere [Übersicht](/faq#courts) regelmäßig, damit du schnell die passende Anlage findest.
+
+    - id: court-buchen
+      frage: "Wie kann ich einen Court buchen?"
+      antwort: |
+        Du buchst direkt beim jeweiligen Betreiber, in den meisten Fällen über die Buchungsplattform Playtomic. Der Padel Club Freiburg e.V. vermittelt keine eigenen Courts, hilft dir aber gerne bei der [Orientierung](/faq#courts).
+
+    - id: ausruestung
+      frage: "Muss ich mir sofort Schläger und Bälle kaufen, wenn ich Padel ausprobieren möchte?"
+      antwort: |
+        Nein. Vor Ort kannst du Schläger und Bälle gegen Gebühr leihen. Für die Buchung brauchst du eine Kreditkarte.
+
+    - id: kosten
+      frage: "Was kostet eine Stunde Padel?"
+      antwort: |
+        Der Preis hängt von Anlage, Tageszeit und Auslastung ab. In der Region kostet ein Court typischerweise etwa 40 € pro Stunde und kann von bis zu vier Personen genutzt werden. Bei voller Besetzung sind das ungefähr 10 € pro Person.
+
+    - id: spieldauer
+      frage: "Wie lange sollte ich den Court buchen?"
+      antwort: |
+        Die Zeit rast beim Padeln. Für den Anfang empfehlen wir 90 Minuten Spielzeit.
+
+    - id: hansefit
+      frage: "Kann ich Padel über Hansefit (ab 2027 Epassi) buchen?"
+      antwort: |
+        Bei fast allen Padelanlagen in Freiburg und Umgebung ist die Nutzung über **Hansefit/Epassi** möglich. Damit spielst du 1 Stunde gratis.
+
+        **Wichtig:** Bevor du das erste Mal buchst, musst du deine Hansefit-Mitgliedschaft beim jeweiligen Betreiber registrieren lassen, per WhatsApp oder E-Mail an den Betreiber.
+
+    - id: ohne-mitgliedschaft
+      frage: "Kann ich auch ohne Vereinsmitgliedschaft spielen?"
+      antwort: |
+        Ja, klar. Du kannst einen Court direkt bei einer Anlage buchen. Eine Mitgliedschaft im Padel Club Freiburg e.V. ist interessant, wenn du regelmäßig auch mal unter Wettbewerbsbedingungen spielen, an Vereinsaktivitäten teilnehmen oder den Padelsport in der Region mitgestalten möchtest.
+
+    - id: alleine-buchen
+      frage: "Kann ich auch alleine einen Court buchen?"
+      antwort: |
+        Grundsätzlich ja. Allerdings buchst du normalerweise einen kompletten Court. Du kannst also auch alleine buchen und anschließend Mitspieler:innen suchen. Noch einfacher findest du Spielpartner:innen über die [Communitys der Betreiber](/faq#courts).
+
+        Üblicherweise wird im Doppel gespielt. Es gibt aber auch Single-Courts.
+
+    - id: anfaenger
+      frage: "Gibt es Angebote für Anfänger:innen?"
+      antwort: |
+        Ja. Gerade für Einsteiger:innen möchten wir den Zugang zum Sport möglichst unkompliziert machen. Neben passenden Veranstaltungen arbeiten wir dafür mit Padelanlagen und Trainer:innen in der Region zusammen.
+
+        Unsere Einsteigerangebote sollen dir den Start erleichtern: Du musst also nicht schon spielen können, um mit dem Training zu beginnen.
+
+    - id: familien
+      frage: "Gibt es Padel-Angebote für Familien?"
+      antwort: |
+        Padel eignet sich sehr gut für Familien, weil Anfänger:innen und Fortgeschrittene relativ unkompliziert miteinander spielen können. Konkrete Familienangebote haben wir momentan noch nicht im Programm.
+
+    - id: infos
+      frage: "Wo finde ich aktuelle Informationen zu Padel in der Region?"
+      antwort: |
+        Auf unserer Webseite unter [News & Events](/news) und auf unserem [Instagram-Kanal](https://www.instagram.com/padelclubfreiburg) informieren wir über aktuelle Entwicklungen, Veranstaltungen und Angebote. Als regionaler Padelverein möchten wir dabei auch einen Überblick über die Padelmöglichkeiten über unseren eigenen Verein hinaus geben.
+
+- id: verein
+  titel: Der Padel Club Freiburg e.V.
+  kurz: Der Verein
+  fragen:
+    - id: was-ist-pcf
+      frage: "Was ist der Padel Club Freiburg?"
+      antwort: |
+        Der Padel Club Freiburg e.V. ist ein gemeinnütziger Sportverein, der den Padelsport in Freiburg und der Region fördert und eine aktive Padel-Community aufbauen möchte.
+
+    - id: keine-courts
+      frage: "Warum hat der Verein keine eigenen Courts?"
+      antwort: |
+        Der Padel Club Freiburg ist bewusst als reiner Padelverein gegründet worden und nicht als Betreiber einer eigenen Sportanlage. Wir arbeiten stattdessen mit verschiedenen [Padelanlagen und Betreibern in der Region](/faq#courts) zusammen. So können unsere Mitglieder an unterschiedlichen Standorten spielen, und wir entwickeln den Sport gemeinsam mit unseren Partnern weiter.
+
+    - id: verein-oder-betreiber
+      frage: "Was unterscheidet den Verein von einem Court-Betreiber?"
+      antwort: |
+        Ein Betreiber stellt Courts zur Verfügung und organisiert deren Betrieb. Unser Verein kümmert sich um die Menschen und die Gemeinschaft dahinter: Mitglieder, Spielmöglichkeiten, Veranstaltungen, Mannschaften, Turniere, Nachwuchsarbeit und die Entwicklung des Padelsports in der Region.
+
+    - id: wo-spielt-der-verein
+      frage: "Wo spielt der Padel Club Freiburg?"
+      antwort: |
+        Wir haben keinen festen Heimcourt. Unsere Mitglieder spielen auf verschiedenen Anlagen in Freiburg und Umgebung. Durch unsere Kooperationen möchten wir unseren Mitgliedern möglichst unterschiedliche Spielmöglichkeiten und Vorteile bieten.
+
+    - id: partneranlagen
+      frage: "Mit welchen Anlagen arbeitet der Verein zusammen?"
+      antwort: |
+        Wir bauen ein Netzwerk verschiedener Padelanlagen und Betreiber in Freiburg und der Region auf. Welche Partnerschaften aktuell bestehen, findest du in der [Übersicht der Courts](/faq#courts).
+
+    - id: warum-mitglied
+      frage: "Warum sollte ich Mitglied im Padel Club Freiburg werden?"
+      antwort: |
+        Eine Mitgliedschaft verbindet dich mit der Padel-Community in Freiburg. Du bekommst Zugang zu Vereinsaktivitäten, Spielmöglichkeiten auf Wettbewerbsniveau, Veranstaltungen und Turnieren und trägst gleichzeitig dazu bei, dass sich Padel in der Region weiterentwickelt. Ganz zu schweigen von unserem coolen Vereinstrikot, das in der Mitgliedschaft inklusive ist.
+
+    - id: vorteile
+      frage: "Was habe ich konkret von einer Mitgliedschaft?"
+      antwort: |
+        Neben der Zugehörigkeit zur Padel-Community arbeiten wir daran, unseren Mitgliedern zunehmend konkrete Vorteile zu bieten, zum Beispiel durch Kooperationen mit Padelanlagen, Veranstaltungen, Vergünstigungen und weitere Partnerangebote. Was in welcher Mitgliedschaft enthalten ist, siehst du unter [Mitgliedschaft](/mitgliedschaft).
+
+    - id: wer-kann-mitglied-werden
+      frage: "Wer kann Mitglied werden?"
+      antwort: |
+        Grundsätzlich alle, die Padel und die Ziele unseres Vereins unterstützen möchten, egal ob du Anfänger:in, Freizeitspieler:in oder ambitionierte:r Wettkampfspieler:in bist.
+
+    - id: wohnort
+      frage: "Muss ich in Freiburg wohnen?"
+      antwort: |
+        Nein. Unser Verein richtet sich an Padelspieler:innen aus Freiburg und der gesamten Region. Gerade weil Padelanlagen auch außerhalb Freiburgs entstehen, sind Mitglieder aus dem Umland ausdrücklich willkommen.
+
+    - id: als-anfaenger-mitglied
+      frage: "Kann ich als Anfänger:in Mitglied werden?"
+      antwort: |
+        Unbedingt. Du musst keine Vorerfahrung mitbringen. Der Verein soll gerade auch Menschen den Zugang zum Padel ermöglichen, die neu in diesem Sport sind.
+
+    - id: beitrag
+      frage: "Wie hoch ist der Mitgliedsbeitrag?"
+      antwort: |
+        Der reguläre Jahresbeitrag beträgt derzeit 95 €. Aktuelle Beiträge, Leistungen und weitere Mitgliedschaftsmodelle findest du unter [Mitgliedschaft](/mitgliedschaft). Für Jugendliche bis einschließlich 18 Jahre gibt es eine eigene Jugendmitgliedschaft.
+
+    - id: engagieren
+      frage: "Kann ich mich im Verein engagieren?"
+      antwort: |
+        Sehr gerne! Unser Verein lebt vom Ehrenamt. Ob bei Veranstaltungen, Jugendprojekten, Turnieren, Öffentlichkeitsarbeit, Partnerschaften oder organisatorischen Aufgaben: Wir freuen uns über Mitglieder, die sich einbringen möchten. [Schreib uns einfach](/contact?thema=mitmachen).
+
+- id: gemeinschaft
+  titel: Gemeinschaft und Spielpartner:innen
+  kurz: Gemeinschaft
+  fragen:
+    - id: mitspieler-finden
+      frage: "Ich kenne niemanden. Wie finde ich Mitspieler:innen?"
+      antwort: |
+        Das ist überhaupt kein Problem, gerade dafür gibt es unseren Verein. Über unsere Community, Spielgruppen und Veranstaltungen lernst du andere Spieler:innen kennen und findest Mitspieler:innen auf deinem Niveau. Unser Ziel: Du sollst nicht erst selbst eine komplette Vierergruppe organisieren müssen, um Padel spielen zu können.
+
+        Sehr hilfreich sind auch die [WhatsApp-Communitys der Betreiber](/faq#courts). Und denk an die Playtomic-App: Leg dir dort ein Profil an.
+
+        Ansprechperson im sportlichen Bereich ist Adrian Sexauer, erreichbar über das [Kontaktformular](/contact?thema=training).
+
+    - id: playtomic-level
+      frage: "Welches Level habe ich bei Playtomic?"
+      antwort: |
+        Das Playtomic-Level ist vor deinem allerersten Match eine Selbsteinschätzung deiner Spielstärke, ähnlich einem Rating. Es soll dafür sorgen, dass du bei Matches möglichst mit Leuten auf einem ähnlichen Niveau spielst.
+
+        Beim Anlegen deines Profils legt ein Algorithmus dein Level anhand deiner Selbsteinschätzung und deiner Angaben zur Spielerfahrung fest. Danach entwickelt es sich über deine gespielten Matches weiter. In der App findest du mehr Infos.
+
+    - id: whatsapp-gruppen
+      frage: "Gibt es WhatsApp- oder Community-Gruppen?"
+      antwort: |
+        Ja. Wir nutzen WhatsApp-Gruppen und -Kanäle, um Mitglieder miteinander zu vernetzen und über Spielmöglichkeiten und Veranstaltungen zu informieren. Die Communitys der Anlagen findest du in der [Übersicht der Courts](/faq#courts).
+
+    - id: spieltreffs
+      frage: "Gibt es regelmäßige Vereinsspieltreffs?"
+      antwort: |
+        Wir organisieren verschiedene Formate und Veranstaltungen. Die Planungen für das Jahresende 2026 und für 2027 laufen.
+
+    - id: americano
+      frage: "Was ist ein Americano?"
+      antwort: |
+        Ein Americano ist ein Padel-Spielformat, bei dem die Paarungen immer wieder wechseln. Dadurch spielst du mit verschiedenen Partner:innen gegen verschiedene Gegner:innen und sammelst individuelle Punkte.
+
+    - id: mexicano
+      frage: "Was ist ein Mexicano?"
+      antwort: |
+        Ein Mexicano funktioniert ähnlich wie ein [Americano](/faq#americano), allerdings werden die nächsten Paarungen anhand der bisherigen Ergebnisse zusammengestellt. Dadurch entstehen im Laufe des Turniers zunehmend ausgeglichene Begegnungen.
+
+    - id: gesellige-events
+      frage: "Gibt es auch gesellige Veranstaltungen?"
+      antwort: |
+        Ja. Padel soll bei uns nicht nur auf dem Court stattfinden. Wir möchten Sport, Gemeinschaft und geselliges Vereinsleben miteinander verbinden und organisieren deshalb auch Events außerhalb des normalen Spielbetriebs.
+
+    - id: events-ohne-mitgliedschaft
+      frage: "Kann ich an Vereinsveranstaltungen teilnehmen, ohne Mitglied zu sein?"
+      antwort: |
+        Das hängt von der jeweiligen Veranstaltung ab. Viele Veranstaltungen und offene Formate sind auch für Nichtmitglieder interessant. Die Teilnahmebedingungen stehen jeweils bei der Veranstaltung unter [News & Events](/news).
+
+- id: training-wettkampf
+  titel: Training, Turniere und Wettkampf
+  kurz: Training & Wettkampf
+  fragen:
+    - id: training
+      frage: "Gibt es Trainingsangebote?"
+      antwort: |
+        Der Padel Club Freiburg baut sein Trainingsangebot gemeinsam mit qualifizierten Trainer:innen und Partneranlagen weiter aus. Für aktuelle Trainingsmöglichkeiten ist unser eigener Trainer Yannick Lawson die Ansprechperson, erreichbar über das [Kontaktformular](/contact?thema=training).
+
+        Auch ohne Vorkenntnisse bist du willkommen, siehe [Angebote für Anfänger:innen](/faq#anfaenger).
+
+    - id: mannschaften
+      frage: "Gibt es Mannschaften?"
+      antwort: |
+        Ja. Der Padel Club Freiburg ist auch im Mannschafts- und Ligabereich aktiv. Gleich nach deiner Anmeldung im Verein ordnet Adrian dich einer Mannschaft zu. Unser Ziel ist, mindestens einmal pro Woche ein Mannschaftstraining zu organisieren.
+
+    - id: liga-spielen
+      frage: "Kann ich für den Verein in einer Liga spielen?"
+      antwort: |
+        Wenn du Mitglied bist und die sportlichen Voraussetzungen für die jeweilige Mannschaft erfüllst, kannst du dich für einen Mannschaftsplatz qualifizieren. Sprich dafür am besten die Mannschaftsverantwortlichen Yannick und Adrian an, zum Beispiel über das [Kontaktformular](/contact?thema=training).
+
+    - id: vereinsturniere
+      frage: "Gibt es Turniere vom Verein, und wie kann ich teilnehmen?"
+      antwort: |
+        Ja. Informationen zu vereinseigenen Turnieren und Mannschaftswettbewerben veröffentlichen wir unter [News & Events](/news), auf [Instagram](https://www.instagram.com/padelclubfreiburg) und in unseren WhatsApp-Gruppen. Bei offenen Turnieren kannst du dich häufig auch selbst direkt beim Veranstalter anmelden.
+
+    - id: turniere-region
+      frage: "Wo kann ich Padel-Turniere spielen?"
+      antwort: |
+        In Freiburg und Umgebung finden regelmäßig Turniere verschiedener Formate und Spielstärken statt, unter anderem [GPS-Turniere](/faq#gps). Aktuelle Turniere findest du über die jeweiligen Veranstalter und Plattformen.
+
+        Infos zur Teilnahme an GPS-Turnieren: [Padel-Turniere Deutschland 2026: GPS, Lizenz & Anmeldung](https://smash-n-connect.com/blog/padel-turniere-deutschland/)
+
+    - id: gps
+      frage: "Was sind GPS-Turniere?"
+      antwort: |
+        GPS (German Padel Series) ist ein deutschlandweites Turniersystem im Padel. Die Turniere werden in verschiedenen Kategorien und Spielstärken ausgetragen und ermöglichen es Spieler:innen, sich mit anderen Paarungen zu messen. Wo du Turniere findest, steht unter [Wo kann ich Padel-Turniere spielen?](/faq#turniere-region)
+
+    - id: dpl
+      frage: "Was ist die DPL?"
+      antwort: |
+        Die Deutsche Padel Liga (DPL) ist ein organisierter Ligawettbewerb für Padelmannschaften, organisiert vom [Deutschen Padel Verband](https://www.dpv-padel.de/). Unser Club nimmt mit Mannschaften an den entsprechenden Wettbewerben teil. Unsere Herren 1 spielen im Dezember 2026 um den Aufstieg in die 2. Bundesliga. Der genaue Termin folgt noch.
+
+    - id: german-padel-league
+      frage: "Was ist die German Padel League?"
+      antwort: |
+        Unter dem Namen [German Padel League](https://www.mypadel.de/play/german-padel-league.html#step-2/lv) vereinen sich die regionalen Mannschaftsspielbetriebe der Tennis-Landesverbände. Unser Club nimmt ab 2027 auch hier teil. Der zuständige Wettbewerb heißt [Padel Liga Baden-Württemberg](https://www.tennis.de/bad/spielbetrieb/padel-liga-bw.html).
+
+    - id: zwei-verbaende
+      frage: "Gibt es in Deutschland zwei Verbände für den Padelsport?"
+      antwort: |
+        Ja, genau: den Deutschen Padel Verband mit der [DPL](/faq#dpl) und die Tennis-Landesverbände mit der [German Padel League](/faq#german-padel-league). Das Coole: Als eingetragener Verein können wir bei beiden Formaten teilnehmen.
+
+- id: jugend-mitgliedschaft
+  titel: Jugend, Mitgliedschaft und Kontakt
+  kurz: Jugend & Mitgliedschaft
+  fragen:
+    - id: kinder-alter
+      frage: "Ab welchem Alter können Kinder Padel spielen?"
+      antwort: |
+        Padel können schon Kinder und Jugendliche spielen. Entscheidend sind Alter, körperliche Voraussetzungen und das jeweilige Angebot. Wir möchten Padel künftig noch stärker für Kinder und Jugendliche zugänglich machen.
+
+    - id: jugend
+      frage: "Gibt es Angebote für Kinder und Jugendliche?"
+      antwort: |
+        Unser Jugendbereich befindet sich im Aufbau. Wir möchten Padel stärker an Schulen und zu Kindern und Jugendlichen bringen und entsprechende Angebote Schritt für Schritt entwickeln. Ein Schwerpunkt sollen Kooperationen mit Schulen, Jugendangebote und ein altersgerechter Einstieg in den Sport sein.
+
+        Ansprechpersonen für Jugend-Padel sind Dino und Yannick, erreichbar über das [Kontaktformular](/contact?thema=jugend).
+
+    - id: mitglied-werden
+      frage: "Wie werde ich Mitglied?"
+      antwort: |
+        Ganz einfach über unseren Mitgliedsantrag. Den Antrag und alle Informationen zur Mitgliedschaft findest du unter [Mitgliedschaft](/mitgliedschaft).
+
+    - id: kontakt
+      frage: "Wie kann ich den Padel Club Freiburg kontaktieren?"
+      antwort: |
+        Am einfachsten erreichst du uns über unser [Kontaktformular](/contact) oder über [Instagram](https://www.instagram.com/padelclubfreiburg). Wir versuchen, Anfragen möglichst schnell zu beantworten.
+
+    - id: sponsoring
+      frage: "Wie werde ich Sponsor, und lohnt sich das für mein Unternehmen?"
+      antwort: |
+        Als Sponsor des Padel Club Freiburg wirst du Teil einer wachsenden Trend-Community. Je nach Sponsoring-Paket kannst du dein Unternehmen zum Beispiel bei Turnieren, Spieltagen und Events, auf unseren Kanälen (Instagram und Webseite) oder im direkten Vereinsumfeld (Vereinstrikot, Banner) präsentieren.
+
+        Wir bieten unterschiedliche Sponsoring-Pakete für Unternehmen und Marken an, von einer kleineren Unterstützung bis zu einer umfassenden Partnerschaft.
+
+        Interesse? Sprich uns gerne an. Wir stellen dir passende Möglichkeiten vor und schauen gemeinsam, was zu deinem Unternehmen passt. Ansprechpersonen sind Dino, Jana und Enzio, erreichbar über das [Kontaktformular](/contact?thema=sponsoring).

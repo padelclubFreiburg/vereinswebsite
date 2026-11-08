@@ -1,0 +1,39 @@
+# Courts in Freiburg und Umgebung (Abschnitt „Courts in der Region“ auf /faq), alphabetisch.
+#
+# - id: eindeutiger Kurzname (nur Kleinbuchstaben und Bindestriche)
+# - merkmale: kurze Schlagworte, werden als Badges angezeigt
+# - whatsapp: Einladungslink zur Community. Weglassen, wenn es keinen gibt – dann wird nichts angezeigt.
+
+- id: blackforest-padel
+  name: BlackForest Padel
+  ort: Orschweier
+  merkmale: [Outdoor, Doppel-Courts]
+  webseite: https://blackforest-padel.net/
+  whatsapp: https://chat.whatsapp.com/JZ05F4rLipB97rtT2OM39c
+
+- id: freiburg-padel-silbersee
+  name: Freiburg Padel am Silbersee
+  ort: Freiburg-Hochdorf
+  merkmale: [Outdoor, Doppel-Courts]
+  webseite: https://www.freiburgpadel.de/
+  whatsapp: https://chat.whatsapp.com/F0l0jOWHGolDNUJXchxwYa
+
+- id: justpadel-club
+  name: JustPadel Club
+  ort: Ihringen
+  merkmale: [Indoor, Outdoor, Single-Courts, Doppel-Courts]
+  webseite: https://www.justpadelclub.de/
+
+- id: padel2leon
+  name: Padel2Leon
+  ort: Kenzingen
+  merkmale: [Indoor, Doppel-Courts]
+  webseite: https://www.padel2leon.de/
+  whatsapp: https://chat.whatsapp.com/IBB19eRBXkxIFCTNyDKF2B
+
+- id: tuniberg-padel
+  name: Tuniberg Padel
+  ort: Merdingen
+  merkmale: [Outdoor, Single-Courts, Doppel-Courts]
+  webseite: https://tuniberg-padel.de/
+  whatsapp: https://chat.whatsapp.com/BvbA4ti1ek5Ey69MXW2jxx
