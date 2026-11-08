@@ -46,6 +46,7 @@ src/
     navbar/dropdown.astro     Dropdown für Einträge mit `children`
     footer.astro              dunkler Footer mit Logo (Variante „dunkel“) und Linkspalten (Array `columns`)
     hero.astro                Startseite oben: H1 zweizeilig (Bebas), Text, Buttons, Monogramm assets/hero.svg
+                              (nur ab lg/1024 px neben dem Text; darunter ausgeblendet, das Logo steht im Header)
     features.astro            „Unsere Vision“ (6 Punkte, Lucide-Icons auf Lavendel-Kreis), Anker #vision
     cta.astro                 dunkler Banner „Werde jetzt Mitglied!“ mit Neon-Button und Spielfeldlinien
     court-lines.astro         Spielfeld-Muster (CI 6), nur auf dunklem Grund
