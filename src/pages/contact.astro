@@ -1,43 +1,74 @@
 ---
+import { Icon } from "astro-icon/components";
 import Contactform from "@/components/contactform.astro";
 import Container from "@/components/container.astro";
 import Sectionhead from "@/components/sectionhead.astro";
 import Layout from "@/layouts/Layout.astro";
-import { Icon } from "astro-icon/components";
+import { getFragen } from "@/lib/faq";
+
+// Häufige Fragen, auf die der Hinweis über dem Formular verlinkt
+const topFragen = await getFragen(["wo-spielen", "court-buchen", "vorteile", "anfaenger"]);
 ---
 
-<Layout title="Kontakt">
+<Layout
+  title="Kontakt"
+  description="Schreib dem Padel Club Freiburg e.V. über das Kontaktformular, per E-Mail oder auf Instagram. Viele Antworten findest du schon in unseren häufigen Fragen.">
   <Container>
     <Sectionhead>
       <Fragment slot="title">Kontakt</Fragment>
-      <Fragment slot="desc">Fragen? Kontaktiere uns gerne.</Fragment>
+      <Fragment slot="desc">Fragen oder ein Anliegen? Wir helfen dir gerne weiter.</Fragment>
     </Sectionhead>
 
-    <div class="grid md:grid-cols-2 gap-10 mx-auto max-w-4xl mt-16">
+    <div class="mx-auto mt-12 grid max-w-[60rem] gap-10 md:grid-cols-[1fr_1.15fr] md:gap-12">
       <div>
-        <h2 class="font-medium text-2xl text-gray-800">Padel Club Freiburg</h2>
-        <p class="text-lg leading-relaxed text-slate-500 mt-3">
-          Hast du Fragen oder ein Anliegen? Wir helfen dir gerne weiter.
+        <div class="rounded-sm border border-border border-l-4 border-l-secondary bg-white px-6 py-4">
+          <h2 class="text-base leading-6 font-semibold">Info: Schau zuerst in unsere FAQ</h2>
+          <p class="mt-1 text-base leading-6">Die meisten Fragen sind dort schon beantwortet:</p>
+          <ul class="mt-2 list-disc space-y-1 pl-5 text-base leading-6">
+            {
+              topFragen.map((f) => (
+                <li>
+                  <a href={`/faq#${f.id}`} class="text-primary-dark underline hover:no-underline">
+                    {f.frage}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <a
+            href="/faq"
+            class="mt-3 inline-flex min-h-touch items-center gap-1.5 font-semibold text-primary-dark underline hover:no-underline">
+            Alle Fragen ansehen
+            <Icon name="lucide:arrow-right" class="icon-stroke size-4" aria-hidden="true" />
+          </a>
+        </div>
+
+        <h2 class="type-h3 mt-10">Padel Club Freiburg e.V.</h2>
+        <p class="mt-1 text-base leading-6 text-text-muted">
           Nutze das Formular, schreib eine E-Mail oder kontaktiere uns über Instagram.
         </p>
-        <div class="mt-5">
-          <div class="flex items-center mt-2 space-x-2 text-gray-600">
-            <Icon class="text-secondary3 w-4 h-4" name="uil:instagram" /><a
-              href="https://www.instagram.com/padelclubfreiburg" target="_blank"
-              >Padel Club Freiburg</a
-            >
-          </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
-            <Icon class="text-secondary3 w-4 h-4" name="uil:envelope" /><a
+        <ul class="mt-3 space-y-1 text-base">
+          <li>
+            <a
               href="mailto:info@padelclub-freiburg.de"
-              >info@padelclub-freiburg.de</a
-            >
-          </div><div class="flex items-center mt-2 space-x-2 text-gray-600">
-            <Icon class="text-secondary3 w-4 h-4" name="uil:phone" /><a
-              href="tel:+1 (987) 4587 899">Coming soon</a
-            >
-          </div>
-        </div>
+              class="inline-flex min-h-touch items-center gap-2.5 text-primary-dark underline hover:no-underline">
+              <Icon name="lucide:mail" class="icon-stroke size-5 text-neutraldark" aria-hidden="true" />
+              info@padelclub-freiburg.de
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/padelclubfreiburg"
+              target="_blank"
+              rel="noopener"
+              class="inline-flex min-h-touch items-center gap-2.5 text-primary-dark underline hover:no-underline">
+              <Icon name="lucide:instagram" class="icon-stroke size-5 text-neutraldark" aria-hidden="true" />
+              Instagram @padelclubfreiburg
+            </a>
+          </li>
+        </ul>
       </div>
+
       <div>
         <Contactform />
       </div>

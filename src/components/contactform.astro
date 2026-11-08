@@ -1,127 +1,195 @@
 ---
+// Kontaktformular über Web3Forms (https://web3forms.com). Nachrichten gehen an info@padelclub-freiburg.de.
+// Das Feld „Worum geht's?“ zeigt passende FAQ-Antworten an und setzt den Betreff der Mail.
+// Vorauswahl per Link: /contact?thema=training (Themen in src/lib/kontakt-themen.ts).
 import Button from "./ui/button.astro";
+import { kontaktThemen } from "@/lib/kontakt-themen";
+import { getFragen } from "@/lib/faq";
+
+const vorschlaege = await Promise.all(
+  kontaktThemen.map(async (t) => ({ id: t.id, fragen: await getFragen(t.fragen) }))
+);
+
+const feld =
+  "block w-full min-h-touch rounded-sm border border-field-border bg-white px-3 py-2 text-base leading-6 text-neutraldark aria-[invalid=true]:border-2 aria-[invalid=true]:border-danger";
+const label = "block text-base leading-6 font-semibold";
+const fehler = "mt-2 text-base leading-6 text-danger";
 ---
 
-<!-- To make this contact form work, create your free access key from https://web3forms.com/
-     Then you will get all form submissions in your email inbox. -->
-<form
-  action="https://api.web3forms.com/submit"
-  method="POST"
-  id="form"
-  class="needs-validation"
-  novalidate>
+<form action="https://api.web3forms.com/submit" method="POST" id="kontaktformular" novalidate class="grid gap-6">
   <input type="hidden" name="access_key" value="a1674f5d-a3b8-4ae0-a811-4305b671ba1e" />
-  <!-- Create your free access key from https://web3forms.com/ -->
-  <input type="checkbox" class="hidden" style="display:none" name="botcheck" />
-  <div class="mb-5">
+  <input type="hidden" name="subject" value="Kontaktformular padelclub-freiburg.de" data-subject />
+  <input type="hidden" name="from_name" value="Webseite Padel Club Freiburg" />
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <div>
+    <label for="thema" class={label}>Worum geht's?</label>
+    <select id="thema" name="thema" required aria-describedby="thema-fehler" class={feld}>
+      <option value="">Bitte wählen</option>
+      {kontaktThemen.map((t) => <option value={t.id}>{t.label}</option>)}
+    </select>
+    <p id="thema-fehler" class={fehler} hidden data-error="thema">Fehler: Wähle ein Thema aus.</p>
+  </div>
+
+  {
+    vorschlaege
+      .filter((v) => v.fragen.length > 0)
+      .map((v) => (
+        <div class="rounded-lg bg-primary-tint px-5 py-4" data-vorschlag={v.id} hidden>
+          <p class="text-base leading-6 font-semibold">Vielleicht ist deine Frage schon beantwortet:</p>
+          <ul class="mt-2 list-disc space-y-1 pl-5 text-base leading-6">
+            {v.fragen.map((f) => (
+              <li>
+                <a href={`/faq#${f.id}`} class="text-primary-dark underline hover:no-underline">
+                  {f.frage}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+  }
+
+  <div>
+    <label for="name" class={label}>Vor- und Nachname</label>
+    <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-fehler" class={feld} />
+    <p id="name-fehler" class={fehler} hidden data-error="name">Fehler: Gib deinen Vor- und Nachnamen ein.</p>
+  </div>
+
+  <div>
+    <label for="email" class={label}>E-Mail-Adresse</label>
+    <span id="email-hilfe" class="mt-0.5 mb-2 block text-base leading-6 text-text-muted">
+      An diese Adresse schicken wir unsere Antwort.
+    </span>
     <input
-      type="text"
-      placeholder="Vor- und Nachname"
-      required
-      class="w-full px-4 py-3 border-2 placeholder:text-gray-800 rounded-md outline-hidden focus:ring-4 border-gray-300 focus:border-gray-600 ring-gray-100"
-      name="name"
-    />
-    <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
-      Bitte geben deinen Vor- und Nachnamen ein.
-    </div>
-  </div>
-  <div class="mb-5">
-    <label for="email_address" class="sr-only">E-Mail-Adresse</label><input
-      id="email_address"
-      type="email"
-      placeholder="E-Mail-Adresse"
+      id="email"
       name="email"
+      type="email"
+      autocomplete="email"
       required
-      class="w-full px-4 py-3 border-2 placeholder:text-gray-800 rounded-md outline-hidden focus:ring-4 border-gray-300 focus:border-gray-600 ring-gray-100"
+      aria-describedby="email-hilfe email-fehler"
+      class={feld}
     />
-    <div class="empty-feedback text-red-400 text-sm mt-1">
-      Bitte gebe deine E-Mail-Adresse ein.
-    </div>
-    <div class="invalid-feedback text-red-400 text-sm mt-1">
-      Bitte gebe eine gültige E-Mail-Adresse ein.
-    </div>
+    <p id="email-fehler" class={fehler} hidden data-error="email">Fehler: Gib eine E-Mail-Adresse mit @ ein.</p>
   </div>
-  <div class="mb-3">
+
+  <div>
+    <label for="nachricht" class={label}>Deine Nachricht</label>
     <textarea
+      id="nachricht"
       name="message"
       required
-      placeholder="Deine Nachricht"
-      class="w-full px-4 py-3 border-2 placeholder:text-gray-800 rounded-md outline-hidden h-36 focus:ring-4 border-gray-300 focus:border-gray-600 ring-gray-100"
-    ></textarea>
-    <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
-      Gebe hier deine Nachricht ein.
-    </div>
+      rows="6"
+      aria-describedby="nachricht-fehler"
+      class:list={[feld, "min-h-[7.5rem] resize-y"]}></textarea>
+    <p id="nachricht-fehler" class={fehler} hidden data-error="message">Fehler: Schreib uns deine Nachricht.</p>
   </div>
-  <Button type="submit" block>Kontakt aufnehmen</Button>
-  <div id="result" class="mt-3 text-center"></div>
+
+  <div>
+    <Button type="submit">Nachricht senden</Button>
+    <p class="mt-3 text-base leading-6 text-text-muted">
+      Deine Angaben nutzen wir nur, um deine Anfrage zu beantworten. Mehr dazu in der
+      <a href="/datenschutz" class="text-primary-dark underline hover:no-underline">Datenschutzerklärung</a>.
+    </p>
+  </div>
+
+  <div id="formular-status" aria-live="polite"></div>
 </form>
 
-<style>
-  .invalid-feedback,
-  .empty-feedback {
-    display: none;
-  }
+<script>
+  const form = document.getElementById("kontaktformular") as HTMLFormElement | null;
+  if (form) {
+    const status = document.getElementById("formular-status")!;
+    const thema = form.querySelector<HTMLSelectElement>("#thema")!;
+    const subject = form.querySelector<HTMLInputElement>("[data-subject]")!;
+    const vorschlaege = Array.from(form.querySelectorAll<HTMLElement>("[data-vorschlag]"));
+    const felder = Array.from(form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+      "select[required], input[required], textarea[required]"
+    ));
 
-  .was-validated :placeholder-shown:invalid ~ .empty-feedback {
-    display: block;
-  }
+    const zeigeVorschlaege = () => {
+      vorschlaege.forEach((el) => (el.hidden = el.dataset.vorschlag !== thema.value));
+      const text = thema.selectedOptions[0]?.textContent?.trim();
+      subject.value = thema.value ? `Kontaktformular: ${text}` : "Kontaktformular padelclub-freiburg.de";
+    };
 
-  .was-validated :not(:placeholder-shown):invalid ~ .invalid-feedback {
-    display: block;
-  }
+    const setzeFehler = (feld: HTMLElement & { name: string }, ungueltig: boolean) => {
+      feld.setAttribute("aria-invalid", ungueltig ? "true" : "false");
+      const meldung = form.querySelector<HTMLElement>(`[data-error="${feld.name}"]`);
+      if (meldung) meldung.hidden = !ungueltig;
+    };
 
-  .is-invalid,
-  .was-validated :invalid {
-    border-color: #dc3545;
-  }
-</style>
-
-<script is:inline>
-  const form = document.getElementById("form");
-  const result = document.getElementById("result");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    form.classList.add("was-validated");
-    if (!form.checkValidity()) {
-      form.querySelectorAll(":invalid")[0].focus();
-      return;
+    // Vorauswahl über ?thema=...
+    const vorauswahl = new URLSearchParams(location.search).get("thema");
+    if (vorauswahl && Array.from(thema.options).some((o) => o.value === vorauswahl)) {
+      thema.value = vorauswahl;
     }
-    const formData = new FormData(form);
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
+    zeigeVorschlaege();
+    thema.addEventListener("change", zeigeVorschlaege);
 
-    result.innerHTML = "Senden...";
+    felder.forEach((feld) =>
+      feld.addEventListener("input", () => {
+        if (feld.getAttribute("aria-invalid") === "true") setzeFehler(feld, !feld.checkValidity());
+      })
+    );
+    thema.addEventListener("change", () => setzeFehler(thema, !thema.checkValidity()));
 
-    fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: json,
-    })
-      .then(async (response) => {
-        let json = await response.json();
-        if (response.status == 200) {
-          result.classList.add("text-primary");
-          result.innerHTML = "Nachricht wurde übermittelt!";
+    const zeigeStatus = (art: "success" | "danger", titel: string, text: string) => {
+      const farbe = art === "success" ? "border-l-success" : "border-l-danger";
+      status.innerHTML = `<div class="rounded-sm border border-border border-l-4 ${farbe} bg-white px-6 py-4 text-base leading-6" role="${
+        art === "danger" ? "alert" : "status"
+      }"><p class="font-semibold"></p><p class="mt-1"></p></div>`;
+      const [t, p] = status.querySelectorAll("p");
+      t.textContent = titel;
+      p.textContent = text;
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      let erstesFehlerfeld: HTMLElement | null = null;
+      for (const feld of felder) {
+        const ungueltig = !feld.checkValidity();
+        setzeFehler(feld, ungueltig);
+        if (ungueltig && !erstesFehlerfeld) erstesFehlerfeld = feld;
+      }
+      if (erstesFehlerfeld) {
+        erstesFehlerfeld.focus();
+        return;
+      }
+
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
+      button.textContent = "Wird gesendet …";
+      status.innerHTML = "";
+
+      try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        const json = await response.json().catch(() => ({}));
+        if (response.ok) {
+          zeigeStatus("success", "Erfolg: Deine Nachricht ist bei uns angekommen.", "Wir melden uns so schnell wie möglich bei dir.");
+          form.reset();
+          zeigeVorschlaege();
         } else {
-          console.log(response);
-          result.classList.add("text-akzent");
-          result.innerHTML = json.message;
+          zeigeStatus(
+            "danger",
+            "Fehler: Die Nachricht konnte nicht gesendet werden.",
+            `${json.message ?? ""} Versuch es bitte noch einmal oder schreib uns an info@padelclub-freiburg.de.`.trim()
+          );
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        result.innerHTML = "Etwas ist schiefgelaufen!";
-      })
-      .then(function () {
-        form.reset();
-        form.classList.remove("was-validated");
-        setTimeout(() => {
-          result.style.display = "none";
-        }, 5000);
-      });
-  });
+      } catch {
+        zeigeStatus(
+          "danger",
+          "Fehler: Die Nachricht konnte nicht gesendet werden.",
+          "Prüfe deine Internetverbindung oder schreib uns an info@padelclub-freiburg.de."
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = "Nachricht senden";
+      }
+    });
+  }
 </script>
