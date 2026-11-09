@@ -83,6 +83,7 @@ src/
     team/*.md                 Vorstand, Fotos daneben, Reihenfolge über `order`
   assets/
     logos/                    Logo-Paket PCF-Logos (PNG = Originale, SVG = nachvektorisiert), siehe LIESMICH.txt
+    logos/liga/               Liga-Logo, bisher nur Monogramm einfarbig Anthrazit (für die Lavendel-Box auf der Startseite)
     hero.svg                  Monogramm für die Startseite
     partner/                  Partnerlogos
   utils/all.js                getFormattedDate() → „5. Juli 2026“

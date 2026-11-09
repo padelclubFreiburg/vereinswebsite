@@ -3,7 +3,10 @@
 import { Icon } from "astro-icon/components";
 import Link from "./ui/link.astro";
 import CourtLines from "./court-lines.astro";
+import { Image } from "astro:assets";
 import { LIGA_URL } from "@/lib/liga";
+// Auf Lavendel nur die einfarbige Anthrazit-Variante des Liga-Logos (CI-Guide 10.2)
+import ligaLogo from "@/assets/logos/liga/pcf-liga-monogramm-einfarbig-anthrazit.svg";
 
 // Eckdaten der Liga (Quelle: liga.padelclub-freiburg.de) – bei Änderungen dort hier mitpflegen
 const ligaFakten = [
@@ -31,7 +34,10 @@ const ligaFakten = [
   </section>
 
   <section class="rounded-lg bg-primary px-6 py-12 text-neutraldark sm:px-10 lg:py-14" aria-labelledby="liga-title">
-    <h2 id="liga-title" class="type-banner">PCF Liga</h2>
+    <div class="flex items-start justify-between gap-6">
+      <h2 id="liga-title" class="type-banner pt-2">PCF Liga</h2>
+      <Image src={ligaLogo} alt="Logo der PCF Liga" class="h-24 w-auto shrink-0 sm:h-32" />
+    </div>
     <p class="mt-4 text-lg leading-7">
       Die Padel-Liga des Padel Club Freiburg e.V.: Spiel regelmäßig gegen neue Gegner:innen auf deinem Niveau.
       Start am 1. Januar 2027.
