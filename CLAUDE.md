@@ -141,7 +141,7 @@ Ausführlich und verbindlich in [`docs/ci-guide.md`](docs/ci-guide.md). Das Wich
 ## Stand und offene Punkte
 
 - **Rebranding nach CI-Guide v1.4:** umgesetzt (November 2026). Die Abschnitte „Vorschlag 1.2/1.3“ im Guide sind vom Vorstand noch zu bestätigen.
-- **FAQ-Seite `/faq`:** umgesetzt. Quelle: FAQ-PDF des Vereins, Stand September 2026 (gegendert, Überschneidungen zusammengelegt). Beim JustPadel Club fehlt noch ein WhatsApp-Link.
+- **FAQ-Seite `/faq`:** umgesetzt. Quelle: FAQ-PDF des Vereins, Stand September 2026 (gegendert, Überschneidungen zusammengelegt).
 - **Logos:** Die SVGs im Paket sind nachvektorisiert, Original-Vektoren, einfarbig Anthrazit und ein Favicon-Satz vom Designer fehlen noch (CI-Guide 12).
 - **Datenschutzerklärung:** spricht nur von Links zu Instagram; die FAQ verlinkt inzwischen auch auf YouTube, ARD Mediathek und WhatsApp-Gruppen (nur Links, keine Einbettung). Bei der nächsten Überarbeitung prüfen.
 - **Hauptüberschrift Startseite:** ab Tablet zweizeilig; auf dem Handy dreizeilig, weil die Display-Schrift laut CI mobil mindestens 60 px groß ist (unter 390 px Breite skaliert sie leicht herunter).
