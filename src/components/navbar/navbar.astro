@@ -4,7 +4,9 @@ import Container from "@/components/container.astro";
 import Link from "@/components/ui/link.astro";
 import Dropdown from "./dropdown.astro";
 import { Astronav, MenuItems } from "astro-navbar";
+import { Icon } from "astro-icon/components";
 import logo from "@/assets/logos/pcf-logo-horizontal-hell-transparent.png";
+import { LIGA_URL } from "@/lib/liga";
 
 // Menüeinträge. Einträge mit `children` werden zum Dropdown.
 const menuitems = [
@@ -21,6 +23,7 @@ const menuitems = [
   { title: "Mitgliedschaft", path: "/mitgliedschaft" },
   { title: "FAQ", path: "/faq" },
   { title: "Kontakt", path: "/contact" },
+  { title: "PCF Liga", path: LIGA_URL, external: true },
 ];
 
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -55,7 +58,7 @@ const isActive = (path: string) => path === current;
         </button>
       </div>
       <MenuItems id="hauptmenue" class="hidden w-full lg:flex lg:w-auto" aria-label="Hauptmenü">
-        <ul class="flex flex-col py-2 lg:flex-row lg:gap-1 lg:py-0">
+        <ul class="flex flex-col py-2 lg:flex-row lg:gap-0 lg:py-0 xl:gap-1">
           {
             menuitems.map((item, index) =>
               item.children ? (
@@ -66,12 +69,15 @@ const isActive = (path: string) => path === current;
                     href={item.path}
                     aria-current={isActive(item.path) ? "page" : undefined}
                     class:list={[
-                      "flex min-h-touch items-center rounded-sm px-3 text-base transition-colors hover:bg-primary-tint hover:text-neutraldark",
+                      "flex min-h-touch items-center rounded-sm px-3 text-base whitespace-nowrap transition-colors lg:px-2 xl:px-3 hover:bg-primary-tint hover:text-neutraldark",
                       isActive(item.path)
                         ? "font-semibold text-neutraldark lg:rounded-none lg:shadow-[inset_0_-2px_0_var(--color-primary-dark)] lg:hover:bg-transparent"
                         : "text-text-muted",
                     ]}>
                     {item.title}
+                    {item.external && (
+                      <Icon name="lucide:arrow-up-right" class="icon-stroke ml-1 size-4" aria-hidden="true" />
+                    )}
                   </a>
                 </li>
               )
@@ -85,7 +91,7 @@ const isActive = (path: string) => path === current;
     </Astronav>
 
     <div class="hidden lg:block">
-      <Link href="/mitgliedschaft">Mitglied werden</Link>
+      <Link href="/mitgliedschaft" class="whitespace-nowrap">Mitglied werden</Link>
     </div>
   </Container>
 </header>

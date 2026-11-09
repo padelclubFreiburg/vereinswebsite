@@ -48,7 +48,8 @@ src/
     hero.astro                Startseite oben: H1 zweizeilig (Bebas), Text, Buttons, Monogramm assets/hero.svg
                               (nur ab lg/1024 px neben dem Text; darunter ausgeblendet, das Logo steht im Header)
     features.astro            „Unsere Vision“ (6 Punkte, Lucide-Icons auf Lavendel-Kreis), Anker #vision
-    cta.astro                 dunkler Banner „Werde jetzt Mitglied!“ mit Neon-Button und Spielfeldlinien
+    cta.astro                 zwei Boxen: „Werde jetzt Mitglied!“ (dunkel, Neon-Button, Spielfeldlinien) und
+                              „PCF Liga“ (Lavendel, Eckdaten im Array `ligaFakten`, Link zur Liga-Seite)
     court-lines.astro         Spielfeld-Muster (CI 6), nur auf dunklem Grund
     logos.astro               Partnerlogos (Array `partners`), Anker #partner
     pricing.astro             Card für eine Mitgliedschaft
@@ -63,11 +64,12 @@ src/
   lib/
     faq.ts                    lädt src/data/faq.yaml, rendert Markdown, prüft doppelte ids; getFaq(), getFragen(ids)
     kontakt-themen.ts         Themen im Kontaktformular und die passenden FAQ-ids
+    liga.ts                   LIGA_URL (https://liga.padelclub-freiburg.de) für Menü, Footer und Startseite
   data/
     faq.yaml                  Häufige Fragen (Kategorien → Fragen, Antworten in Markdown)
     courts.yaml               Courts in der Region (für /faq#courts)
   pages/                      jede Datei = eine Route
-    index.astro               /            Hero, Vision, Banner, „Noch Fragen?“, Partner
+    index.astro               /            Hero, Vision, Mitglied- und Liga-Box, „Noch Fragen?“, Partner
     faq.astro                 /faq         Suche, Kategorien, Fragen, Courts, FAQPage-JSON-LD
     contact.astro             /contact     FAQ-Hinweis, Kontaktdaten, Formular (?thema=… wählt Thema vor)
     mitgliedschaft.astro      /mitgliedschaft  Preise im Array `pricing`
@@ -81,6 +83,7 @@ src/
     team/*.md                 Vorstand, Fotos daneben, Reihenfolge über `order`
   assets/
     logos/                    Logo-Paket PCF-Logos (PNG = Originale, SVG = nachvektorisiert), siehe LIESMICH.txt
+    logos/liga/               Liga-Logo, bisher nur Monogramm einfarbig Anthrazit (für die Lavendel-Box auf der Startseite)
     hero.svg                  Monogramm für die Startseite
     partner/                  Partnerlogos
   utils/all.js                getFormattedDate() → „5. Juli 2026“
@@ -105,7 +108,8 @@ docs/ci-guide.md              CI-Guide (Quelle der Wahrheit für Design)
 - **Courts:** `src/data/courts.yaml`. Ohne `whatsapp` wird kein WhatsApp-Link angezeigt.
 - **News-Beitrag:** neue Datei in `src/content/blog/`. Pflicht-Frontmatter: `draft`, `title`, `snippet`, `image: { src, alt }`, `publishDate` (`"YYYY-MM-DD HH:mm"`), `author`, `category`, `tags`. Sichtbar (Liste und eigene Seite) nur mit `draft: false` und `publishDate` in der Vergangenheit (zum Build-Zeitpunkt).
 - **Vorstand/Team:** Datei in `src/content/team/` mit `draft`, `order`, `name`, `title`, `avatar: { src, alt }`, `publishDate`.
-- **Menü:** Array `menuitems` in `src/components/navbar/navbar.astro`; Footer-Links im Array `columns` in `footer.astro`.
+- **Menü:** Array `menuitems` in `src/components/navbar/navbar.astro` (externe Links mit `external: true` bekommen ein Pfeil-Icon; der Platz bei 1024 px ist knapp, vor neuen Einträgen dort prüfen); Footer-Links im Array `columns` in `footer.astro`.
+- **PCF Liga:** eigene Seite auf liga.padelclub-freiburg.de. Auf der Vereinsseite: Menüpunkt, Footer-Link, Box auf der Startseite (`cta.astro`) und FAQ-Frage `pcf-liga`. Ändern sich Eckdaten der Liga (Kosten, Start, Format), Box und FAQ mitpflegen. Das Liga-Logo darf nicht auf Lavendel stehen (CI 10.2), dort nur einfarbig Anthrazit.
 - **Mitgliedsbeiträge:** Array `pricing` in `src/pages/mitgliedschaft.astro`. Beiträge stehen auch in der FAQ (`beitrag`) und in der Seitenbeschreibung – mitändern.
 - **Partnerlogos:** SVG nach `src/assets/partner/`, Eintrag im Array `partners` in `src/components/logos.astro`.
 
