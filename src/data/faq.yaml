@@ -221,6 +221,13 @@
       antwort: |
         Wenn du Mitglied bist und die sportlichen Voraussetzungen für die jeweilige Mannschaft erfüllst, kannst du dich für einen Mannschaftsplatz qualifizieren. Sprich dafür am besten die Mannschaftsverantwortlichen Yannick und Adrian an, zum Beispiel über das [Kontaktformular](/contact?thema=training).
 
+    - id: pcf-liga
+      frage: "Was ist die PCF Liga?"
+      antwort: |
+        Die PCF Liga ist die Padel-Liga des Padel Club Freiburg e.V. Ihr spielt als Team aus zwei Personen in vier Leistungsstufen mit Auf- und Abstieg, drei Spiele pro Quartal. Termin, Platz und Bezahlung regelt ihr selbst über Playtomic. Für Mitglieder ist die Liga kostenlos, sonst kostet sie 10 € pro Jahr. Los geht es am 1. Januar 2027.
+
+        Alle Infos, Tabellen und die Anmeldung findest du auf [liga.padelclub-freiburg.de](https://liga.padelclub-freiburg.de).
+
     - id: vereinsturniere
       frage: "Gibt es Turniere vom Verein, und wie kann ich teilnehmen?"
       antwort: |

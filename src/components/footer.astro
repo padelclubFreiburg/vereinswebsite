@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import Container from "@/components/container.astro";
 import logo from "@/assets/logos/pcf-logo-horizontal-dunkel-transparent.png";
+import { LIGA_URL } from "@/lib/liga";
 
 const columns = [
   {
@@ -11,6 +12,7 @@ const columns = [
       { title: "Partnerschaften", href: "/#partner" },
       { title: "News & Events", href: "/news" },
       { title: "Mitgliedschaft", href: "/mitgliedschaft" },
+      { title: "PCF Liga", href: LIGA_URL },
     ],
   },
   {
