@@ -1,31 +1,35 @@
-Padel Club Freiburg e.V. - Logo-Dateien (Behelf, Stand 03.11.2026)
+Padel Club Freiburg e.V. - Logo-Dateien (Stand 19.11.2026)
 
 "hell"   = fuer hellen Grund (Anthrazit-Logo): Weiss, Lavendel Tint, Hellgrau
 "dunkel" = fuer dunklen Grund (weisse Anteile): Anthrazit, Petrol, Fotos mit Overlay
 
-PNG/
-  pcf-logo-gestapelt-hell-transparent.png     960 x 960   Master, transparent
-  pcf-logo-gestapelt-hell-weiss.png           960 x 960   Master, weisser Grund
-  pcf-logo-gestapelt-dunkel-transparent.png   800 x 800   transparent
-  pcf-logo-gestapelt-dunkel-anthrazit.png     800 x 800   Grund Anthrazit #1F1F1F
-  pcf-logo-horizontal-hell-transparent.png    1232 x 466  Behelf
-  pcf-logo-horizontal-dunkel-transparent.png  1034 x 391  Behelf
-  pcf-monogramm-hell-transparent.png          415 x 466   Behelf
-  pcf-monogramm-dunkel-transparent.png        349 x 391   Behelf
-
-SVG/  (je transparent, Farben: #1F1F1F, #CEA8F0, #C8F000, bei dunkel zusaetzlich #FFFFFF)
+SVG/  (offizielle Logo-Dateien, transparent, frei skalierbar)
+  Farben: #1F1F1F, #CEA8F0, #C8F000, bei dunkel zusaetzlich #FFFFFF
   pcf-logo-gestapelt-hell.svg    pcf-logo-gestapelt-dunkel.svg
   pcf-logo-horizontal-hell.svg   pcf-logo-horizontal-dunkel.svg
   pcf-monogramm-hell.svg         pcf-monogramm-dunkel.svg
 
+PNG/
+  pcf-logo-gestapelt-hell-transparent.png     960 x 960   transparent
+  pcf-logo-gestapelt-hell-weiss.png           960 x 960   weisser Grund
+  pcf-logo-gestapelt-dunkel-transparent.png   800 x 800   transparent
+  pcf-logo-gestapelt-dunkel-anthrazit.png     800 x 800   Grund Anthrazit #1F1F1F
+  pcf-logo-horizontal-hell-transparent.png    1232 x 466  transparent
+  pcf-logo-horizontal-dunkel-transparent.png  1034 x 391  transparent
+  pcf-monogramm-hell-transparent.png          415 x 466   transparent
+  pcf-monogramm-dunkel-transparent.png        349 x 391   transparent
+
 Wichtig:
-- Die gestapelten PNGs sind die Original-Dateien. Horizontal und Monogramm sind
-  unveraendert aus diesen ausgeschnitten und zusammengesetzt (Abstand: eine
-  Ballbreite). Die PNGs nicht ueber ihre Pixelgroesse hinaus vergroessern.
-- Die SVGs sind KEINE Original-Vektoren des Designers. Sie sind aus den PNGs
-  nachvektorisiert und auf die drei Markenfarben (plus Weiss) vereinheitlicht.
-  Sie sind frei skalierbar und sehen sehr nah am Original aus, die Kurven und
-  Buchstaben weichen aber leicht von der Designer-Zeichnung ab. Fuer Print in
-  Originalgroesse und Plakate die echten Vektordateien vom Designer verwenden.
-- Es fehlen weiterhin: einfarbig Anthrazit und Favicon-Satz (z. B. 16, 32, 180 px).
+- Die SVGs sind die offiziellen Logo-Dateien des Vereins. Sie sind aus den
+  Original-PNGs nachgezeichnet und auf die Markenfarben vereinheitlicht.
+  Fuer Druck, Plakate und alle grossen Formate die SVG nehmen.
+- Die PNGs nicht ueber ihre Pixelgroesse hinaus vergroessern.
+- Horizontal und Monogramm sind aus dem gestapelten Logo abgeleitet
+  (Abstand zwischen Monogramm und Schriftzug: eine Ballbreite).
+- Schutzraum: eine Ballbreite rundum.
+- Mindestgroesse (Hoehe): Monogramm 24 px / 8 mm, gestapelt 72 px / 20 mm,
+  horizontal 44 px / 12 mm.
 - Das Logo nie verzerren, umfaerben, neu setzen oder die Teile anders anordnen.
+- Es fehlt noch: einfarbig Anthrazit.
+
+Fragen: https://www.padelclub-freiburg.de/contact?thema=logos
