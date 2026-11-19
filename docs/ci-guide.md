@@ -1,6 +1,6 @@
 # Padel Club Freiburg e.V. – CI-Guide
 
-**Version 1.4 · Stand 03.11.2026 · Version 1.0 von der Vorstandschaft freigegeben; die Änderungen in 1.1 (Abschnitte 1, 4, 5, 9, 10, 11, 12), 1.2 (Abschnitte 2.3, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13) 1.3 (Abschnitte 1, 4, 5, 10, 11, 12, 13: Logo-Set der PCF Liga) und 1.4 (Abschnitte 5, 12, 13: Dateinamen und SVG-Behelf der Vereinslogos) sind noch zu bestätigen. Was neu und noch nicht abgestimmt ist, steht als „Vorschlag 1.2“ bzw. „Vorschlag 1.3“ im Text.**
+**Version 1.5 · Stand 19.11.2026 · Version 1.0 von der Vorstandschaft freigegeben; die Änderungen in 1.1 (Abschnitte 1, 4, 5, 9, 10, 11, 12), 1.2 (Abschnitte 2.3, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13) 1.3 (Abschnitte 1, 4, 5, 10, 11, 12, 13: Logo-Set der PCF Liga) und 1.4 (Abschnitte 5, 12, 13: Dateinamen der Vereinslogos) sind noch zu bestätigen. Mit 1.5 (Abschnitte 5, 10.3, 11, 12, 13) sind die SVG-Dateien die offiziellen Logo-Dateien des Vereins. Was neu und noch nicht abgestimmt ist, steht als „Vorschlag 1.2“ bzw. „Vorschlag 1.3“ im Text.**
 
 Dieses Dokument ist die verbindliche Referenz für das Erscheinungsbild des Padel Club Freiburg e.V. (Webseite, Social Media, Print, Liga-App). Es löst den bisherigen reinen Farbguide ab. Farben und Maße stehen als Design-Tokens am Ende und gelten für alle digitalen Auftritte gleich.
 
@@ -182,20 +182,20 @@ Das Logo besteht aus dem **P-Monogramm** (Anthrazit-P, lavendelfarbener Schwung,
 
 | Variante | Status | Einsatz |
 | --- | --- | --- |
-| Gestapelt, Vollfarbe | Master, liegt vor (PNG) | Titel, Print, Social, Aushänge |
-| Monogramm allein, Vollfarbe | liegt vor als Behelf (PNG), aus dem Master ausgeschnitten | Favicon, Avatar, kleine Formate |
-| Horizontal (Monogramm links, Wortmarke rechts) | liegt vor als Behelf (PNG) aus den beiden Originalteilen, sauber vom Designer zu liefern | Header der Webseite, Briefkopf |
-| Variante für dunklen Grund (Anthrazit-Anteile weiß, Lavendel und Neon bleiben) | liegt vor für gestapelt, horizontal und Monogramm (PNG), vom Designer zu bestätigen | Footer, dunkle Flächen, Fotos mit Overlay |
+| Gestapelt, Vollfarbe | Master, liegt vor (SVG und PNG) | Titel, Print, Social, Aushänge |
+| Monogramm allein, Vollfarbe | liegt vor (SVG und PNG), aus dem Master abgeleitet | Favicon, Avatar, kleine Formate |
+| Horizontal (Monogramm links, Wortmarke rechts) | liegt vor (SVG und PNG), aus den beiden Teilen des Masters zusammengesetzt | Header der Webseite, Briefkopf |
+| Variante für dunklen Grund (Anthrazit-Anteile weiß, Lavendel und Neon bleiben) | liegt vor für gestapelt, horizontal und Monogramm (SVG und PNG) | Footer, dunkle Flächen, Fotos mit Overlay |
 | Einfarbig Anthrazit | fehlt | Stempel, Schwarz-Weiß-Druck |
-| Vektordateien (SVG) | liegen vor als Behelf, nachvektorisiert aus den PNGs (siehe 5.3); die Original-Vektoren des Designers fehlen | Web und alles, was größer als die PNG-Auflösung wird |
+| Vektordateien (SVG) | liegen vor und sind die offiziellen Logo-Dateien (ab 1.5, siehe 5.3) | Web, Print und alles, was größer als die PNG-Auflösung wird |
 
-**Wie das Behelfs-Logo gebaut ist (Vorschlag 1.2):** Monogramm und Wortmarke sind unverändert aus den Master-Dateien ausgeschnitten, nichts ist nachgezeichnet. Im horizontalen Logo steht die Wortmarke mittig zum Monogramm, der Abstand dazwischen beträgt eine Ballbreite, die Wortmarke ist etwa 62 % so hoch wie das Monogramm. Das Monogramm allein ist derselbe Ausschnitt ohne Wortmarke.
+**Wie horizontales Logo und Monogramm gebaut sind (Vorschlag 1.2):** Monogramm und Wortmarke sind unverändert aus den Master-Dateien ausgeschnitten, nichts ist nachgezeichnet. Im horizontalen Logo steht die Wortmarke mittig zum Monogramm, der Abstand dazwischen beträgt eine Ballbreite, die Wortmarke ist etwa 62 % so hoch wie das Monogramm. Das Monogramm allein ist derselbe Ausschnitt ohne Wortmarke.
 
 ### 5.2 Regeln
 
 - **Schutzraum:** eine Ballbreite des Monogramms rundum.
 - **Mindestgröße (Vorschlag, im Einsatz zu prüfen):** Monogramm 24 px bzw. 8 mm; gestapelt 72 px bzw. 20 mm Höhe, weil „FREIBURG“ sonst unleserlich wird; horizontal 44 px bzw. 12 mm Höhe.
-- **Höchstgröße der PNG-Dateien (Vorschlag 1.2):** Die Behelfs-Dateien nie über ihre Pixelhöhe hinaus vergrößern (Tabelle in 5.3). Für Print in Originalgröße und für Plakate die Original-Vektordatei vom Designer verwenden (die nachvektorisierten SVGs aus 5.3 weichen leicht von der Zeichnung ab).
+- **Höchstgröße der PNG-Dateien (Vorschlag 1.2):** Die PNG-Dateien nie über ihre Pixelhöhe hinaus vergrößern (Tabelle in 5.3). Für Print, Plakate und alle großen Formate die SVG-Dateien verwenden.
 - **Verboten:** verzerren, umfärben, neu setzen, Elemente trennen und anders anordnen als in 5.1, auf unruhige Fotos ohne Overlay setzen.
 - **Header der Webseite:** zeigt das horizontale Logo und nicht mehr einen Textzug. Die bisherige Text-Wortmarke („Padel Club“ in Lavendel, „Freiburg e.V.“ in Schwarz) entfällt, sie war kein Teil des Logos.
 - **Social-Avatar:** Monogramm auf Weiß, auf dunklem Grund die Variante für dunklen Grund.
@@ -203,7 +203,7 @@ Das Logo besteht aus dem **P-Monogramm** (Anthrazit-P, lavendelfarbener Schwung,
 
 ### 5.3 Logo-Dateien (Vorschlag 1.2, Dateinamen ab 1.4)
 
-Die Dateien liegen im Paket `PCF-Logos` (Ordner `PNG/` und `SVG/`). Die Namen folgen dem Muster `pcf-logo-<gestapelt|horizontal>-<hell|dunkel>` bzw. `pcf-monogramm-<hell|dunkel>`, bei PNGs mit Hintergrund-Zusatz. „hell“ heißt für hellen Grund (Anthrazit-Anteile), „dunkel“ für dunklen Grund (weiße Anteile). Die Dateien des Liga-Logos (10.3) beginnen mit `pcf-liga-`.
+Die Dateien liegen im Paket `PCF-Logos` (Ordner `PNG/` und `SVG/`) und stehen zum Download auf `padelclub-freiburg.de/brand`. Die Namen folgen dem Muster `pcf-logo-<gestapelt|horizontal>-<hell|dunkel>` bzw. `pcf-monogramm-<hell|dunkel>`, bei PNGs mit Hintergrund-Zusatz. „hell“ heißt für hellen Grund (Anthrazit-Anteile), „dunkel“ für dunklen Grund (weiße Anteile). Die Dateien des Liga-Logos (10.3) beginnen mit `pcf-liga-`.
 
 **PNG:** Alle Dateien sind mehrfarbig und lassen sich nicht umfärben. Die letzte Spalte nennt den früheren Namen der Original-Dateien, falls sie noch irgendwo unter diesem Namen liegen.
 
@@ -218,7 +218,7 @@ Die Dateien liegen im Paket `PCF-Logos` (Ordner `PNG/` und `SVG/`). Die Namen fo
 | `pcf-monogramm-hell-transparent.png` | Monogramm, hell, transparent | 415 × 466 | Favicon, Avatar, kleine Formate auf hellem Grund | `pcf-monogramm-schwarz-transparent.png` |
 | `pcf-monogramm-dunkel-transparent.png` | Monogramm, dunkel, transparent | 349 × 391 | Avatar, kleine Formate auf dunklem Grund | `pcf-monogramm-weiss-transparent.png` |
 
-**SVG (Behelf):** Die SVGs sind keine Original-Vektoren des Designers, sondern aus den PNGs nachvektorisiert und auf die Markenfarben (Anthrazit, Lavendel, Neon, bei „dunkel“ zusätzlich Weiß) vereinheitlicht. Sie sind frei skalierbar und sehen sehr nah am Original aus, Kurven und Buchstaben weichen aber leicht von der Zeichnung des Designers ab. Alle sind transparent.
+**SVG (offizielle Logo-Dateien, ab 1.5):** Die SVGs sind aus den Original-PNGs nachgezeichnet und auf die Markenfarben (Anthrazit, Lavendel, Neon, bei „dunkel“ zusätzlich Weiß) vereinheitlicht. Sie sind die verbindlichen Vektordateien des Vereinslogos, frei skalierbar und die Quelle für Web und Print. Weitere Vektordateien gibt es nicht und kommen auch nicht mehr. Alle sind transparent.
 
 | Datei | Variante | Grund | Seitenverhältnis (B × H) |
 | --- | --- | --- | --- |
@@ -455,7 +455,7 @@ Alle Dateien sind Vektoren bzw. daraus gerendert, die Schrift ist in Pfaden. SVG
 - [ ] Lavendel als Text und Icon auf Weiß durch Lavendel Dark ersetzen
 - [ ] Header: Text-Wortmarke durch das horizontale Logo ersetzen, Footer mit der Variante für dunklen Grund
 - [ ] Fonts: Inter und Bebas Neue selbst hosten (Fontsource), Stack bereinigen; H1 und Banner-Überschriften in Bebas Neue (Versalien), H2 bleibt Inter, Buttons auf Gewicht 600
-- [ ] Logo-Set vom Designer liefern lassen (horizontal, einfarbig Anthrazit, Variante für dunklen Grund, Avatar)
+- [ ] Einfarbige Variante (Anthrazit) des Vereinslogos ergänzen; gestapelt, horizontal, Monogramm und die Varianten für dunklen Grund liegen als SVG und PNG vor (5.3)
 - [ ] Mobile Skalierung der Überschriften prüfen
 - [ ] Seitentitel ohne Doppelung, ©-Zeichen im Footer, `twitter:creator` auf den Vereinsaccount, `theme-color` setzen
 - [ ] „PCFR-Glücksrad“ in „PCF-Glücksrad“ umbenennen
@@ -471,12 +471,11 @@ Alle Dateien sind Vektoren bzw. daraus gerendert, die Schrift ist in Pfaden. SVG
 
 ## 12. Offene Punkte
 
-- **Name der Logo-Schrift unbekannt.** Bebas Neue ist die freie Näherung für die Display-Rolle, das Logo selbst bleibt Artwork. Sobald der Name über Designer oder Quelldatei bekannt ist: Lizenz prüfen und gegebenenfalls ersetzen.
-- **Logo-Set unvollständig.** Horizontale Variante und Variante für dunklen Grund existieren nur als Behelf, einfarbig Anthrazit fehlt. Die Vektor-Quelldatei beim Ersteller anfordern.
+- **Name der Logo-Schrift unbekannt.** Bebas Neue ist die freie Näherung für die Display-Rolle, das Logo selbst bleibt Artwork. Sollte der Name bekannt werden: Lizenz prüfen und gegebenenfalls ersetzen.
+- **Einfarbiges Vereinslogo fehlt.** Alle anderen Varianten liegen als SVG und PNG vor (5.3); die Variante in Anthrazit für Stempel und Schwarz-Weiß-Druck fehlt noch.
 - **Display-Schrift mit dem Vorstand bestätigen.** Sie kam nach der Freigabe von Version 1.0 dazu.
 - **Claim** „Die Heimat für Padel in Freiburg.“ ist aus dem Seitentext abgeleitet und noch nicht auf Print und Social übertragen.
 - **Abstandsskala und Komponenten-Maße mit dem Vorstand bestätigen.** Alles mit „Vorschlag 1.2“ in Abschnitt 3, 4.3, 5, 8 und 9 kam nach der Freigabe dazu (Abstände, Innenabstände, Deaktiviert-Zustand, Fehlerzustand, Badge- und Hinweisbox-Maße).
-- **Behelfs-Logos als PNG und nachvektorisierte SVG.** Horizontal, Monogramm und dunkle Varianten sind aus den Master-Dateien ausgeschnitten und als PNG in der Auflösung begrenzt (Höhe 466 px hell, 391 px dunkel). Die SVGs sind aus den PNGs nachvektorisiert. Die Original-Vektordateien, die einfarbig-anthrazitfarbene Variante und ein Favicon-Satz (zum Beispiel 16, 32 und 180 px) kommen vom Designer.
 - **Liga-Logo mit dem Vorstand bestätigen (Vorschlag 1.3).** Aufbau, Varianten, Mindestgrößen und die Regel „Liga-Logo führt, Vereinslogo als Absender“ aus 10.2 sind neu. Die Mindestgrößen im Druck und auf Textil testen.
 - **Icon-Set wählen.** Es steht nur die Regel (Outline, 1,75 px bei 24 px, Anthrazit auf Lavendel-Kreis), ein konkretes Set fehlt.
 - **Card-Rand mit nur 1,50:1 auf Weiß.** Er trennt nur und trägt keine Information, Bedienelemente nutzen den Feldrand (3,59:1). Falls die Cards ohne Rand eingesetzt werden sollen, den Kontrast der Fläche neu prüfen.
@@ -492,6 +491,7 @@ Alle Dateien sind Vektoren bzw. daraus gerendert, die Schrift ist in Pfaden. SVG
 | 1.2 | 03.11.2026 | Ergänzt aus dem Design-System: Abstandsskala `space-1` bis `space-9` (8.1), Komponenten-Details für Card, Formularfeld (Aufbau, Fokus, Fehlerzustand), Tabelle, Badge und Hinweisbox (8.2), Deaktiviert-Zustand und Innenabstand der Buttons (3), Schriftgrößen für Beschriftung, Tabelle, Badge und Hinweisbox sowie Schriftdateien (4), Logo-Dateien und Aufbau des Behelfs-Logos (5.1, 5.3), Proportion des Spielfeld-Musters (6), zusätzliche Kontrastwerte (2.3), Maße und Namen im Token-Block (9), Checkliste und offene Punkte. Bestätigung durch den Vorstand steht aus. |
 | 1.3 | 03.11.2026 | Eigenes Logo-Set der PCF Liga ergänzt: Aufbau, Varianten (Logo, horizontal, Monogramm, Kleinformat, einfarbig, App-Icon), Hintergründe, Schutzraum, Mindestgrößen und Dateiliste (10.2, 10.3); Abgrenzung „welches Logo wann“ zwischen Verein und Liga (5); Liga-Wortmarke als Artwork (4.4); Überblick (1), Checkliste und offene Punkte angepasst. Bestätigung durch den Vorstand steht aus. |
 | 1.4 | 03.11.2026 | Abschnitt 5.3 nennt die neuen Dateinamen aus dem Paket `PCF-Logos` (Muster `pcf-logo-…` / `pcf-monogramm-…`, hell / dunkel) mit dem früheren Namen der Original-Dateien; die sechs SVGs sind als Behelf aufgenommen (5.1, 5.2, 5.3, 12). Bestätigung durch den Vorstand steht aus. |
+| 1.5 | 19.11.2026 | Die aus den Original-PNGs nachgezeichneten SVGs sind die offiziellen Logo-Dateien des Vereins, weitere Vektordateien kommen nicht (5.1, 5.2, 5.3, 11, 12). Liga-Logo: Bildausschnitt von Logo und horizontalem Logo um den Überhang von C und G erweitert, Pixelmaße angepasst (10.3). Alle Logo-Dateien stehen zum Download auf `/brand`. |
 
 ---
 

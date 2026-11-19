@@ -5,7 +5,7 @@ Diese Datei vor jeder Änderung lesen. Sie fasst zusammen, wie die Seite gebaut 
 - Live: https://www.padelclub-freiburg.de
 - Repo: `padelclubFreiburg/vereinswebsite`, Standard-Branch `main`
 - Sprache der Seite: Deutsch, Ansprache **Du**, gendern mit Doppelpunkt (`Spieler:innen`). Impressum und Datenschutz bleiben beim „Sie“.
-- Verbindliches Erscheinungsbild: [`docs/ci-guide.md`](docs/ci-guide.md) (CI-Guide v1.4). Bei Farb-, Schrift-, Logo- oder Komponentenfragen gilt der Guide, nicht der bisherige Code.
+- Verbindliches Erscheinungsbild: [`docs/ci-guide.md`](docs/ci-guide.md) (CI-Guide v1.5). Bei Farb-, Schrift-, Logo- oder Komponentenfragen gilt der Guide, nicht der bisherige Code.
 
 ## Stack
 
@@ -89,7 +89,7 @@ src/
     blog/*.md                 News-Beiträge, Bilder in blog/pics/
     team/*.md                 Vorstand, Fotos daneben, Reihenfolge über `order`
   assets/
-    logos/                    Logo-Paket PCF-Logos (PNG = Originale, SVG = nachvektorisiert), siehe LIESMICH.txt
+    logos/                    Logo-Paket PCF-Logos (SVG = offizielle Logo-Dateien, PNG), siehe LIESMICH.txt
     logos/liga/               Liga-Logo-Set als SVG (10 Varianten aus dem Canvas „PCF Liga – Logo-Set“) + LIESMICH.txt
     hero.svg                  Monogramm für die Startseite
     partner/                  Partnerlogos
@@ -118,7 +118,7 @@ docs/ci-guide.md              CI-Guide (Quelle der Wahrheit für Design)
 - **Menü:** Array `menuitems` in `src/components/navbar/navbar.astro` (externe Links mit `external: true` bekommen ein Pfeil-Icon; der Platz bei 1024 px ist knapp, vor neuen Einträgen dort prüfen); Footer-Links im Array `columns` in `footer.astro`.
 - **PCF Liga:** eigene Seite auf liga.padelclub-freiburg.de. Auf der Vereinsseite: Menüpunkt, Footer-Link, Box auf der Startseite (`cta.astro`) und FAQ-Frage `pcf-liga`. Ändern sich Eckdaten der Liga (Kosten, Start, Format), Box und FAQ mitpflegen. Das Liga-Logo darf nicht auf Lavendel stehen (CI 10.2), dort nur einfarbig Anthrazit.
 - **Mitgliedsbeiträge:** Array `pricing` in `src/pages/mitgliedschaft.astro`. Beiträge stehen auch in der FAQ (`beitrag`) und in der Seitenbeschreibung – mitändern.
-- **Logos & Marke (`/brand`):** Logo-Dateien liegen nur in `src/assets/logos/` (Verein) und `src/assets/logos/liga/` (Liga); jede Datei dort wird automatisch unter `/brand/dateien/<name>` und im passenden ZIP ausgeliefert, Liga-SVGs zusätzlich als PNG in 500/1000/2000 px. Was auf der Seite steht (Varianten, Texte, Mindestgrößen, Farben), steht in `src/lib/marke.ts`. Verlinkt die Seite eine Datei, die es nicht gibt, bricht der Build ab. Kommen die Original-Vektoren vom Designer, die Dateien unter gleichem Namen ersetzen und den Info-Hinweis in `brand.astro` sowie `LIESMICH.txt` anpassen. Farben in `marke.ts` bei Änderungen am `@theme`-Block mitpflegen. Footer-Link „Logos & Marke“, Kontaktthema `logos`.
+- **Logos & Marke (`/brand`):** Logo-Dateien liegen nur in `src/assets/logos/` (Verein) und `src/assets/logos/liga/` (Liga); jede Datei dort wird automatisch unter `/brand/dateien/<name>` und im passenden ZIP ausgeliefert, Liga-SVGs zusätzlich als PNG in 500/1000/2000 px. Was auf der Seite steht (Varianten, Texte, Mindestgrößen, Farben), steht in `src/lib/marke.ts`. Verlinkt die Seite eine Datei, die es nicht gibt, bricht der Build ab. Geänderte Logo-Dateien unter gleichem Namen ablegen, dann sind Seite und ZIPs automatisch aktuell; `LIESMICH.txt` im jeweiligen Ordner mitpflegen. Farben in `marke.ts` bei Änderungen am `@theme`-Block mitpflegen. Footer-Link „Logos & Marke“, Kontaktthema `logos`.
 - **Partnerlogos:** SVG nach `src/assets/partner/`, Eintrag im Array `partners` in `src/components/logos.astro`.
 
 ### Eventseiten und Functions
@@ -155,6 +155,6 @@ Ausführlich und verbindlich in [`docs/ci-guide.md`](docs/ci-guide.md). Das Wich
 - **Rebranding nach CI-Guide v1.4:** umgesetzt (November 2026). Die Abschnitte „Vorschlag 1.2/1.3“ im Guide sind vom Vorstand noch zu bestätigen.
 - **Seite `/brand`:** umgesetzt (November 2026), ohne Abschnitt zu Partnerlogos (Regel dafür fehlt im CI-Guide, Vorstand). Druckfarben (CMYK, Pantone) sind noch nicht festgelegt. Die SVGs von Liga-Logo und horizontalem Liga-Logo haben einen um den Überhang von C und G erweiterten Bildausschnitt; im Canvas „PCF Liga – Logo-Set“ ist das noch nicht nachgezogen.
 - **FAQ-Seite `/faq`:** umgesetzt. Quelle: FAQ-PDF des Vereins, Stand September 2026 (gegendert, Überschneidungen zusammengelegt).
-- **Logos:** Die SVGs im Paket sind nachvektorisiert, Original-Vektoren, einfarbig Anthrazit und ein Favicon-Satz vom Designer fehlen noch (CI-Guide 12).
+- **Logos:** Die aus den PNGs nachgezeichneten SVGs sind die offiziellen Logo-Dateien des Vereins (CI-Guide 1.5), weitere Vektordateien kommen nicht. Es fehlt nur noch die einfarbige Variante in Anthrazit (CI-Guide 12).
 - **Datenschutzerklärung:** spricht nur von Links zu Instagram; die FAQ verlinkt inzwischen auch auf YouTube, ARD Mediathek und WhatsApp-Gruppen (nur Links, keine Einbettung). Bei der nächsten Überarbeitung prüfen.
 - **Hauptüberschrift Startseite:** ab Tablet zweizeilig; auf dem Handy dreizeilig, weil die Display-Schrift laut CI mobil mindestens 60 px groß ist (unter 390 px Breite skaliert sie leicht herunter).

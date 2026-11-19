@@ -108,22 +108,14 @@ const textlink = "text-primary-dark underline hover:no-underline";
           <h2 id="vereinslogo-titel" class={h2}>Vereinslogo</h2>
           <p class="type-body mt-3">
             Unser Logo besteht aus dem P-Monogramm und dem Schriftzug. Nimm immer eine der Dateien und setz den Schriftzug
-            nie selbst. Auf dunklem Grund brauchst du die Variante für dunklen Grund.
+            nie selbst. Auf dunklem Grund brauchst du die Variante für dunklen Grund. Für Druck und große Formate nimm die
+            SVG-Datei, sie lässt sich beliebig vergrößern.
           </p>
         </div>
         <Link href={datei(ZIP_VEREIN)} variant="secondary" download>
           <Icon name="lucide:download" class="icon-stroke size-5" aria-hidden="true" />
           Alle Vereinslogos (ZIP)
         </Link>
-      </div>
-
-      <div class="mt-6 rounded-sm border border-border border-l-4 border-l-secondary bg-white px-6 py-4">
-        <p class="text-base leading-6">
-          <strong class="font-semibold">Info:</strong>
-          Die SVG-Dateien sind aus den Original-PNGs nachgezeichnet. Sie lassen sich beliebig vergrößern, weichen aber minimal
-          vom Original ab. Für Plakate, Banner und andere große Drucke
-          <a href="/contact?thema=logos" class={textlink}>sprich uns vorher an</a>.
-        </p>
       </div>
 
       <div class="mt-8 grid gap-6 md:grid-cols-2">
@@ -421,7 +413,7 @@ const textlink = "text-primary-dark underline hover:no-underline";
 
       <div class="mt-16 text-center">
         <h2 class="text-[2rem] leading-tight font-bold tracking-[-0.025em]">Du brauchst etwas anderes?</h2>
-        <p class="type-body mt-3">Zum Beispiel ein anderes Format oder Dateien für einen großen Druck? Schreib uns.</p>
+        <p class="type-body mt-3">Zum Beispiel ein anderes Dateiformat oder eine Variante, die hier fehlt? Schreib uns.</p>
         <div class="mt-6">
           <Link href="/contact?thema=logos">Schreib uns</Link>
         </div>
