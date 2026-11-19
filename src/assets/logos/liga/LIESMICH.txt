@@ -1,0 +1,31 @@
+PCF Liga - Logo-Dateien (Stand 19.11.2026)
+
+Das Liga-Logo nur fuer Themen der PCF Liga verwenden (Spielplan, Ranglisten,
+Liga-Posts, Urkunden). Fuer alles andere gilt das Vereinslogo des
+Padel Club Freiburg e.V.
+
+"positiv" = fuer hellen Grund: Weiss, Lavendel Tint, Hellgrau
+"negativ" = fuer dunklen Grund: Anthrazit, Petrol, Fotos mit dunklem Overlay
+Nicht auf Lavendel oder Neon setzen (Schweif bzw. Ball verschwinden),
+notfalls die einfarbige Variante in Anthrazit nehmen.
+
+SVG/  (Vektoren, Schrift in Pfaden, frei skalierbar: Quelle fuer Druck und Web)
+  pcf-liga-logo-positiv.svg / -negativ.svg                  Logo (Standard)
+  pcf-liga-horizontal-positiv.svg / -negativ.svg            horizontal, mit "PADEL CLUB FREIBURG"
+  pcf-liga-monogramm-positiv.svg / -negativ.svg             Monogramm (ab 64 px)
+  pcf-liga-monogramm-klein-positiv.svg / -negativ.svg       Monogramm Kleinformat (unter 64 px, bis 16 px)
+  pcf-liga-monogramm-einfarbig-anthrazit.svg / -weiss.svg   einfarbig (Stempel, Textil, Praegung)
+
+PNG/  (aus den SVGs erzeugt, transparent; die Zahl im Namen ist die Hoehe in Pixeln)
+  je Variante 500, 1000 und 2000 px hoch, z. B. pcf-liga-logo-positiv_1000px.png
+  PNGs nicht ueber ihre Pixelgroesse hinaus vergroessern, fuer groessere
+  Formate die SVG nehmen.
+
+Regeln:
+- Schutzraum: ein Balldurchmesser rundum.
+- Mindestgroesse (Hoehe): Logo 40 px / 12 mm, horizontal 56 px / 15 mm,
+  Monogramm 64 px / 18 mm, darunter das Kleinformat.
+- Nie verzerren, umfaerben, Teile trennen oder neu anordnen, die Schrift
+  nachsetzen, Schatten oder Verlaeufe ergaenzen.
+
+Fragen: https://www.padelclub-freiburg.de/contact?thema=logos

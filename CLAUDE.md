@@ -18,6 +18,7 @@ Diese Datei vor jeder Änderung lesen. Sie fasst zusammen, wie die Seite gebaut 
 | Hosting | Cloudflare Pages; `functions/` sind Cloudflare Pages Functions unter `/api/...` |
 | Kontaktformular | Web3Forms (Access-Key steht öffentlich in `src/components/contactform.astro`, das ist bei Web3Forms so vorgesehen) |
 | Mitgliedsantrag | easyVerein: `https://easyverein.com/public/PCFR/applicationform/20109` (die Kennung `PCFR` in der URL ist von easyVerein vorgegeben und bleibt) |
+| Logo-Downloads | `/brand`: Dateien und ZIP-Pakete entstehen beim Build (`sharp` rendert die Liga-PNGs aus den SVGs, `fflate` packt die ZIPs) |
 | Basis-Template | „Astroship“ von web3templates (GPL-2.0, daher `LICENSE` behalten) |
 
 ## Befehle
@@ -56,6 +57,8 @@ src/
     contactform.astro         Kontaktformular (Web3Forms), Feld „Worum geht's?“ mit FAQ-Vorschlägen
     faq/faq-item.astro        eine aufklappbare Frage (<details>), optional mit Sprungmarke und „Link kopieren“
     faq/faq-teaser.astro      Block „Noch Fragen?“ auf der Startseite (Fragen-ids im Code)
+    marke/logo-card.astro     Card auf /brand: Logo-Vorschau mit Umschalter heller/dunkler Grund und Download-Links
+    marke/logo-bild.ts        logoBild(pfad): Datei aus src/assets/logos/ für <Image>
     sectionhead.astro         Seitenkopf der Unterseiten (H1 in Bebas + Beschreibung)
     container.astro           Content-Spalte (max. 1120 px, Rand 16/24 px)
     ui/button-styles.ts       Button-System (primary, secondary, signal) – einzige Quelle für Button-Klassen
@@ -65,6 +68,8 @@ src/
     faq.ts                    lädt src/data/faq.yaml, rendert Markdown, prüft doppelte ids; getFaq(), getFragen(ids)
     kontakt-themen.ts         Themen im Kontaktformular und die passenden FAQ-ids
     liga.ts                   LIGA_URL (https://liga.padelclub-freiburg.de) für Menü, Footer und Startseite
+    marke.ts                  Inhalte von /brand: Logo-Varianten mit Downloads, Schutzraum, Farben (Kopie der Tokens)
+    marke-dateien.ts          Download-Dateien von /brand: Logos unverändert, Liga-PNGs (500/1000/2000 px), drei ZIPs
   data/
     faq.yaml                  Häufige Fragen (Kategorien → Fragen, Antworten in Markdown)
     courts.yaml               Courts in der Region (für /faq#courts)
@@ -72,6 +77,8 @@ src/
     index.astro               /            Hero, Vision, Mitglied- und Liga-Box, „Noch Fragen?“, Partner
     faq.astro                 /faq         Suche, Kategorien, Fragen, Courts, FAQPage-JSON-LD
     contact.astro             /contact     FAQ-Hinweis, Kontaktdaten, Formular (?thema=… wählt Thema vor)
+    brand.astro               /brand       Logos & Marke: Vereins- und Liga-Logos zum Download, Regeln, Farben, Schriften
+    brand/dateien/[datei].ts  /brand/dateien/<name>  liefert Logo-Dateien und ZIPs aus (beim Build erzeugt)
     mitgliedschaft.astro      /mitgliedschaft  Preise im Array `pricing`
     team.astro                /team        aus Collection `team`
     news.astro                /news        aus Collection `blog`
@@ -83,7 +90,7 @@ src/
     team/*.md                 Vorstand, Fotos daneben, Reihenfolge über `order`
   assets/
     logos/                    Logo-Paket PCF-Logos (PNG = Originale, SVG = nachvektorisiert), siehe LIESMICH.txt
-    logos/liga/               Liga-Logo, bisher nur Monogramm einfarbig Anthrazit (für die Lavendel-Box auf der Startseite)
+    logos/liga/               Liga-Logo-Set als SVG (10 Varianten aus dem Canvas „PCF Liga – Logo-Set“) + LIESMICH.txt
     hero.svg                  Monogramm für die Startseite
     partner/                  Partnerlogos
   utils/all.js                getFormattedDate() → „5. Juli 2026“
@@ -111,6 +118,7 @@ docs/ci-guide.md              CI-Guide (Quelle der Wahrheit für Design)
 - **Menü:** Array `menuitems` in `src/components/navbar/navbar.astro` (externe Links mit `external: true` bekommen ein Pfeil-Icon; der Platz bei 1024 px ist knapp, vor neuen Einträgen dort prüfen); Footer-Links im Array `columns` in `footer.astro`.
 - **PCF Liga:** eigene Seite auf liga.padelclub-freiburg.de. Auf der Vereinsseite: Menüpunkt, Footer-Link, Box auf der Startseite (`cta.astro`) und FAQ-Frage `pcf-liga`. Ändern sich Eckdaten der Liga (Kosten, Start, Format), Box und FAQ mitpflegen. Das Liga-Logo darf nicht auf Lavendel stehen (CI 10.2), dort nur einfarbig Anthrazit.
 - **Mitgliedsbeiträge:** Array `pricing` in `src/pages/mitgliedschaft.astro`. Beiträge stehen auch in der FAQ (`beitrag`) und in der Seitenbeschreibung – mitändern.
+- **Logos & Marke (`/brand`):** Logo-Dateien liegen nur in `src/assets/logos/` (Verein) und `src/assets/logos/liga/` (Liga); jede Datei dort wird automatisch unter `/brand/dateien/<name>` und im passenden ZIP ausgeliefert, Liga-SVGs zusätzlich als PNG in 500/1000/2000 px. Was auf der Seite steht (Varianten, Texte, Mindestgrößen, Farben), steht in `src/lib/marke.ts`. Verlinkt die Seite eine Datei, die es nicht gibt, bricht der Build ab. Kommen die Original-Vektoren vom Designer, die Dateien unter gleichem Namen ersetzen und den Info-Hinweis in `brand.astro` sowie `LIESMICH.txt` anpassen. Farben in `marke.ts` bei Änderungen am `@theme`-Block mitpflegen. Footer-Link „Logos & Marke“, Kontaktthema `logos`.
 - **Partnerlogos:** SVG nach `src/assets/partner/`, Eintrag im Array `partners` in `src/components/logos.astro`.
 
 ### Eventseiten und Functions
@@ -145,6 +153,7 @@ Ausführlich und verbindlich in [`docs/ci-guide.md`](docs/ci-guide.md). Das Wich
 ## Stand und offene Punkte
 
 - **Rebranding nach CI-Guide v1.4:** umgesetzt (November 2026). Die Abschnitte „Vorschlag 1.2/1.3“ im Guide sind vom Vorstand noch zu bestätigen.
+- **Seite `/brand`:** umgesetzt (November 2026), ohne Abschnitt zu Partnerlogos (Regel dafür fehlt im CI-Guide, Vorstand). Druckfarben (CMYK, Pantone) sind noch nicht festgelegt. Die SVGs von Liga-Logo und horizontalem Liga-Logo haben einen um den Überhang von C und G erweiterten Bildausschnitt; im Canvas „PCF Liga – Logo-Set“ ist das noch nicht nachgezogen.
 - **FAQ-Seite `/faq`:** umgesetzt. Quelle: FAQ-PDF des Vereins, Stand September 2026 (gegendert, Überschneidungen zusammengelegt).
 - **Logos:** Die SVGs im Paket sind nachvektorisiert, Original-Vektoren, einfarbig Anthrazit und ein Favicon-Satz vom Designer fehlen noch (CI-Guide 12).
 - **Datenschutzerklärung:** spricht nur von Links zu Instagram; die FAQ verlinkt inzwischen auch auf YouTube, ARD Mediathek und WhatsApp-Gruppen (nur Links, keine Einbettung). Bei der nächsten Überarbeitung prüfen.

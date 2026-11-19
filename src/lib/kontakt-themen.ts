@@ -8,5 +8,6 @@ export const kontaktThemen = [
   { id: "jugend", label: "Kinder und Jugend", fragen: ["jugend", "kinder-alter"] },
   { id: "sponsoring", label: "Sponsoring", fragen: ["sponsoring"] },
   { id: "mitmachen", label: "Im Verein mitmachen", fragen: ["engagieren"] },
+  { id: "logos", label: "Logos und Presse", fragen: [] },
   { id: "sonstiges", label: "Etwas anderes", fragen: [] },
 ];

@@ -1,0 +1,474 @@
+---
+// /brand: Logos des Vereins und der PCF Liga zum Download, Regeln, Farben und Schriften (nach docs/ci-guide.md).
+// Inhalte in src/lib/marke.ts, Dateien und ZIPs in src/lib/marke-dateien.ts.
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Sectionhead from "@/components/sectionhead.astro";
+import Link from "@/components/ui/link.astro";
+import LogoCard from "@/components/marke/logo-card.astro";
+import { logoBild } from "@/components/marke/logo-bild";
+import {
+  DATEIEN_PFAD,
+  ZIP_ALLE,
+  ZIP_LIGA,
+  ZIP_VEREIN,
+  hauptfarben,
+  ligaLogos,
+  rgb,
+  schutzraum,
+  vereinsLogos,
+  weitereFarben,
+  type Farbe,
+} from "@/lib/marke";
+import { downloadDateien } from "@/lib/marke-dateien";
+
+// Jeder Link auf der Seite muss auf eine vorhandene Datei zeigen
+const vorhanden = new Set(downloadDateien().map((d) => d.name));
+const verlinkt = [
+  ZIP_ALLE,
+  ZIP_VEREIN,
+  ZIP_LIGA,
+  ...[...vereinsLogos, ...ligaLogos].flatMap((l) => l.varianten.flatMap((v) => v.downloads.map((d) => d.datei))),
+];
+const fehlt = verlinkt.filter((d) => !vorhanden.has(d));
+if (fehlt.length) throw new Error(`/brand verlinkt fehlende Dateien: ${fehlt.join(", ")}`);
+
+const datei = (name: string) => `${DATEIEN_PFAD}/${name}`;
+
+const sprungmarken = [
+  { id: "vereinslogo", kurz: "Vereinslogo" },
+  { id: "liga", kurz: "PCF Liga" },
+  { id: "regeln", kurz: "Richtig einsetzen" },
+  { id: "farben", kurz: "Farben" },
+  { id: "schriften", kurz: "Schriften" },
+];
+
+// Schutzraum als Anteil der Gesamtbreite (Logo + zwei Ballbreiten)
+const schutz = (s: { breite: number; ball: number }) => ((s.ball / (s.breite + 2 * s.ball)) * 100).toFixed(2);
+const schutzraumBeispiele = [
+  { titel: "Vereinslogo", bild: schutzraum.verein.datei, anteil: schutz(schutzraum.verein) },
+  { titel: "PCF Liga", bild: schutzraum.liga.datei, anteil: schutz(schutzraum.liga) },
+];
+
+const horizontal = logoBild("pcf-logo-horizontal-hell-transparent.png");
+const monogramm = logoBild("pcf-monogramm-hell-transparent.png");
+
+const kopierKnopf =
+  "inline-flex min-h-touch items-center gap-2 rounded-sm text-left text-base leading-6 text-neutraldark hover:text-primary-dark";
+const werte = (f: Farbe) => [
+  { art: "HEX", wert: f.hex },
+  { art: "RGB", wert: rgb(f.hex) },
+];
+
+const h2 = "type-h2";
+const textlink = "text-primary-dark underline hover:no-underline";
+---
+
+<Layout
+  title="Logos und Marke"
+  description="Logos des Padel Club Freiburg e.V. und der PCF Liga zum Download, dazu Regeln für den Einsatz, unsere Farben und Schriften.">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">Logos & Marke</Fragment>
+      <Fragment slot="desc">
+        Hier findest du unsere Logos zum Download, dazu Farben und Schriften. Für Partner:innen, Presse, Mitglieder und
+        alle, die über den Verein oder die PCF Liga berichten.
+      </Fragment>
+    </Sectionhead>
+
+    <div class="mt-8 flex justify-center">
+      <Link href={datei(ZIP_ALLE)} download>
+        <Icon name="lucide:download" class="icon-stroke size-5" aria-hidden="true" />
+        Alle Logos herunterladen (ZIP)
+      </Link>
+    </div>
+
+    <nav aria-label="Abschnitte" class="mx-auto mt-8 max-w-[52rem]">
+      <ul class="flex flex-wrap justify-center gap-2">
+        {
+          sprungmarken.map((s) => (
+            <li>
+              <a
+                href={`#${s.id}`}
+                class="inline-flex min-h-touch items-center rounded-sm border border-field-border bg-white px-4 text-base font-semibold text-neutraldark transition-colors hover:bg-primary-tint">
+                {s.kurz}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Vereinslogo -->
+    <section id="vereinslogo" class="mt-16" aria-labelledby="vereinslogo-titel">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="max-w-[60ch]">
+          <h2 id="vereinslogo-titel" class={h2}>Vereinslogo</h2>
+          <p class="type-body mt-3">
+            Unser Logo besteht aus dem P-Monogramm und dem Schriftzug. Nimm immer eine der Dateien und setz den Schriftzug
+            nie selbst. Auf dunklem Grund brauchst du die Variante für dunklen Grund.
+          </p>
+        </div>
+        <Link href={datei(ZIP_VEREIN)} variant="secondary" download>
+          <Icon name="lucide:download" class="icon-stroke size-5" aria-hidden="true" />
+          Alle Vereinslogos (ZIP)
+        </Link>
+      </div>
+
+      <div class="mt-6 rounded-sm border border-border border-l-4 border-l-secondary bg-white px-6 py-4">
+        <p class="text-base leading-6">
+          <strong class="font-semibold">Info:</strong>
+          Die SVG-Dateien sind aus den Original-PNGs nachgezeichnet. Sie lassen sich beliebig vergrößern, weichen aber minimal
+          vom Original ab. Für Plakate, Banner und andere große Drucke
+          <a href="/contact?thema=logos" class={textlink}>sprich uns vorher an</a>.
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {vereinsLogos.map((logo) => <LogoCard logo={logo} />)}
+      </div>
+    </section>
+
+    <!-- PCF Liga -->
+    <section id="liga" class="mt-20" aria-labelledby="liga-titel">
+      <div class="flex flex-wrap items-end justify-between gap-6">
+        <div class="max-w-[60ch]">
+          <h2 id="liga-titel" class={h2}>PCF Liga</h2>
+          <p class="type-body mt-3">
+            Die PCF Liga hat ein eigenes Logo. Nimm es nur für Liga-Themen wie Spielplan, Ranglisten oder Liga-Posts, für
+            alles andere das Vereinslogo. Setz es nicht auf Lavendel oder Neon: Dort verschwinden Schweif oder Ball.
+          </p>
+        </div>
+        <Link href={datei(ZIP_LIGA)} variant="secondary" download>
+          <Icon name="lucide:download" class="icon-stroke size-5" aria-hidden="true" />
+          Alle Liga-Logos (ZIP)
+        </Link>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {ligaLogos.map((logo) => <LogoCard logo={logo} />)}
+      </div>
+      <p class="mt-4 text-base leading-6 text-text-muted">
+        Im ZIP liegt jede Variante zusätzlich als PNG mit 500 und 2000 px Höhe.
+      </p>
+    </section>
+
+    <!-- Regeln -->
+    <section id="regeln" class="mt-20" aria-labelledby="regeln-titel">
+      <div class="max-w-[60ch]">
+        <h2 id="regeln-titel" class={h2}>Richtig einsetzen</h2>
+        <p class="type-body mt-3">
+          Lass rund um das Logo Platz und verändere die Dateien nicht. So bleibt es auf jedem Untergrund gut erkennbar.
+        </p>
+      </div>
+
+      <h3 class="type-h3 mt-10">Schutzraum</h3>
+      <p class="mt-1 max-w-[60ch] text-base leading-6 text-text-muted">
+        Halte rundum mindestens eine Ballbreite frei, also so viel, wie der Ball im Logo breit ist. In diesen Bereich
+        gehören keine Texte, Bilder oder anderen Logos.
+      </p>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        {
+          schutzraumBeispiele.map((s) => (
+            <figure class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+              <div class="flex flex-1 items-center" aria-hidden="true">
+                <div class="mx-auto w-full max-w-[26rem]">
+                  <div
+                    class="relative border border-dashed border-primary-dark bg-primary-tint"
+                    style={`padding: ${s.anteil}%`}>
+                    {["top-0 left-0", "top-0 right-0", "bottom-0 left-0", "bottom-0 right-0"].map((ecke) => (
+                      <span
+                        class={`absolute ${ecke} flex aspect-square items-center justify-center`}
+                        style={`width: ${s.anteil}%`}>
+                        <span class="size-[70%] rounded-full border-2 border-neutraldark bg-signal" />
+                      </span>
+                    ))}
+                    <div class="border border-dashed border-field-border bg-white">
+                      <Image src={logoBild(s.bild)} alt="" width={416} densities={[1, 2]} class="block h-auto w-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <figcaption class="mt-4 text-base leading-6 text-text-muted">
+                <strong class="font-semibold text-neutraldark">{s.titel}:</strong> Der lavendelfarbene Rand ist der
+                Schutzraum, die Bälle zeigen sein Maß.
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+
+      <h3 class="type-h3 mt-12">So bitte nicht</h3>
+      <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+          <div class="flex h-36 items-center justify-center rounded-sm border border-border bg-white" aria-hidden="true">
+            <Image src={horizontal} alt="" height={56} densities={[1, 2]} class="h-12 w-64 max-w-full" />
+          </div>
+          <p class="mt-4 flex items-start gap-2 text-base leading-6">
+            <Icon name="lucide:circle-x" class="icon-stroke mt-0.5 size-5 shrink-0 text-danger" aria-hidden="true" />
+            Nicht verzerren oder stauchen.
+          </p>
+        </li>
+        <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+          <div class="flex h-36 items-center justify-center rounded-sm border border-border bg-white" aria-hidden="true">
+            <Image src={horizontal} alt="" height={56} densities={[1, 2]} class="h-14 w-auto hue-rotate-180" />
+          </div>
+          <p class="mt-4 flex items-start gap-2 text-base leading-6">
+            <Icon name="lucide:circle-x" class="icon-stroke mt-0.5 size-5 shrink-0 text-danger" aria-hidden="true" />
+            Nicht umfärben.
+          </p>
+        </li>
+        <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+          <div class="flex h-36 items-center justify-center rounded-sm border border-border bg-white" aria-hidden="true">
+            <Image
+              src={horizontal}
+              alt=""
+              height={56}
+              densities={[1, 2]}
+              class="h-14 w-auto drop-shadow-[4px_5px_3px_rgb(0_0_0/0.45)]"
+            />
+          </div>
+          <p class="mt-4 flex items-start gap-2 text-base leading-6">
+            <Icon name="lucide:circle-x" class="icon-stroke mt-0.5 size-5 shrink-0 text-danger" aria-hidden="true" />
+            Keine Schatten, Leuchteffekte oder Verläufe.
+          </p>
+        </li>
+        <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+          <div
+            class="flex h-36 items-center justify-center gap-2 rounded-sm border border-border bg-white"
+            aria-hidden="true">
+            <Image src={monogramm} alt="" height={56} densities={[1, 2]} class="h-14 w-auto" />
+            <span class="text-lg leading-5">
+              <span class="block font-bold">PADEL CLUB</span>
+              <span class="block">Freiburg</span>
+            </span>
+          </div>
+          <p class="mt-4 flex items-start gap-2 text-base leading-6">
+            <Icon name="lucide:circle-x" class="icon-stroke mt-0.5 size-5 shrink-0 text-danger" aria-hidden="true" />
+            Den Schriftzug nie nachsetzen, in keiner Schrift.
+          </p>
+        </li>
+        <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+          <div
+            class="flex h-36 items-center justify-center gap-3 rounded-sm border border-border bg-white"
+            aria-hidden="true">
+            <!-- Schriftzug aus dem horizontalen Logo ausgeschnitten (ab x = 552 von 1232 px), Monogramm rechts -->
+            <span class="relative block h-14 overflow-hidden" style="aspect-ratio: 680 / 466">
+              <Image
+                src={horizontal}
+                alt=""
+                height={56}
+                densities={[1, 2]}
+                class="absolute top-0 h-full w-auto max-w-none"
+                style="left: -81.18%"
+              />
+            </span>
+            <Image src={monogramm} alt="" height={56} densities={[1, 2]} class="h-14 w-auto" />
+          </div>
+          <p class="mt-4 flex items-start gap-2 text-base leading-6">
+            <Icon name="lucide:circle-x" class="icon-stroke mt-0.5 size-5 shrink-0 text-danger" aria-hidden="true" />
+            Die Teile nicht trennen oder neu anordnen.
+          </p>
+        </li>
+        <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+          <div
+            class="flex h-36 items-center justify-center rounded-sm border border-neutraldark bg-neutraldark"
+            aria-hidden="true">
+            <Image src={horizontal} alt="" height={56} densities={[1, 2]} class="h-14 w-auto" />
+          </div>
+          <p class="mt-4 flex items-start gap-2 text-base leading-6">
+            <Icon name="lucide:circle-x" class="icon-stroke mt-0.5 size-5 shrink-0 text-danger" aria-hidden="true" />
+            Auf dunklem Grund nicht die Variante für hellen Grund.
+          </p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Farben -->
+    <section id="farben" class="mt-20" aria-labelledby="farben-titel">
+      <div class="max-w-[60ch]">
+        <h2 id="farben-titel" class={h2}>Farben</h2>
+        <p class="type-body mt-3">
+          Jede Farbe hat ihre Aufgabe. Klick auf einen Wert, um ihn zu kopieren.
+        </p>
+      </div>
+
+      <ul class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          hauptfarben.map((f) => (
+            <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+              <div class={`h-20 rounded-sm border border-border sm:h-28 ${f.klasse}`} />
+              <h3 class="type-h3 mt-4">{f.name}</h3>
+              <p class="mt-1 text-base leading-6 text-text-muted">{f.rolle}</p>
+              <ul class="mt-auto pt-3">
+                {werte(f).map((w) => (
+                  <li>
+                    <button type="button" class={kopierKnopf} data-kopieren={w.wert}>
+                      <span class="w-10 font-semibold">{w.art}</span>
+                      <span class="tabular-nums">{w.wert}</span>
+                      <Icon name="lucide:copy" class="icon-stroke size-4 shrink-0" aria-hidden="true" data-icon-kopieren />
+                      <Icon name="lucide:check" class="icon-stroke size-4 shrink-0" aria-hidden="true" data-icon-kopiert hidden />
+                      <span class="sr-only">kopieren</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class="type-h3 mt-12">Weitere Farben</h3>
+      <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          weitereFarben.map((f) => (
+            <li class="flex flex-col rounded-lg border border-border bg-neutrallight p-6">
+              <div class={`h-12 rounded-sm border border-border sm:h-16 ${f.klasse}`} />
+              <h4 class="mt-4 text-base leading-6 font-semibold">{f.name}</h4>
+              <p class="mt-1 text-base leading-6 text-text-muted">{f.rolle}</p>
+              <ul class="mt-auto pt-3">
+                {werte(f).map((w) => (
+                  <li>
+                    <button type="button" class={kopierKnopf} data-kopieren={w.wert}>
+                      <span class="w-10 font-semibold">{w.art}</span>
+                      <span class="tabular-nums">{w.wert}</span>
+                      <Icon name="lucide:copy" class="icon-stroke size-4 shrink-0" aria-hidden="true" data-icon-kopieren />
+                      <Icon name="lucide:check" class="icon-stroke size-4 shrink-0" aria-hidden="true" data-icon-kopiert hidden />
+                      <span class="sr-only">kopieren</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-6 max-w-[60ch] text-base leading-6 text-text-muted">
+        Druckfarben (CMYK, Pantone) haben wir noch nicht festgelegt. Wenn du etwas drucken lässt,
+        <a href="/contact?thema=logos" class={textlink}>schreib uns</a>.
+      </p>
+    </section>
+
+    <!-- Schriften -->
+    <section id="schriften" class="mt-20" aria-labelledby="schriften-titel">
+      <div class="max-w-[60ch]">
+        <h2 id="schriften-titel" class={h2}>Schriften</h2>
+        <p class="type-body mt-3">
+          Wir nutzen zwei Schriften. Beide sind kostenlos und frei nutzbar (SIL Open Font License).
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <article class="flex flex-col rounded-lg border border-border bg-neutrallight p-6" aria-labelledby="schrift-bebas">
+          <div class="rounded-sm border border-border bg-white px-6 py-8">
+            <p class="type-banner" aria-hidden="true">Die Heimat für Padel</p>
+          </div>
+          <h3 id="schrift-bebas" class="type-h3 mt-4">Bebas Neue</h3>
+          <p class="mt-1 text-base leading-6 text-text-muted">
+            Für Hauptüberschriften, Banner und einzelne große Zahlen. Immer in Großbuchstaben und höchstens etwa fünf
+            Wörter.
+          </p>
+          <a
+            href="https://fonts.google.com/specimen/Bebas+Neue"
+            target="_blank"
+            rel="noopener"
+            class={`mt-auto inline-flex min-h-touch items-center gap-1.5 pt-3 ${textlink}`}>
+            Bebas Neue herunterladen
+            <Icon name="lucide:external-link" class="icon-stroke size-4" aria-hidden="true" />
+            <span class="sr-only">(Google Fonts, öffnet in neuem Tab)</span>
+          </a>
+        </article>
+
+        <article class="flex flex-col rounded-lg border border-border bg-neutrallight p-6" aria-labelledby="schrift-inter">
+          <div class="rounded-sm border border-border bg-white px-6 py-8" aria-hidden="true">
+            <p class="text-[2rem] leading-tight font-bold tracking-[-0.025em]">Die Heimat für Padel in Freiburg.</p>
+            <p class="mt-3 text-lg leading-7 text-text-muted">Aa Bb Cc Ää Öö Üü ß 0123456789</p>
+          </div>
+          <h3 id="schrift-inter" class="type-h3 mt-4">Inter</h3>
+          <p class="mt-1 text-base leading-6 text-text-muted">
+            Für alles andere: Fließtext, Zwischenüberschriften, Buttons und Tabellen. Meist in den Stärken Regular (400),
+            Semibold (600) und Bold (700).
+          </p>
+          <a
+            href="https://rsms.me/inter/"
+            target="_blank"
+            rel="noopener"
+            class={`mt-auto inline-flex min-h-touch items-center gap-1.5 pt-3 ${textlink}`}>
+            Inter herunterladen
+            <Icon name="lucide:external-link" class="icon-stroke size-4" aria-hidden="true" />
+            <span class="sr-only">(rsms.me, öffnet in neuem Tab)</span>
+          </a>
+        </article>
+      </div>
+      <p class="mt-6 max-w-[60ch] text-base leading-6 text-text-muted">
+        Die Schrift im Vereinslogo gehört zum Logo und ist nicht frei verfügbar. Bebas Neue kommt ihr am nächsten, ersetzt
+        aber nie den Schriftzug im Logo.
+      </p>
+    </section>
+
+    <!-- Nutzung -->
+    <section class="mx-auto mt-20 max-w-[52rem]" aria-labelledby="nutzung-titel">
+      <div class="rounded-sm border border-border border-l-4 border-l-secondary bg-white px-6 py-4">
+        <h2 id="nutzung-titel" class="text-base leading-6 font-semibold">Info: So darfst du die Logos nutzen</h2>
+        <p class="mt-1 text-base leading-6 text-text-muted">
+          Du darfst unsere Logos verwenden, um über den Padel Club Freiburg e.V. oder die PCF Liga zu berichten oder auf uns
+          hinzuweisen. Verändere die Dateien nicht und erweck nicht den Eindruck einer offiziellen Partnerschaft, wenn wir
+          keine vereinbart haben.
+        </p>
+      </div>
+
+      <div class="mt-16 text-center">
+        <h2 class="text-[2rem] leading-tight font-bold tracking-[-0.025em]">Du brauchst etwas anderes?</h2>
+        <p class="type-body mt-3">Zum Beispiel ein anderes Format oder Dateien für einen großen Druck? Schreib uns.</p>
+        <div class="mt-6">
+          <Link href="/contact?thema=logos">Schreib uns</Link>
+        </div>
+      </div>
+    </section>
+  </Container>
+
+  <p class="sr-only" aria-live="polite" data-kopiert-status></p>
+</Layout>
+
+<script>
+  // Umschalter heller/dunkler Grund in den Logo-Cards
+  for (const card of document.querySelectorAll<HTMLElement>("[data-umschalter]")) {
+    const buttons = card.querySelectorAll<HTMLButtonElement>("[data-zeige]");
+    const varianten = card.querySelectorAll<HTMLElement>("[data-grund]");
+    const zeige = (grund: string) => {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.zeige === grund)));
+      varianten.forEach((v) => (v.hidden = v.dataset.grund !== grund));
+    };
+    buttons.forEach((b) => b.addEventListener("click", () => zeige(b.dataset.zeige!)));
+    card.querySelector<HTMLElement>("[data-umschalter-buttons]")!.hidden = false;
+    zeige("hell");
+  }
+
+  // Farbwerte kopieren
+  const status = document.querySelector<HTMLElement>("[data-kopiert-status]");
+  if (navigator.clipboard) {
+    for (const button of document.querySelectorAll<HTMLButtonElement>("[data-kopieren]")) {
+      const icon = button.querySelector<SVGElement>("[data-icon-kopieren]");
+      const haken = button.querySelector<SVGElement>("[data-icon-kopiert]");
+      let timer: number | undefined;
+      button.addEventListener("click", async () => {
+        const wert = button.dataset.kopieren!;
+        try {
+          await navigator.clipboard.writeText(wert);
+        } catch {
+          return;
+        }
+        if (status) status.textContent = `${wert} kopiert`;
+        icon?.toggleAttribute("hidden", true);
+        haken?.toggleAttribute("hidden", false);
+        clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          icon?.toggleAttribute("hidden", false);
+          haken?.toggleAttribute("hidden", true);
+        }, 2000);
+      });
+    }
+  }
+</script>

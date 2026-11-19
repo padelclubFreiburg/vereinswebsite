@@ -1,0 +1,81 @@
+---
+// Card für eine Logo-Variante auf /brand: Vorschau mit Umschalter heller/dunkler Grund und Download-Links.
+// Ohne JavaScript stehen beide Varianten untereinander.
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { DATEIEN_PFAD, type LogoGruppe } from "@/lib/marke";
+import { logoBild } from "./logo-bild";
+
+interface Props {
+  logo: LogoGruppe;
+}
+
+const { logo } = Astro.props;
+const [hell, dunkel] = logo.umschalter ?? ["Heller Grund", "Dunkler Grund"];
+const beschriftung = { hell, dunkel };
+---
+
+<article
+  class:list={["flex flex-col rounded-lg border border-border bg-neutrallight p-6", logo.breit && "md:col-span-2"]}
+  aria-labelledby={`${logo.id}-titel`}
+  data-umschalter>
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div class="max-w-[52ch]">
+      <h3 id={`${logo.id}-titel`} class="type-h3">{logo.name}</h3>
+      <p class="mt-1 text-base leading-6 text-text-muted">{logo.text}</p>
+    </div>
+    <div
+      role="group"
+      aria-label={`Hintergrund für ${logo.name}`}
+      class="inline-flex shrink-0 rounded-sm border border-field-border bg-white p-1"
+      hidden
+      data-umschalter-buttons>
+      {
+        logo.varianten.map((v) => (
+          <button
+            type="button"
+            data-zeige={v.grund}
+            aria-pressed={v.grund === "hell" ? "true" : "false"}
+            class="min-h-touch rounded-sm px-3 text-base font-semibold text-neutraldark aria-pressed:bg-neutraldark aria-pressed:text-white aria-[pressed=false]:hover:bg-primary-tint">
+            {beschriftung[v.grund]}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  {
+    logo.varianten.map((v) => (
+      <div class="mt-4 flex flex-1 flex-col" data-grund={v.grund}>
+        <div
+          class:list={[
+            "flex flex-1 items-center justify-center rounded-lg border px-6 py-10",
+            v.grund === "hell" ? "border-border bg-white" : "border-neutraldark bg-neutraldark",
+          ]}>
+          <Image
+            src={logoBild(v.vorschau)}
+            alt={v.alt}
+            height={176}
+            densities={[1, 2]}
+            loading="lazy"
+            class:list={["w-auto max-w-full object-contain", logo.vorschauKlasse]}
+          />
+        </div>
+        <ul class="mt-3 flex flex-wrap gap-x-6">
+          {v.downloads.map((d) => (
+            <li>
+              <a
+                href={`${DATEIEN_PFAD}/${d.datei}`}
+                download
+                class="inline-flex min-h-touch items-center gap-2 text-primary-dark underline hover:no-underline">
+                <Icon name="lucide:download" class="icon-stroke size-5 shrink-0" aria-hidden="true" />
+                {d.label}
+                <span class="sr-only">: {v.alt}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</article>

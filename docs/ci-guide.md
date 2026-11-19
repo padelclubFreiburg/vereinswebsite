@@ -434,8 +434,8 @@ Alle Dateien sind Vektoren bzw. daraus gerendert, die Schrift ist in Pfaden. SVG
 
 | Dateien | Höhen | Pixel (B × H) bei 1000 px Höhe | Einsatz |
 | --- | --- | --- | --- |
-| `pcf-liga-logo-positiv_…` / `…-negativ_…` | 500, 1000, 2000 px | 1623 × 1000 | Social, Präsentationen, Office |
-| `pcf-liga-horizontal-positiv_…` / `…-negativ_…` | 500, 1000, 2000 px | 3441 × 1000 | Header, Banner, E-Mail-Signatur |
+| `pcf-liga-logo-positiv_…` / `…-negativ_…` | 500, 1000, 2000 px | 1601 × 1000 | Social, Präsentationen, Office |
+| `pcf-liga-horizontal-positiv_…` / `…-negativ_…` | 500, 1000, 2000 px | 3402 × 1000 | Header, Banner, E-Mail-Signatur |
 | `pcf-liga-monogramm-positiv_…` / `…-negativ_…` | 500, 1000, 2000 px | 593 × 1000 | Avatar, Wasserzeichen |
 | `pcf-liga-monogramm-einfarbig-anthrazit_…` / `…-weiss_…` | 500, 1000, 2000 px | 593 × 1000 | Druckvorlagen ohne Farbe |
 | `pcf-liga-favicon-positiv_…` / `…-negativ_…` | 16, 32, 48, 180, 512 px, quadratisch | – | Favicon (16, 32, 48), Apple-Touch-Icon (180), Web-App-Manifest (512) |
@@ -444,6 +444,7 @@ Alle Dateien sind Vektoren bzw. daraus gerendert, die Schrift ist in Pfaden. SVG
 - **Web:** im Header `pcf-liga-horizontal-positiv.svg` (bzw. negativ auf dunklem Header), als Favicon die quadratischen Favicon-PNGs; `theme-color` wie beim Verein `#1F1F1F`.
 - **Social-Avatar der Liga:** App-Icon Anthrazit. Runde Ausschnitte schneiden die Ecken ab, die Bildmarke bleibt im sicheren Bereich.
 - PNGs nicht über ihre Pixelhöhe hinaus vergrößern; für größere Formate die SVG nehmen.
+- Der Bildausschnitt von Logo und horizontalem Logo schließt den Überhang der runden Buchstaben (C, G) über die Spielfeld-Höhe ein, damit sie nicht abgeschnitten werden. Alle Dateien stehen zum Download auf `/brand`.
 
 ---
 
